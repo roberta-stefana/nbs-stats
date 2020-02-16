@@ -1,9 +1,9 @@
 import React from 'react';
 import {
     Grid,
-    Paper,
     TextField,
     Button,
+    Typography,
 } from '@material-ui/core';
 import {Autocomplete} from '@material-ui/lab';
 import Logo from '../../static/images/logo.jpg'
@@ -42,7 +42,10 @@ const TeamsForm = props => {
             <div>
                 <img src={Logo} alt='website logo' className={classes.logo} />
             </div>
-            
+
+            <div>
+                <Typography variant="h3" className={classes.title}>Pick teams</Typography>
+            </div>
             <div className={classes.fields}>
                 <TextField
                     label="Team 1"
