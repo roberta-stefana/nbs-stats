@@ -57,25 +57,29 @@ const TeamsForm = props => {
                     variant="standard"
                     fullWidth
                 />
-                <Autocomplete
-                    {...propsName}
-                    autoSelect
-                    onChange={handleAutocompleteChange('team2')}
-                    getOptionDisabled={option => option.name === 'CS Universitatea NBS Cluj'}
-                    renderInput={params => (
-                    <TextField {...params} label="Team 2" margin="normal" fullWidth variant="standard"/>
-                    )}
-                    value={team2}
-                />
-                <Autocomplete
-                    {...propsCategory}
-                    autoSelect
-                    onChange={handleAutocompleteChange('category')}
-                    renderInput={params => (
-                    <TextField {...params} label="Category" margin="normal" fullWidth variant="standard"/>
-                    )}
-                    value={category}
-                />
+                <div className={classes.autocomplete}>
+                    <Autocomplete
+                        {...propsName}
+                        autoSelect
+                        onChange={handleAutocompleteChange('team2')}
+                        getOptionDisabled={option => option.name === 'CS Universitatea NBS Cluj'}
+                        renderInput={params => (
+                        <TextField {...params} label="Team 2" margin="normal" fullWidth variant="standard"/>
+                        )}
+                        value={team2}
+                    />
+                 </div>
+                 <div className={classes.autocomplete}>
+                    <Autocomplete
+                        {...propsCategory}
+                        autoSelect
+                        onChange={handleAutocompleteChange('category')}
+                        renderInput={params => (
+                        <TextField {...params} label="Category" margin="normal" fullWidth variant="standard"/>
+                        )}
+                        value={category}
+                    />
+                 </div>
                 <br/>
                 <Button
                     size="medium"

@@ -28,6 +28,9 @@ const styles = theme => createStyles({
 		flexDirection: 'column',
 		paddingTop:'20px',
 	},
+	autocomplete:{
+		width:'300px'
+	},
 	center:{
 		display:'flex',
 		justifyContent: 'center',
