@@ -26,7 +26,7 @@ class PreGame extends Component {
 
     nextStep = () => {
         const { step, team1, team2, category } = this.state;
-        const { teamList } = this.props; 
+        const { teamList} = this.props; 
 
         const fullTeam1 = teamList.filter(x =>x.name === team1 &&  x.category == category.category)
         const fullTeam2 = teamList.filter(x => x.name === team2.name && x.category == category.category )
@@ -39,9 +39,10 @@ class PreGame extends Component {
     };
 
     render() { 
-        const {classes, teamList} = this.props;
+        const {classes, teamList, getPlayersTeam1, playersTeam1, getPlayersTeam2, playersTeam2} = this.props;
         const {team1, team2, category, step, fullTeam1, fullTeam2} = this.state;
         const teamsValues = {team1,team2, category};
+
 
         switch (step) {
             case 1:
@@ -60,6 +61,10 @@ class PreGame extends Component {
                         classes={classes}
                         team1={fullTeam1}
                         team2={fullTeam2}
+                        getPlayersTeam1={getPlayersTeam1}
+                        getPlayersTeam2={getPlayersTeam2}
+                        playersTeam2={playersTeam2}
+                        playersTeam1={playersTeam1}
                     />
                 );
         }
