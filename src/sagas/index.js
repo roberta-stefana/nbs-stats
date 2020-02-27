@@ -3,6 +3,7 @@ import { push } from 'connected-react-router';
 
 import userSaga from './user';
 import teamSaga from './team';
+import gameSaga from './game';
 
 import { userActions } from '../redux';
 import { userApi } from '../api';
@@ -36,5 +37,6 @@ export default function* rootSaga() {
     yield all([
       userSaga(),
       teamSaga(),
+      gameSaga(),
     ]);
 }

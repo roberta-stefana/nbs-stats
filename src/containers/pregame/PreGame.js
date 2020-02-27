@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import {
-    Grid,
-    Paper,
-} from '@material-ui/core';
 import PlayersForm from './PlayersForm'
 import TeamsForm from './TeamsForm'
 
@@ -12,9 +8,10 @@ class PreGame extends Component {
         team1: 'CS Universitatea NBS Cluj',
         team2: null,
         category: null,
-        playersTeam1:[],
-        playersTeam2:[],
+        fullTeam1: '',
+        fullTeam2: '',
         step: 1,
+        
     }
 
     componentDidMount(){
@@ -28,17 +25,24 @@ class PreGame extends Component {
     }
 
     nextStep = () => {
-        const { step } = this.state;
+        const { step, team1, team2, category } = this.state;
+        const { teamList} = this.props; 
+
+        const fullTeam1 = teamList.filter(x =>x.name === team1 &&  x.category == category.category)
+        const fullTeam2 = teamList.filter(x => x.name === team2.name && x.category == category.category )
+
         this.setState({
             step: step + 1,
+            fullTeam1: fullTeam1[0],
+            fullTeam2: fullTeam2[0],
         });
     };
 
     render() { 
-        const {classes, teamList} = this.props;
-        const {team1, team2, category, step, playersTeam1, playersTeam2} = this.state;
+        const {classes, teamList, getPlayersTeam1, playersTeam1, getPlayersTeam2, playersTeam2} = this.props;
+        const {team1, team2, category, step, fullTeam1, fullTeam2} = this.state;
         const teamsValues = {team1,team2, category};
-        const playersValues = {playersTeam1, playersTeam2};
+
 
         switch (step) {
             case 1:
@@ -55,7 +59,12 @@ class PreGame extends Component {
                 return (
                     <PlayersForm
                         classes={classes}
-                        values={playersValues}
+                        team1={fullTeam1}
+                        team2={fullTeam2}
+                        getPlayersTeam1={getPlayersTeam1}
+                        getPlayersTeam2={getPlayersTeam2}
+                        playersTeam2={playersTeam2}
+                        playersTeam1={playersTeam1}
                     />
                 );
         }

@@ -30,7 +30,7 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                <NavBar/>
+                {/*<NavBar/>*/}
                 <Container className={classes.container}>
                         <Switch>
                             <Route exact path="/">
