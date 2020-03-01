@@ -24,8 +24,6 @@ const PlayersTableToolbar = props => {
                     Statistics
                 </Typography>
             )}
-
-
         </Toolbar>
     );
 };

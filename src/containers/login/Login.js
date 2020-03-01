@@ -5,7 +5,7 @@ import {
 	TextField,
 	Button,
 } from '@material-ui/core';
-import Logo from '../../static/images/logo.jpg'
+import {LogoNbs} from '../../static/logo'
 
 
 
@@ -36,7 +36,7 @@ class Login extends Component {
     	return (
 			<Grid container className={classes.mainContainer}>
 				<div >
-					<img src={Logo} alt='website logo' className={classes.logo} />
+					<img src={LogoNbs} alt='website logo' className={classes.logo} />
 				</div>
 				<div className={classes.fields} >
 						<Typography 

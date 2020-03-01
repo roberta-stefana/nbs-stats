@@ -1,0 +1,1 @@
+export { default as LogoNbs} from './nbs.jpg';

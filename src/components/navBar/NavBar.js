@@ -4,7 +4,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import Logo from '../../static/images/logo.jpg';
+import {LogoNbs} from '../../static/logo';
 
 class NavBar extends Component {
     state = { 
@@ -19,7 +19,7 @@ class NavBar extends Component {
             <AppBar className={classes.appbar}>
                 <Toolbar>
                     <div className={classes.logoPosition}>
-                        <img src={Logo} alt='website logo' className={classes.logo} />
+                        <img src={LogoNbs} alt='website logo' className={classes.logo} />
                     </div>
                     <div>
                         <Tooltip title="Home">
