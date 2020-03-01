@@ -13,12 +13,9 @@ import {NavBar} from './components';
 const styles = createStyles({
     container: {
         backgroundColor: theme.palette.common.white,
-        paddingTop: 64,
+        paddingTop: '20px',
         height: '100%',
         maxWidth: '100%'
-    },
-    appBar: {
-        height: 64
     },
     ...globalStyles
 });
