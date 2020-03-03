@@ -7,7 +7,7 @@ const styles = theme => createStyles({
     },
     logo:{
         height:50,
-        wisth:50,
+        width:50,
     },
     logoPosition:{
         flex: 1
