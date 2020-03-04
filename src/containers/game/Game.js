@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import {logoList} from '../../static/logo'
 import{ 
-    Grid, Typography, Button
+    Grid, 
+    Typography, 
+    Button,
+    Stepper,
+    Step,
+    StepLabel
 } from '@material-ui/core'
-import {PlayersTable} from '../../components';
+import {PlayersTable, Timer} from '../../components';
 
 
 const team1 = {name: 'CS Universitatea NBS Cluj'}
@@ -13,10 +18,43 @@ class Game extends Component {
     state = { 
         imageTeam1 :null,
         imageTeam2: null,
+        minutes: 10,
+        seconds: 0,
+        timerId: null,
+        quaters: ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'],
+        activeQuater: 0,
     }
 
-    componentDidMount(){
-       
+    startTime = () =>{
+        const timerId = setInterval(() => {
+            const { seconds, minutes } = this.state
+
+            if (seconds > 0) {
+                this.setState(({ seconds }) => ({
+                    seconds: seconds - 1
+                }))
+            }
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    clearInterval(this.myInterval)
+                } else {
+                    this.setState(({ minutes }) => ({
+                        minutes: minutes - 1,
+                        seconds: 59
+                    }))
+                }
+            } 
+        }, 1000)
+        this.setState({
+            timerId
+        })
+    }
+
+    stopTime = () => {
+        clearInterval(this.state.timerId)
+    }
+
+    componentDidMount(){  
         logoList.map(l=>{
             if(l.team === team1.name){
                 this.setState({
@@ -32,7 +70,7 @@ class Game extends Component {
 
     render() { 
         const {classes} = this.props;
-        const {imageTeam1, imageTeam2} = this.state;
+        const {imageTeam1, imageTeam2, seconds, minutes, quaters, activeQuater} = this.state;
 
         return ( 
             <Grid container>
@@ -53,8 +91,14 @@ class Game extends Component {
                     <PlayersTable></PlayersTable>
                 </Grid>
                 <Grid item xs={2} >
-                    <Typography>Time</Typography>
-                    <Typography>Quater</Typography>
+                    <Stepper activeStep={activeQuater} alternativeLabel>
+                        {quaters.map(quater => (
+                        <Step key={quater}>
+                            <StepLabel>{quater}</StepLabel>
+                        </Step>
+                        ))}
+                    </Stepper>
+                    <Timer minutes={minutes} seconds={seconds}/>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerRight} ${classes.flexColumn}`}>
                     <PlayersTable></PlayersTable>
@@ -78,15 +122,13 @@ class Game extends Component {
                         <Button className={classes.button}>FD</Button>
                     </div>
                     <div className={classes.wrapper}>
-                    <div className={classes.timeButtons}>
-                        <Button className={classes.buttonSquare}>Start Time</Button>
-                        <Button className={classes.buttonSquare}>Stop Time</Button>
-                        <Button className={classes.buttonSquare}>Timeout</Button>
-                        <Button className={classes.buttonSquare}>Start Game</Button>
-                    </div>
-                    </div>
-
-                    
+                        <div className={classes.timeButtons}>
+                            <Button className={classes.buttonSquare} onClick={this.startTime}>Start Time</Button>
+                            <Button className={classes.buttonSquare} onClick={this.stopTime}>Stop Time</Button>
+                            <Button className={classes.buttonSquare}>Timeout</Button>
+                            <Button className={classes.buttonSquare}>Start Game</Button>
+                        </div>
+                    </div>  
                 </Grid>
             </Grid>     
         );

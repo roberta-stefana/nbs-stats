@@ -89,6 +89,14 @@ const theme = createMuiTheme({
             root:{
                 width: '430px',
             }
+        },
+        MuiStepper:{
+            root:{
+                paddingTop:'24px',
+                paddingBottom:'24px',
+                paddingLeft: '0px',
+                paddingRight: '0px',
+            }
         }
         
     }

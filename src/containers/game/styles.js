@@ -55,16 +55,17 @@ const styles = theme => createStyles({
 	button:{
 		width:'80px',
 		height: '80px',
-		borderRadius:'100%',
 		margin: '8px',
-		backgroundColor: theme.palette.primary.dark,
-		color: theme.palette.common.white,
+		backgroundColor: theme.palette.primary.main,
+		color: theme.palette.primary.dark,
 	},
 	buttonSquare:{
 		width:120,
 		height:60,
 		backgroundColor: theme.palette.primary.main,
 		color: theme.palette.primary.dark,
+		border: '2px solid #C0F442',
+		fontWeight: '500',
 	},
 	flexColumn:{
 		display:'flex',
