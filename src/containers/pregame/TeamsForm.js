@@ -6,7 +6,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import {Autocomplete} from '@material-ui/lab';
-import Logo from '../../static/images/logo.jpg'
+import {LogoNbs} from '../../static/logo'
 
 const TeamsForm = props => {
 
@@ -40,7 +40,7 @@ const TeamsForm = props => {
     return (
         <Grid container className={classes.mainContainer} >
             <div>
-                <img src={Logo} alt='website logo' className={classes.logo} />
+                <img src={LogoNbs} alt='website logo' className={classes.logo} />
             </div>
 
             <div>

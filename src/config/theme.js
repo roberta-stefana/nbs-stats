@@ -84,7 +84,21 @@ const theme = createMuiTheme({
                 //backgroundImage: "linear-gradient( #34577B, #84c485)"
                 backgroundColor: brandColors.normalBlue
             }
+        },
+        MuiTable:{
+            root:{
+                width: '430px',
+            }
+        },
+        MuiStepper:{
+            root:{
+                paddingTop:'24px',
+                paddingBottom:'24px',
+                paddingLeft: '0px',
+                paddingRight: '0px',
+            }
         }
+        
     }
 });
 
