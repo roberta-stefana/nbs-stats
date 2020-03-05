@@ -75,4 +75,19 @@ export const actions = {
     receiveAddStatsTeam2Fail: () => ({
         type: types.RECEIVE_ADD_STATS_TEAM2_FAIL,
     }),
+
+    addGame: payload => ({
+        type: types.ADD_GAME,
+        payload
+    }),
+    requestAddGame: () => ({
+        type: types.REQUEST_ADD_GAME,
+    }),
+    receiveAddGame: game => ({
+        type: types.RECEIVE_ADD_GAME,
+        game
+    }),
+    receiveAddGameFail: () => ({
+        type: types.RECEIVE_ADD_GAME_FAIL,
+    }),
 }

@@ -59,12 +59,23 @@ const addStatsTeam2 = function* (action) {
     }
 };
 
+const addGame = function* (action) {
+    yield put(gameActions.requestAddGame());
+    try {
+        const response = yield call(gameApi.addGame, action.payload);
+        yield put(gameActions.receiveAddGame(response.data));
+    } catch (e) {
+        yield put(gameActions.receiveAddGameFail());
+    }
+};
+
 export default function*() {
 	yield all([
         takeLatest(gameTypes.GET_PLAYERS_TEAM1, getPlayersTeam1),
 		takeLatest(gameTypes.GET_PLAYERS_TEAM2, getPlayersTeam2),
 		takeLatest(gameTypes.UPDATE_PLAYER, updatePlayer),
 		takeLatest(gameTypes.ADD_STATS_TEAM1, addStatsTeam1),
-		takeLatest(gameTypes.ADD_STATS_TEAM2, addStatsTeam2),
+        takeLatest(gameTypes.ADD_STATS_TEAM2, addStatsTeam2),
+        takeLatest(gameTypes.ADD_GAME, addGame),
 	]);
 }

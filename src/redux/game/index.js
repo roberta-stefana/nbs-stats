@@ -2,9 +2,11 @@ import { types } from "./types";
 
 
 const initialState = {
+    game: null,
     playersTeam1: [],
     playersTeam2:[],
     listLoader: false,
+    buttonLoader: false,
     statsTeam1:[],
     statsTeam2:[],
 };
@@ -45,6 +47,14 @@ const game = (state = initialState, action) => {
             return { ...state, statsTeam2: state.statsTeam2.concat(action.stats) };
         case types.RECEIVE_ADD_STATS_TEAM2_FAIL:
             return { ...state };
+
+        case types.REQUEST_ADD_GAME:
+            return { ...state, buttonLoader: true, };
+        case types.RECEIVE_ADD_GAME:
+            return { ...state, game: action.game, buttonLoader: true };
+        case types.RECEIVE_ADD_GAME_FAIL:
+            return { ...state, buttonLoader: false };
+
 
         default:
             return state;

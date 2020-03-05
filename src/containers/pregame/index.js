@@ -28,6 +28,15 @@ const enhance = compose(
         getPlayersTeam2(payload){
             dispatch(gameActions.getPlayersTeam2(payload))
         },
+        addStatsTeam1(payload){
+            dispatch(gameActions.addStatsTeam1(payload))
+        },
+        addStatsTeam2(payload){
+            dispatch(gameActions.addStatsTeam2(payload))
+        },
+        addGame(payload){
+            dispatch(gameActions.addGame(payload))
+        },
     }),
 )
 );
