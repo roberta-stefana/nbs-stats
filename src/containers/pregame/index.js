@@ -2,6 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles';
+import {push} from 'connected-react-router';
 import PreGame from './PreGame'
 import {
     teamSelectors,
@@ -37,6 +38,12 @@ const enhance = compose(
         addGame(payload){
             dispatch(gameActions.addGame(payload))
         },
+        updatePlayer(payload){
+            dispatch(gameActions.updatePlayer(payload))
+        },
+        goToGame(){
+            dispatch(push('/game'))
+        }
     }),
 )
 );
