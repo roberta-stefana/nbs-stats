@@ -3,6 +3,7 @@ import { types } from "./types";
 
 const initialState = {
     game: null,
+    liveGame: null,
     playersTeam1: [],
     playersTeam2:[],
     listLoader: false,
@@ -37,21 +38,21 @@ const game = (state = initialState, action) => {
         case types.REQUEST_ADD_STATS_TEAM1:
             return { ...state };
         case types.RECEIVE_ADD_STATS_TEAM1:
-            return { ...state, statsTeam1: state.statsTeam1.concat(action.stats) };
+            return { ...state, statsTeam1: action.stats.map(obj => ({...obj, selected: false})) };
         case types.RECEIVE_ADD_STATS_TEAM1_FAIL:
             return { ...state };
         
         case types.REQUEST_ADD_STATS_TEAM2:
             return { ...state };
         case types.RECEIVE_ADD_STATS_TEAM2:
-            return { ...state, statsTeam2: state.statsTeam2.concat(action.stats) };
+            return { ...state, statsTeam2: action.stats.map(obj => ({...obj, selected: false})) };
         case types.RECEIVE_ADD_STATS_TEAM2_FAIL:
             return { ...state };
 
         case types.REQUEST_ADD_GAME:
             return { ...state, buttonLoader: true, };
         case types.RECEIVE_ADD_GAME:
-            return { ...state, game: action.game, buttonLoader: true };
+            return { ...state, game: action.game, liveGame: action.game.liveGame, buttonLoader: true };
         case types.RECEIVE_ADD_GAME_FAIL:
             return { ...state, buttonLoader: false };
 
