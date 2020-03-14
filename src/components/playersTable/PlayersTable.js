@@ -14,17 +14,17 @@ import {
 } from '@material-ui/core';
 
 const PlayersTableToolbar = props => {
-    const { classes, numSelected } = props;
+    const { classes, selectedPlayerStats } = props;
 
     return (
         <Toolbar className={classes.toolbar}>
-            {numSelected > 0 ? (
+            {selectedPlayerStats === null ? (
                     <Typography className={classes.selectedPlayer} variant="subtitle1">
-                        {numSelected} selected
+                        No player selected
                     </Typography>
             ) : (
                 <Typography className={classes.toolbarTitle} variant="h6" >
-                    No player selected
+                    Number #{selectedPlayerStats.player.number} was selected
                 </Typography>
             )}
             <SwapHorizIcon/>
@@ -79,47 +79,77 @@ const StyledTableRow = withStyles(theme => ({
   }))(TableRow);
 
 class PlayersTable extends Component {
-        state = {  }
-        render() { 
-            const {classes} = this.props;
 
-            return ( 
-				<React.Fragment>
-					<PlayersTableToolbar classes={classes}/>
-					<Table>
-						<PlayersTableHead classes={classes}/>
-						<TableBody>
-							{players.map(player=>
-								<StyledTableRow key={player.number}>
-									<TableCell padding="checkbox">
-										<Checkbox
-										//checked={isItemSelected}
-										/>
-									</TableCell>
-									<TableCell className={classes.cell} align="right">{player.number}</TableCell>
-									<TableCell className={classes.cell} align="left">{player.name}</TableCell>
-									<TableCell className={classes.cell} align="right">{player.points}</TableCell>
-									<TableCell className={classes.cell} align="right">{player.assists}</TableCell>
-									<TableCell className={classes.cell} align="right">{player.turnovers}</TableCell>
-									<TableCell className={classes.cell} align="right">{player.rebounds}</TableCell>
-									<TableCell className={classes.cell} align="right">{player.fauls}</TableCell>
-                                    <TableCell className={classes.cell} align="right">{player.bs}</TableCell>
-								</StyledTableRow>
-							)}
-						
-						</TableBody>
-					</Table>
-				</React.Fragment>
-            );
-        }
+    state={
+        selectedPlayerStats: null,
+        stats: [],
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            stats: nextProps.stats
+        })    
+    }  
+
+    handleCheckboxChange= e =>{
+        const playerStatsList = this.props.stats.filter(s=> s.player.number == e.target.value)
+        const newPlayerStats = {...playerStatsList[0], selected: true}
+        const newStats = this.props.stats.map(s=> s.player.idPlayer == newPlayerStats.player.idPlayer ? newPlayerStats : {...s, selected: false})
+        this.setState({
+            selectedPlayerStats: newPlayerStats,
+            stats: newStats,
+
+        });
+        //this.props.handleSelectPlayer(e.target.value)
+    }
+    
+    render() { 
+        const {classes} = this.props;
+        const {selectedPlayerStats, stats} = this.state;
+        let filteredStats = stats.filter(s => s.player.onCourt == true)
+
+        return ( 
+            <React.Fragment>
+                <PlayersTableToolbar classes={classes} selectedPlayerStats={selectedPlayerStats}/>
+                <Table>
+                    <PlayersTableHead classes={classes}/>
+                    <TableBody>
+                        {filteredStats.map(s =>
+                            <StyledTableRow key={s.player.number}>
+                                <TableCell padding="checkbox">
+                                    <Checkbox
+                                        checked={s.selected}
+                                        onChange={this.handleCheckboxChange}
+                                        value={s.player.number}
+                                    />
+                                </TableCell>
+                                <TableCell className={classes.cell} align="right">{s.player.number}</TableCell>
+                                <TableCell className={classes.cell} align="left">{s.player.name}</TableCell>
+                                <TableCell className={classes.cell} align="right">{s.madeFt + s.made2p*2 + s.made3p * 3}</TableCell>
+                                <TableCell className={classes.cell} align="right">{s.assists}</TableCell>
+                                <TableCell className={classes.cell} align="right">{s.turnovers}</TableCell>
+                                <TableCell className={classes.cell} align="right">{s.defRebounds+ s.offRebounds}</TableCell>
+                                <TableCell className={classes.cell} align="right">{s.fauls}</TableCell>
+                                <TableCell className={classes.cell} align="right">{s.blockedShots}</TableCell>
+                            </StyledTableRow>
+                        )}
+                    
+                    </TableBody>
+                </Table>
+            </React.Fragment>
+        );
+    }
 }
     
 export default PlayersTable;
-
-const players = [
-	{number: 6, name: 'Mercedes Horvath', points: 10, assists: 5, turnovers: 2, rebounds: 4, fauls: 1, bs:1},
-	{number: 7, name: 'Mercedes Horvath', points: 10, assists: 5, turnovers: 2, rebounds: 4, fauls: 1, bs:1},
-	{number: 8, name: 'Mercedes Horvath', points: 10, assists: 5, turnovers: 2, rebounds: 4, fauls: 1, bs:1},
-	{number: 9, name: 'Mercedes Horvath', points: 10, assists: 5, turnovers: 2, rebounds: 4, fauls: 1, bs:1},
-	{number: 10, name: 'Mercedes Horvath', points: 10, assists: 5, turnovers: 2, rebounds: 4, fauls: 1, bs:1},
-]
+/*
+const filteredStats =[
+    {idStats:1, 
+    player:{idPlayer: 1, name:"Rus Alexia", number: 0, onCourt: true}, game:{},
+    madeFt: 0, missFt: 0, made2p:0, miss2p: 0, made3p: 0, miss3p: 0, defRebounds: 0, offRebounds: 0, assists: 0, steals: 0, turnovers: 0, minutes: null, fauls: 0, efficiency: 0, idPlayer: 2, idGame: 21
+    },
+    {idStats:2, 
+        player:{idPlayer: 2, name:"Morar Oana", number: 3, onCourt: true}, game:{},
+        madeFt: 0, missFt: 0, made2p:0, miss2p: 0, made3p: 0, miss3p: 0, defRebounds: 0, offRebounds: 0, assists: 0, steals: 0, turnovers: 0, minutes: null, fauls: 0, efficiency: 0, idPlayer: 2, idGame: 21
+    },
+]*/

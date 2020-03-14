@@ -11,9 +11,7 @@ const login = function* (action) {
     yield put(userActions.requestLogin());
     try {
         const response = yield call(userApi.login, action.payload);
-        console.log(response);
         localStorage.setItem('access_token', response.data);
-        //yield put(userActions.getCurrentUser()); // pending server implementations
         yield put(userActions.receiveLogin());
         yield put(push('/pregame'));
     } catch(e) {

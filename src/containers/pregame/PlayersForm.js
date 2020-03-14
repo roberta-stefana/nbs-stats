@@ -10,6 +10,7 @@ import {
     ListItemSecondaryAction,
     Typography,
 } from '@material-ui/core';
+import {DialogBox} from '../../components'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
@@ -22,7 +23,7 @@ class PlayersForm extends Component {
     }
 
     render() { 
-        const { classes, team1, team2, playersTeam1, playersTeam2} = this.props;
+        const { classes, team1, team2, playersTeam1, playersTeam2, handleCheckboxChange, openDialog, handleDialogClose, continueToGame} = this.props;
 
         return ( 
             <Grid container>
@@ -40,7 +41,12 @@ class PlayersForm extends Component {
                                 </ListItemAvatar>
                                 <ListItemText primary={value.name} />
                                 <ListItemSecondaryAction>
-                                    <Checkbox/>
+                                    <Checkbox
+                                        id="1"
+                                        value={value.idPlayer}
+                                        onChange={handleCheckboxChange}
+                                        checked={value.onCourt}
+                                    />
                                 </ListItemSecondaryAction>
                             </ListItem>
                             ))}
@@ -56,7 +62,12 @@ class PlayersForm extends Component {
                                 </ListItemAvatar>
                                 <ListItemText primary={value.name} />
                                 <ListItemSecondaryAction>
-                                    <Checkbox/>
+                                    <Checkbox
+                                        id="2"
+                                        value={value.idPlayer}
+                                        onChange={handleCheckboxChange}
+                                        checked={value.onCourt}
+                                    />
                                 </ListItemSecondaryAction>
                             </ListItem>
                             ))}
@@ -68,10 +79,17 @@ class PlayersForm extends Component {
                         size="medium"
                         className={classes.button}
                         fullWidth
+                        onClick={continueToGame}
                     >
                         CONTINUE
                     </Button>
                 </Grid>
+                <DialogBox
+                    title="Warning" 
+                    content="You can only pick 5 players for each team!" 
+                    open={openDialog} 
+                    handleDialogClose={handleDialogClose}
+                />
             </Grid>
         );
     }
