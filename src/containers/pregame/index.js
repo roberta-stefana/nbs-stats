@@ -18,6 +18,7 @@ const enhance = compose(
         teamList: teamSelectors.getTeamList(state),
         playersTeam1: gameSelectors.getPlayersTeam1(state),
         playersTeam2: gameSelectors.getPlayersTeam2(state),
+        game: gameSelectors.getGame(state),
     }),
     dispatch => ({
         getTeamList(payload) {

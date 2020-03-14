@@ -23,7 +23,7 @@ class PlayersForm extends Component {
     }
 
     render() { 
-        const { classes, team1, team2, playersTeam1, playersTeam2, handleCheckboxChange, openDialog, handleDialogClose, goToGame} = this.props;
+        const { classes, team1, team2, playersTeam1, playersTeam2, handleCheckboxChange, openDialog, handleDialogClose, continueToGame} = this.props;
 
         return ( 
             <Grid container>
@@ -79,7 +79,7 @@ class PlayersForm extends Component {
                         size="medium"
                         className={classes.button}
                         fullWidth
-                        onClick={goToGame}
+                        onClick={continueToGame}
                     >
                         CONTINUE
                     </Button>

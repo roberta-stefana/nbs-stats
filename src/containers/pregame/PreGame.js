@@ -99,14 +99,14 @@ class PreGame extends Component {
     };
 
     continueToGame = () =>{
-        const {playersTeam1, playersTeam2, addStatsTeam1, addStatsTeam2} = this.props;
-        playersTeam1.map(player=>
-            addStatsTeam1({idPlayer: player.idPlayer, })
-        )
+        const {playersTeam1, playersTeam2, addStatsTeam1, addStatsTeam2, goToGame, game} = this.props;
+        addStatsTeam1({playerList: playersTeam1, game: game})
+        addStatsTeam2({playerList: playersTeam2, game: game}) 
+        goToGame();
     }
 
     render() { 
-        const {classes, teamList, getPlayersTeam1, playersTeam1, getPlayersTeam2, playersTeam2, goToGame} = this.props;
+        const {classes, teamList, getPlayersTeam1, playersTeam1, getPlayersTeam2, playersTeam2} = this.props;
         const {team1, team2, category, step, fullTeam1, fullTeam2, openDialog} = this.state;
         const teamsValues = {team1,team2, category};
 
@@ -134,7 +134,7 @@ class PreGame extends Component {
                         handleCheckboxChange={this.handleCheckboxChange}
                         openDialog={openDialog}
                         handleDialogClose={this.handleDialogClose}
-                        goToGame={goToGame}
+                        continueToGame={this.continueToGame}
                     />
                 );
         }

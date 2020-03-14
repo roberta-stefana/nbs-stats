@@ -23,6 +23,7 @@ class Game extends Component {
         timerId: null,
         quaters: ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'],
         activeQuater: 0,
+        selectedPlayerStats: null,
     }
 
     startTime = () =>{
@@ -54,6 +55,12 @@ class Game extends Component {
         clearInterval(this.state.timerId)
     }
 
+    handleSelectPlayer = selectedPlayerStats =>{
+        this.setState({
+            selectedPlayerStats: selectedPlayerStats
+        })
+    }
+
     componentDidMount(){  
         logoList.map(l=>{
             if(l.team === team1.name){
@@ -69,8 +76,9 @@ class Game extends Component {
     }
 
     render() { 
-        const {classes} = this.props;
+        const {classes, statsTeam1, statsTeam2} = this.props;
         const {imageTeam1, imageTeam2, seconds, minutes, quaters, activeQuater} = this.state;
+    
 
         return ( 
             <Grid container>
@@ -88,7 +96,7 @@ class Game extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerLeft} ${classes.flexColumn}`}>
-                    <PlayersTable></PlayersTable>
+                    <PlayersTable stats={statsTeam1} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
                 </Grid>
                 <Grid item xs={2} >
                     <Stepper activeStep={activeQuater} alternativeLabel>
@@ -101,7 +109,7 @@ class Game extends Component {
                     <Timer minutes={minutes} seconds={seconds}/>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerRight} ${classes.flexColumn}`}>
-                    <PlayersTable></PlayersTable>
+                    <PlayersTable stats={statsTeam2} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
                 </Grid>
                 <Grid item xs={12} className={classes.buttonContainer}>
                     <div className={classes.buttonSection}>
