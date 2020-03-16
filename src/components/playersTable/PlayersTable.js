@@ -100,7 +100,7 @@ class PlayersTable extends Component {
             stats: newStats,
 
         });
-        //this.props.handleSelectPlayer(e.target.value)
+        this.props.handleSelectPlayer(newPlayerStats)
     }
     
     render() { 
