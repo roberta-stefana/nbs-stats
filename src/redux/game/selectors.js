@@ -6,4 +6,5 @@ export const selectors = {
     getStatsTeam2: state => state.game.statsTeam2,
     getGame: state => state.game.game,
     getLiveGame: state => state.game.liveGame,
+    getChannelStatus: state => state.game.channelStatus,
 };

@@ -10,6 +10,7 @@ const initialState = {
     buttonLoader: false,
     statsTeam1:[],
     statsTeam2:[],
+    channelStatus: '',
 };
 
 const game = (state = initialState, action) => {
@@ -55,7 +56,18 @@ const game = (state = initialState, action) => {
             return { ...state, game: action.game, liveGame: action.game.liveGame, buttonLoader: true };
         case types.RECEIVE_ADD_GAME_FAIL:
             return { ...state, buttonLoader: false };
+        
+        case types.REQUEST_HOST_GAME:
+            return {...state};
+        case types.RECEIVE_HOST_GAME:
+            return {...state, channelStatus: 'on'};
+        case types.RECEIVE_HOST_GAME_FAIL:
+            return state;
 
+        case types.REQUEST_STOP_CHANNEL:
+            return { ...state, buttonLoader: true };
+        case types.RECEIVE_STOP_CHREQUEST_STOP_CHANNEL:
+            return { ...state, channelStatus: 'off', buttonLoader: true };
 
         default:
             return state;

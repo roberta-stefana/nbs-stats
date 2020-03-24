@@ -90,4 +90,25 @@ export const actions = {
     receiveAddGameFail: () => ({
         type: types.RECEIVE_ADD_GAME_FAIL,
     }),
+
+    hostGame: () => ({
+        type: types.HOST_GAME,
+    }),
+    requestHostGame: () => ({
+        type: types.REQUEST_HOST_GAME,
+    }),
+    receiveHostGame: () => ({
+        type: types.RECEIVE_HOST_GAME,
+    }),
+    receiveHostGameFail: status => ({
+        type: types.RECEIVE_HOST_GAME_FAIL,
+        status
+    }),
+
+    requestStopChannel: () => ({
+        type: types.REQUEST_STOP_CHANNEL,
+    }),
+    receiveStopChannel: () => ({
+        type: types.RECEIVE_STOP_CHANNEL,
+    }),
 }

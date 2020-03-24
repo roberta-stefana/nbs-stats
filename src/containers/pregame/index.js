@@ -44,6 +44,9 @@ const enhance = compose(
         },
         goToGame(){
             dispatch(push('/game'))
+        },
+        hostGame(){
+            dispatch(gameActions.hostGame())
         }
     }),
 )

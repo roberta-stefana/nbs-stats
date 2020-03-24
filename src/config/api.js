@@ -5,6 +5,7 @@ const URL_MAIN = "http://localhost:8080";
 
 export const configureAxios = store => {
     const { dispatch } = store;
+    axios.create({ withCredentials: false, })
 
     axios.defaults.baseURL = URL_MAIN;
     axios.interceptors.request.use(
