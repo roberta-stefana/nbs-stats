@@ -10,10 +10,6 @@ import{
 } from '@material-ui/core'
 import {PlayersTable, Timer} from '../../components';
 
-
-const team1 = {name: 'CS Universitatea NBS Cluj'}
-const team2 = {name: 'CSS Gloria Arad'}
-
 class Game extends Component {
     state = { 
         imageTeam1 :null,
@@ -67,11 +63,11 @@ class Game extends Component {
             if(l.team === game.team1.name){
                 this.setState({
                     imageTeam1: l.img
-                })
+                });
             }else if(l.team === game.team2.name){
                 this.setState({
                     imageTeam2: l.img
-                })
+                });
             }
         })
     }

@@ -85,7 +85,7 @@ class PlayersTable extends Component {
         stats: [],
     }
 
-    componentWillReceiveProps(nextProps){
+    UNSAFE_componentWillReceiveProps(nextProps){
         this.setState({
             stats: nextProps.stats
         })    
