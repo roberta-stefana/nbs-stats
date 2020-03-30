@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { ThemeProvider, createStyles } from '@material-ui/core/styles';
 import { Landing, Login, Team, PreGame, Game } from './containers';
-import {NavBar} from './components';
+import {NavBar, WithoutAuthentication } from './components';
 
 const styles = createStyles({
     container: {
@@ -27,26 +27,33 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                {/*<NavBar/>*/}
                 <Container className={classes.container}>
-                        <Switch>
-                            <Route exact path="/">
-                                <Landing/>
-                            </Route>
-                            <Route path="/team">
-                                <Team/>
-                            </Route>
-                            <Route path="/login">
-                                <Login/>
-                            </Route>
-                            <Route path="/pregame">
-                                <PreGame/>
-                            </Route>
-                            <Route path="/game">
-                                <Game/>
-                            </Route>
-                            <Redirect to="/"/>
-                        </Switch>
+                        <WithoutAuthentication without={true} >
+                            {window.location.pathname !== '/login' && <NavBar/> }
+                            <Switch>
+                                <Route exact path="/">
+                                        <Landing/>
+                                    </Route>
+                                <Route path="/team">
+                                    <Team/>
+                                </Route>
+                                <Route path="/login">
+                                    <Login/>
+                                </Route>
+                                <Redirect to="/"/>
+                            </Switch>
+                        </WithoutAuthentication>
+                        <WithoutAuthentication without={false} id={2}>
+                            <Switch>
+                                <Route path="/pregame">
+                                    <PreGame/>
+                                </Route>
+                                <Route path="/game">
+                                    <Game/>
+                                </Route>
+                                <Redirect to="/pregame"/>
+                            </Switch>
+                        </WithoutAuthentication>
                 </Container>
             </ThemeProvider>
         );
