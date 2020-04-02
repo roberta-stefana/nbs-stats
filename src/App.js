@@ -7,15 +7,21 @@ import {
     CssBaseline,
 } from '@material-ui/core';
 import { ThemeProvider, createStyles } from '@material-ui/core/styles';
-import { Landing, Login, Team, PreGame, Game } from './containers';
+import { Landing, Login, Team, PreGame, Game, LivePage } from './containers';
 import {NavBar, WithoutAuthentication } from './components';
 
 const styles = createStyles({
-    container: {
+    containerHost: {
         backgroundColor: theme.palette.common.white,
         paddingTop: '20px',
         height: '100%',
         maxWidth: '100%'
+    },
+    containerGuest:{
+        //backgroundColor: theme.palette.primary.main,
+        paddingTop: '64px',
+        height: '100%',
+        maxWidth: '1100px'
     },
     ...globalStyles
 });
@@ -27,9 +33,10 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                <Container className={classes.container}>
+                
                         <WithoutAuthentication without={true} >
                             {window.location.pathname !== '/login' && <NavBar/> }
+                            <Container className={classes.containerGuest}>
                             <Switch>
                                 <Route exact path="/">
                                         <Landing/>
@@ -40,10 +47,15 @@ class App extends React.Component {
                                 <Route path="/login">
                                     <Login/>
                                 </Route>
+                                <Route path="/live-games">
+                                    <LivePage/>
+                                </Route>
                                 <Redirect to="/"/>
                             </Switch>
+                            </Container>
                         </WithoutAuthentication>
                         <WithoutAuthentication without={false} id={2}>
+                        <Container className={classes.containerHost}>
                             <Switch>
                                 <Route path="/pregame">
                                     <PreGame/>
@@ -53,8 +65,8 @@ class App extends React.Component {
                                 </Route>
                                 <Redirect to="/pregame"/>
                             </Switch>
+                            </Container>
                         </WithoutAuthentication>
-                </Container>
             </ThemeProvider>
         );
     }
