@@ -89,7 +89,7 @@ const getLiveGameList = function*(action) {
 	yield put(guestGameActions.requestGetLiveGameList());
 
 	try {
-        const response = yield call(gameApi.getLiveGameList,action.payload);
+        const response = yield call(gameApi.getLiveGameList);
 		yield put(guestGameActions.receiveGetLiveGameList(response.data));
 	} catch (e) {
 		yield put(guestGameActions.receiveGetLiveGameListFail());
