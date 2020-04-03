@@ -1,6 +1,9 @@
 import { createStyles } from '@material-ui/core';
 
 const styles = theme => createStyles({
+    mainContainer:{
+        paddingTop: 30
+    },
     image:{
         width: 80,
         height:80,

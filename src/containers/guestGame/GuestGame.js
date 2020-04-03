@@ -30,15 +30,15 @@ class GuestGame extends Component {
         
         return (  
             <React.Fragment>
-                <AppBar position="static" color="default">
+                <AppBar position="static" color="default" className={classes.tabs}>
                     <Tabs
                         value={step}
                         onChange={this.handleTabChange}
                         variant="fullWidth"
                     >
-                        <Tab label="Play By Play"/>
-                        <Tab label="Boxscore" />
-                        <Tab label="Leaders" />
+                        <Tab label="Play By Play" className={classes.tab}/>
+                        <Tab label="Boxscore" className={classes.tab}/>
+                        <Tab label="Leaders" className={classes.tab}/>
                     </Tabs>
                 </AppBar>
                 {this.renderSwitch(step)}

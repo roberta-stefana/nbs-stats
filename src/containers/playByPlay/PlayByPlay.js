@@ -9,7 +9,7 @@ const PlayByPlay = props => {
     const { classes } = props;
 
     return (
-        <Grid container> 
+        <Grid container className={classes.mainContainer}> 
             <Grid item xs={6}>
                 <Grid item xs={12}>
                 <div className={classes.imageContainer}>

@@ -45,7 +45,8 @@ const theme = createMuiTheme({
         },
     },
     typography: {
-        fontFamily: 'DejaVu Sans, sans-serif',
+        //fontFamily: 'DejaVu Sans, sans-serif',
+        fontFamily: 'nunito, sans-serif'
     },
     overrides: {
         MuiOutlinedInput: {
