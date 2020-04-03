@@ -4,8 +4,8 @@ const styles = theme => createStyles({
     tab:{
         color: theme.palette.primary.dark,
         fontWeight: 800,
-        fontFamily: 'nunito, sans-serif'
-        
+        fontFamily: 'nunito, sans-serif',
+        fontSize: 'inherit',
     }
 });
 

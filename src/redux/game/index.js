@@ -66,7 +66,7 @@ const game = (state = initialState, action) => {
 
         case types.REQUEST_STOP_CHANNEL:
             return { ...state, buttonLoader: true };
-        case types.RECEIVE_STOP_CHREQUEST_STOP_CHANNEL:
+        case types.RECEIVE_STOP_CHANNEL:
             return { ...state, channelStatus: 'off', buttonLoader: true };
 
         default:

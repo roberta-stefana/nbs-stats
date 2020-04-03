@@ -15,7 +15,6 @@ function createWebSocketConnection() {
 
 		socket.onopen = function () {
 			console.log("Connected to the websocket")
-			socket.send(JSON.stringify({user: {}, data: 'Mesaj nouuu', type: 'USER_JOINED'}))
 			resolve(socket);
 		};
 
@@ -61,34 +60,28 @@ function* listenForSocketMessages() {
 
 			// a message has been received, dispatch an action with the message payload
 			//yield dispatch(LiveDataActions.incomingEvent(payload));
-			console.log(payload);
-			//console.log(payload.messageType);
 			const obj = JSON.parse(payload)
 			console.log(obj)
 		}
 	} catch (error) {
-		//yield dispatch(LiveDataActions.connectionError('Error while connecting to the WebSocket'));
 		yield put(gameActions.receiveHostGameFail());
 	} finally {
 		if (yield cancelled()) {
 			socketChannel.close();
 			socket.close();
 		} else {
-			//yield dispatch(LiveDataActions.connectionError('WebSocket disconnected'));
 			yield put(gameActions.receiveStopChannel());
 		}
 	}
 }
 
 export function* hostGame() {
-	// starts the task in the background
 	console.log("Trying to connect to websocket ...")
 	const socketTask = yield fork(listenForSocketMessages);
 
 	// when DISCONNECT action is dispatched, we cancel the socket task
 	yield take(gameTypes.REQUEST_STOP_CHANNEL);
 	yield cancel(socketTask);
-	//yield dispatch(LiveDataActions.disconnectSuccess());
 	yield put(gameActions.receiveStopChannel());
 }
 
@@ -96,7 +89,7 @@ const getPlayersTeam1 = function*(action) {
 	yield put(gameActions.requestGetPlayersTeam1());
 
 	try {
-                const response = yield call(gameApi.getPlayersTeam, action.payload);
+	const response = yield call(gameApi.getPlayersTeam, action.payload);
     yield put(gameActions.receiveGetPlayersTeam1(response.data));
 	} catch (e) {
     yield put(gameActions.receiveGetPlayersTeam1Fail());
@@ -107,7 +100,7 @@ const getPlayersTeam2 = function*(action) {
 	yield put(gameActions.requestGetPlayersTeam2());
 
 	try {
-                const response = yield call(gameApi.getPlayersTeam, action.payload);
+    const response = yield call(gameApi.getPlayersTeam, action.payload);
     yield put(gameActions.receiveGetPlayersTeam2(response.data));
 	} catch (e) {
     yield put(gameActions.receiveGetPlayersTeam2Fail());
@@ -157,12 +150,12 @@ const addGame = function* (action) {
 
 export default function*() {
 	yield all([
-                takeLatest(gameTypes.GET_PLAYERS_TEAM1, getPlayersTeam1),
-    takeLatest(gameTypes.GET_PLAYERS_TEAM2, getPlayersTeam2),
-    takeLatest(gameTypes.UPDATE_PLAYER, updatePlayer),
-    takeLatest(gameTypes.ADD_STATS_TEAM1, addStatsTeam1),
-                takeLatest(gameTypes.ADD_STATS_TEAM2, addStatsTeam2),
-                takeLatest(gameTypes.ADD_GAME, addGame),
-                takeLatest(gameTypes.HOST_GAME, hostGame),
+        takeLatest(gameTypes.GET_PLAYERS_TEAM1, getPlayersTeam1),
+		takeLatest(gameTypes.GET_PLAYERS_TEAM2, getPlayersTeam2),
+		takeLatest(gameTypes.UPDATE_PLAYER, updatePlayer),
+		takeLatest(gameTypes.ADD_STATS_TEAM1, addStatsTeam1),
+		takeLatest(gameTypes.ADD_STATS_TEAM2, addStatsTeam2),
+		takeLatest(gameTypes.ADD_GAME, addGame),
+		takeLatest(gameTypes.HOST_GAME, hostGame),
 	]);
 }

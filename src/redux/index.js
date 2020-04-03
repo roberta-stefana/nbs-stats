@@ -33,3 +33,9 @@ export {
   actions as gameActions,
   selectors as gameSelectors,
 } from './game';
+
+export {
+  types as guestGameTypes,
+  actions as guestGameActions,
+  selectors as guestGameSelectors,
+} from './guestGame';
