@@ -49,12 +49,12 @@ const NotificationContainer = props => {
     const {classes} = props;
 
     return (
-        <React.Fragment>
+        <div>
             <Toolbar className={classes.toolbar}></Toolbar>
-            <Table variant ="dense">
+            <Table className={classes.table}>
                 <TableHeadNotifications classes={classes}/>
                 <TableBody>
-                    {[1,2,3,4,5].map(s =>
+                    {[1,2].map(s =>
                         <StyledTableRow key={s}>
                             <TableCell className={classes.cell} align="left">
                                 <img src={logoList[3].img} alt="LOGO" className={classes.logo}/>
@@ -66,7 +66,7 @@ const NotificationContainer = props => {
                     )}
                 </TableBody>
             </Table>
-        </React.Fragment>
+        </div>
       
     );
 }

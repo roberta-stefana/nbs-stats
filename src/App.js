@@ -21,7 +21,9 @@ const styles = createStyles({
         //backgroundColor: theme.palette.primary.main,
         paddingTop: '64px',
         height: '100%',
-        maxWidth: '1100px'
+        maxWidth: '1100px',
+        paddingRight: 0,
+        paddingLeft: 0,
     },
     ...globalStyles
 });

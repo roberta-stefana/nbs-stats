@@ -1,6 +1,9 @@
 import { createStyles } from '@material-ui/core';
 
 const styles = theme => createStyles({
+    table:{
+        maxHeight: "100%",
+    },
     logo:{
         height:30,
         width:35,

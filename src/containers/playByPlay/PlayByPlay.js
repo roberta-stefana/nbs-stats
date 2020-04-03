@@ -1,23 +1,35 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import {NotificationContainer, GuestPlayersTable} from '../../components';
+import {logoList} from '../../static/logo'
 
 
-const PlayByPlay = () => {
+const PlayByPlay = props => {
+
+    const { classes } = props;
+
     return (
         <Grid container> 
-            <Grid item xs={8}>
-                <Typography>jakcs</Typography>
+            <Grid item xs={6}>
+                <Grid item xs={12}>
+                <div className={classes.imageContainer}>
+                    <img src={logoList[0].img} className={classes.image} alt="LOGO"></img>
+                    <Typography className={classes.score}>65 - 27</Typography>
+                    
+                    <img src={logoList[6].img} className={classes.image} alt="LOGO"></img>
+                </div>
+                </Grid>
+                <Grid item xs={12}>
+                    <GuestPlayersTable/>
+                    <GuestPlayersTable/>
+                </Grid>
             </Grid>
-            <Grid item xs={4}>
+
+            <Grid item xs={6} className={classes.liveNotificationsContainer}>
                 <NotificationContainer/>
             </Grid>
-            {
-            <Grid item xs={8}>
-                <GuestPlayersTable/>
-                <GuestPlayersTable/>
-            </Grid>
-            }
+
+            
         </Grid>
     );
 }

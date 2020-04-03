@@ -34,11 +34,9 @@ class GuestGame extends Component {
                     <Tabs
                         value={step}
                         onChange={this.handleTabChange}
-                        indicatorColor="primary"
-                        textColor="primary"
                         variant="fullWidth"
                     >
-                        <Tab label="PlayByPlay"/>
+                        <Tab label="Play By Play"/>
                         <Tab label="Boxscore" />
                         <Tab label="Leaders" />
                     </Tabs>
