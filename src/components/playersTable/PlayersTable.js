@@ -142,14 +142,3 @@ class PlayersTable extends Component {
 }
     
 export default PlayersTable;
-/*
-const filteredStats =[
-    {idStats:1, 
-    player:{idPlayer: 1, name:"Rus Alexia", number: 0, onCourt: true}, game:{},
-    madeFt: 0, missFt: 0, made2p:0, miss2p: 0, made3p: 0, miss3p: 0, defRebounds: 0, offRebounds: 0, assists: 0, steals: 0, turnovers: 0, minutes: null, fauls: 0, efficiency: 0, idPlayer: 2, idGame: 21
-    },
-    {idStats:2, 
-        player:{idPlayer: 2, name:"Morar Oana", number: 3, onCourt: true}, game:{},
-        madeFt: 0, missFt: 0, made2p:0, miss2p: 0, made3p: 0, miss3p: 0, defRebounds: 0, offRebounds: 0, assists: 0, steals: 0, turnovers: 0, minutes: null, fauls: 0, efficiency: 0, idPlayer: 2, idGame: 21
-    },
-]*/
