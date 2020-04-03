@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Typography, Paper } from '@material-ui/core';
+
+
 const Timer = props => {
 
     const {minutes, seconds, classes} = props;

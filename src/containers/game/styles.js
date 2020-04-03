@@ -1,4 +1,4 @@
-import { createStyles, withTheme } from '@material-ui/core';
+import { createStyles } from '@material-ui/core';
 
 const styles = theme => createStyles({
   	teams:{

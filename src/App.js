@@ -7,15 +7,23 @@ import {
     CssBaseline,
 } from '@material-ui/core';
 import { ThemeProvider, createStyles } from '@material-ui/core/styles';
-import { Landing, Login, Team, PreGame, Game } from './containers';
-import {NavBar} from './components';
+import { Landing, Login, Team, PreGame, Game, LivePage, GuestGame } from './containers';
+import {NavBar, WithoutAuthentication } from './components';
 
 const styles = createStyles({
-    container: {
+    containerHost: {
         backgroundColor: theme.palette.common.white,
         paddingTop: '20px',
         height: '100%',
         maxWidth: '100%'
+    },
+    containerGuest:{
+        //backgroundColor: theme.palette.primary.main,
+        paddingTop: '64px',
+        height: '100%',
+        maxWidth: '1100px',
+        paddingRight: 0,
+        paddingLeft: 0,
     },
     ...globalStyles
 });
@@ -27,27 +35,43 @@ class App extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                {/*<NavBar/>*/}
-                <Container className={classes.container}>
-                        <Switch>
-                            <Route exact path="/">
-                                <Landing/>
-                            </Route>
-                            <Route path="/team">
-                                <Team/>
-                            </Route>
-                            <Route path="/login">
-                                <Login/>
-                            </Route>
-                            <Route path="/pregame">
-                                <PreGame/>
-                            </Route>
-                            <Route path="/game">
-                                <Game/>
-                            </Route>
-                            <Redirect to="/"/>
-                        </Switch>
-                </Container>
+                
+                        <WithoutAuthentication without={true} >
+                            {window.location.pathname !== '/login' && <NavBar/> }
+                            <Container className={classes.containerGuest}>
+                            <Switch>
+                                <Route exact path="/">
+                                        <Landing/>
+                                    </Route>
+                                <Route path="/team">
+                                    <Team/>
+                                </Route>
+                                <Route path="/login">
+                                    <Login/>
+                                </Route>
+                                <Route path="/live-games">
+                                    <LivePage/>
+                                </Route>
+                                <Route path="/guest-game">
+                                    <GuestGame/>
+                                </Route>
+                                <Redirect to="/"/>
+                            </Switch>
+                            </Container>
+                        </WithoutAuthentication>
+                        <WithoutAuthentication without={false} id={2}>
+                        <Container className={classes.containerHost}>
+                            <Switch>
+                                <Route path="/pregame">
+                                    <PreGame/>
+                                </Route>
+                                <Route path="/game">
+                                    <Game/>
+                                </Route>
+                                <Redirect to="/pregame"/>
+                            </Switch>
+                            </Container>
+                        </WithoutAuthentication>
             </ThemeProvider>
         );
     }

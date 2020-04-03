@@ -10,10 +10,6 @@ import{
 } from '@material-ui/core'
 import {PlayersTable, Timer} from '../../components';
 
-
-const team1 = {name: 'CS Universitatea NBS Cluj'}
-const team2 = {name: 'CSS Gloria Arad'}
-
 class Game extends Component {
     state = { 
         imageTeam1 :null,
@@ -62,22 +58,23 @@ class Game extends Component {
     }
 
     componentDidMount(){  
+        const { game } = this.props;
         logoList.map(l=>{
-            if(l.team === team1.name){
+            if(l.team === game.team1.name){
                 this.setState({
                     imageTeam1: l.img
-                })
-            }else if(l.team === team2.name){
+                });
+            }else if(l.team === game.team2.name){
                 this.setState({
                     imageTeam2: l.img
-                })
+                });
             }
         })
     }
 
     render() { 
-        const {classes, statsTeam1, statsTeam2} = this.props;
-        const {imageTeam1, imageTeam2, seconds, minutes, quaters, activeQuater} = this.state;
+        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater} = this.props;
+        const {imageTeam1, imageTeam2, seconds, minutes, quaters} = this.state;
     
 
         return ( 
@@ -85,14 +82,14 @@ class Game extends Component {
                 <Grid item xs={12} className={classes.teams}>
                     <div className={classes.teamNameLeft}>
                         <img src={imageTeam1} alt="logo" className={classes.logo}/>
-                        <Typography variant="h5">{team1.name}</Typography>
+                        <Typography variant="h5">{game.team1.name}</Typography>
                     </div>
                     <div className={classes.score}>
-                        <Typography variant ="h4">25 : 65</Typography>
+                        <Typography variant ="h4">{liveGame.points1} : {liveGame.points2}</Typography>
                     </div>
                     <div className={classes.teamNameRight}>
                         <img src={imageTeam2} alt="logo" className={classes.logo}></img>
-                        <Typography variant="h5">{team2.name}</Typography>
+                        <Typography variant="h5">{game.team2.name}</Typography>
                     </div>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerLeft} ${classes.flexColumn}`}>

@@ -9,12 +9,13 @@ const brandColors = {
     white: '#FFFFFF',
     gray: '#9FA2A3',
     green: '#C0F442',
+    black: '#000000',
 
     paper: '#EEEEEE',
     inputBorder: '#80BDFF',
     success: '#1BB99A',
     successDark: 'rgba(27, 185, 154, 1)',
-    error: '#FF5D48',
+    error: '#d93523',
     info: '#90FFDC',
     darkTitle: '#2f4a70',
 };
@@ -26,6 +27,7 @@ const theme = createMuiTheme({
         common: {
             white: brandColors.white,
             green: brandColors.green,
+            black: brandColors.black
         },
         primary: { // albastru
             main: brandColors.normalBlue,
@@ -43,7 +45,8 @@ const theme = createMuiTheme({
         },
     },
     typography: {
-        fontFamily: 'DejaVu Sans, sans-serif',
+        //fontFamily: 'DejaVu Sans, sans-serif',
+        fontFamily: 'nunito, sans-serif'
     },
     overrides: {
         MuiOutlinedInput: {
@@ -79,10 +82,14 @@ const theme = createMuiTheme({
                 borderBottom: brandColors.darkBlue,
             },
         },
-        MuiContainer:{
-            root:{
-                //backgroundImage: "linear-gradient( #34577B, #84c485)"
-                backgroundColor: brandColors.normalBlue
+        MuiCardHeader:{
+            title:{
+                fontSize: '15px',
+                color: "#000000"
+            },
+            subheader:{
+                fontSize: '15px',
+                color: "#000000"
             }
         },
         MuiTable:{
