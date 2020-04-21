@@ -98,8 +98,9 @@ export const actions = {
     requestHostGame: () => ({
         type: types.REQUEST_HOST_GAME,
     }),
-    receiveHostGame: () => ({
+    receiveHostGame: game => ({
         type: types.RECEIVE_HOST_GAME,
+        game
     }),
     receiveHostGameFail: status => ({
         type: types.RECEIVE_HOST_GAME_FAIL,
@@ -111,5 +112,10 @@ export const actions = {
     }),
     receiveStopChannel: () => ({
         type: types.RECEIVE_STOP_CHANNEL,
+    }),
+
+    setBigLoader: bigLoader => ({
+        type: types.SET_BIG_LOADER,
+        bigLoader
     }),
 }

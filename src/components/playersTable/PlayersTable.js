@@ -86,6 +86,7 @@ class PlayersTable extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps){
+        //In case the normal stats don't work 
         this.setState({
             stats: nextProps.stats
         })    
@@ -104,8 +105,8 @@ class PlayersTable extends Component {
     }
     
     render() { 
-        const {classes} = this.props;
-        const {selectedPlayerStats, stats} = this.state;
+        const {classes, stats} = this.props;
+        const {selectedPlayerStats} = this.state;
         let filteredStats = stats.filter(s => s.player.onCourt == true)
 
         return ( 

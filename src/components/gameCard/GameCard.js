@@ -39,6 +39,7 @@ class GameCard extends Component {
     handleClick = () => {
         const { game, goTo, setCurrentGame } = this.props;
         setCurrentGame(game);
+        console.log("set current game in store: ", game)
         localStorage.setItem('currentGameId', this.props.game.idGame)
         goTo('/guest-game');
     }

@@ -7,4 +7,5 @@ export const selectors = {
     getGame: state => state.game.game,
     getLiveGame: state => state.game.liveGame,
     getChannelStatus: state => state.game.channelStatus,
+    getBigLoader: state => state.game.bigLoader,
 };

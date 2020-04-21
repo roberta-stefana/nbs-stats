@@ -57,28 +57,42 @@ class Game extends Component {
         })
     }
 
-    componentDidMount(){  
-        const { game } = this.props;
+    componentDidMount(){
+        const idGame = localStorage.getItem("currentGameId");
+        const nameTeam1 = localStorage.getItem("team1");
+        const nameTeam2 = localStorage.getItem("team2");
+        this.props.hostGame(idGame);  
+        
+        //TODO: call pentru stats 
+        
         logoList.map(l=>{
-            if(l.team === game.team1.name){
+            if(l.team === nameTeam1){
                 this.setState({
                     imageTeam1: l.img
                 });
-            }else if(l.team === game.team2.name){
+            }else if(l.team === nameTeam2){
                 this.setState({
                     imageTeam2: l.img
                 });
             }
-        })
+        });
+    }
+
+    componentWillUnmount() {
+        // disconnecting from the saga channel and the socket
+        this.props.requestStopChannel();
     }
 
     render() { 
-        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater} = this.props;
+        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater, bigLoader} = this.props;
         const {imageTeam1, imageTeam2, seconds, minutes, quaters} = this.state;
     
-
-        return ( 
+        return (
             <Grid container>
+                {game === null 
+                ? <Typography>LOADING</Typography>
+                :
+                <React.Fragment>
                 <Grid item xs={12} className={classes.teams}>
                     <div className={classes.teamNameLeft}>
                         <img src={imageTeam1} alt="logo" className={classes.logo}/>
@@ -135,7 +149,9 @@ class Game extends Component {
                         </div>
                     </div>  
                 </Grid>
-            </Grid>     
+                </React.Fragment> }  
+            </Grid> 
+                            
         );
     }
 }

@@ -7,6 +7,8 @@ const initialState = {
     liveGames: [],
     listLoader: false,
     buttonLoader: false,
+    comments: [],
+    bigLoader: false,
 };
 
 const guestGame = (state = initialState, action) => {
@@ -19,16 +21,16 @@ const guestGame = (state = initialState, action) => {
             return { ...state, listLoader: false };
 
         case types.REQUEST_JOIN_GAME:
-            return { ...state, buttonLoader: true };
+            return { ...state, buttonLoader: true, bigLoader: true };
         case types.RECEIVE_JOIN_GAME:
-            return { ...state, currentGame: action.game, buttonLoader: false, channelStatus: 'on' };
+            return { ...state, buttonLoader: false, channelStatus: 'on', bigLoader: false };
         case types.RECEIVE_JOIN_GAME_FAIL:
-            return { ...state, buttonLoader: false };
+            return { ...state, buttonLoader: false, bigLoader: false };
 
         case types.REQUEST_LEAVE_GAME:
             return { ...state, buttonLoader: true };
         case types.RECEIVE_LEAVE_GAME:
-            return { ...state, buttonLoader: false };
+            return { ...state, buttonLoader: false, channelStatus: 'off'};
         case types.RECEIVE_LEAVE_GAME_FAIL:
             return { ...state, buttonLoader: false };
         
@@ -37,6 +39,13 @@ const guestGame = (state = initialState, action) => {
         
         case types.SET_CURRENT_GAME:
             return { ...state, currentGame: action.currentGame  };
+        
+        case types.REQUEST_GET_COMMENT_LIST:
+            return { ...state, listLoader: true };
+        case types.RECEIVE_GET_COMMENT_LIST:
+            return { ...state, listLoader: false, comments: action.comments };
+        case types.RECEIVE_GET_COMMENT_LIST_FAIL:
+            return { ...state, listLoader: false };
         
 
         default:

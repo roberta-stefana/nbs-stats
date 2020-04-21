@@ -17,7 +17,7 @@ function createWebSocketConnection(idGame) {
 		socket.onopen = function () {
 			console.log("Client connected to the websocket")
 			resolve(socket);
-			socket.send(JSON.stringify({type: socketActions.USER_JOINED, data: idGame.toString()}))
+			socket.send(JSON.stringify({type: socketActions.USER_JOINED, object: idGame}))
 		};
 
 		socket.onerror = function (evt) {
@@ -63,7 +63,7 @@ function* listenForSocketMessages(idGame) {
 			// a message has been received, dispatch an action with the message payload
 			//yield dispatch(LiveDataActions.incomingEvent(payload));
 			const obj = JSON.parse(payload)
-			console.log(obj)
+			console.log('Obiectul primit prin websocket este: ',obj)
 		}
 	} catch (error) {
 		yield put(guestGameActions.receiveJoinGameFail());
@@ -79,6 +79,7 @@ function* listenForSocketMessages(idGame) {
 
 export function* joinGame(action) {
 	console.log("Client trying to connect to websocket ...")
+	yield put(guestGameActions.requestJoinGame());
 	const socketTask = yield fork(listenForSocketMessages, action.payload);
 
 	// when DISCONNECT action is dispatched, we cancel the socket task
@@ -95,6 +96,17 @@ const getLiveGameList = function*(action) {
 		yield put(guestGameActions.receiveGetLiveGameList(response.data));
 	} catch (e) {
 		yield put(guestGameActions.receiveGetLiveGameListFail());
+	}
+};
+
+const getCommentList = function*(action) {
+	yield put(guestGameActions.requestCommentList());
+
+	try {
+        const response = yield call(gameApi.getCommentList, action.payload);
+		yield put(guestGameActions.receiveCommentList(response.data));
+	} catch (e) {
+		yield put(guestGameActions.receiveCommentListFail());
 	}
 };
 

@@ -53,4 +53,20 @@ export const actions = {
         type: types.SET_CURRENT_GAME,
         currentGame,
     }),
+
+    getCommentList: payload => ({
+        type: types.GET_COMMENTS_LIST,
+        payload,
+      }),
+    requestGetCommentList: () => ({
+        type: types.REQUEST_GET_COMMENTS_LIST,
+    }),
+    receiveGetCommentList: comments => ({
+        type: types.RECEIVE_GET_COMMENTS_LIST,
+        comments,
+    }),
+    receiveGetCommentListFail: () => ({
+        type: types.RECEIVE_GET_COMMENTS_LIST_FAIL,
+    }),
+
 }

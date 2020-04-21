@@ -13,6 +13,7 @@ const enhance = compose(
     connect(
         state => ({
             currentGame: guestGameSelectors.getCurrentGame(state),
+            bigLoader: guestGameSelectors.getBigLoader(state),
         }),
         dispatch => ({
             joinGame(payload){

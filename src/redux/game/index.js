@@ -11,6 +11,7 @@ const initialState = {
     statsTeam1:[],
     statsTeam2:[],
     channelStatus: '',
+    bigLoader: false,
 };
 
 const game = (state = initialState, action) => {
@@ -58,16 +59,19 @@ const game = (state = initialState, action) => {
             return { ...state, buttonLoader: false };
         
         case types.REQUEST_HOST_GAME:
-            return {...state};
+            return {...state, bigLoader: true};
         case types.RECEIVE_HOST_GAME:
-            return {...state, channelStatus: 'on'};
+            return {...state, channelStatus: 'on', bigLoader: false, game: action.game, liveGame: action.game.liveGame};
         case types.RECEIVE_HOST_GAME_FAIL:
-            return state;
+            return {...state, bigLoader: false};
 
         case types.REQUEST_STOP_CHANNEL:
             return { ...state, buttonLoader: true };
         case types.RECEIVE_STOP_CHANNEL:
             return { ...state, channelStatus: 'off', buttonLoader: true };
+
+        case types.SET_BIG_LOADER:
+            return { ...state, bigLoader: action.bigLoader };
 
         default:
             return state;

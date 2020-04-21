@@ -16,6 +16,11 @@ class GuestGame extends Component {
         this.props.joinGame(currentGameId);
     }
 
+    componentWillUnmount() {
+        // disconnecting from the saga channel and the socket
+        this.props.requestLeaveGame();
+    }
+
     handleTabChange = () => {
 
     }

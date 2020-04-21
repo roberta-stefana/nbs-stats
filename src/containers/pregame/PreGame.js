@@ -86,6 +86,8 @@ class PreGame extends Component {
         const { step, team1, team2, category } = this.state;
         const { teamList, addGame } = this.props; 
 
+        localStorage.setItem("team1", team1);
+        localStorage.setItem("team2", team2.name);
         const fullTeam1 = teamList.filter(x =>x.name === team1 &&  x.category == category.category)
         const fullTeam2 = teamList.filter(x => x.name === team2.name && x.category == category.category )
 
@@ -101,8 +103,8 @@ class PreGame extends Component {
     continueToGame = () =>{
         const {playersTeam1, playersTeam2, addStatsTeam1, addStatsTeam2, goToGame, game, hostGame} = this.props;
         addStatsTeam1({playerList: playersTeam1, game: game})
-        addStatsTeam2({playerList: playersTeam2, game: game}) 
-        hostGame(game.idGame);
+        addStatsTeam2({playerList: playersTeam2, game: game})
+        localStorage.setItem('currentGameId', game.idGame);
         goToGame();
     }
 

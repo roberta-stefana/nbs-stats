@@ -7,7 +7,7 @@ import {logoList} from '../../static/logo'
 const PlayByPlay = props => {
 
     const { classes, currentGame } = props;
-    console.log(currentGame)
+    console.log("Play by Play, currentGAme ", currentGame)
 
     return (
         <Grid container className={classes.mainContainer}> 

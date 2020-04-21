@@ -17,7 +17,7 @@ function createWebSocketConnection(idGame) {
 		socket.onopen = function () {
 			console.log("Connected to the websocket")
 			resolve(socket);
-			socket.send(JSON.stringify({type: socketActions.ADMIN_JOINED, data: idGame.toString()}))
+			socket.send(JSON.stringify({type: socketActions.ADMIN_JOINED, object: idGame}))
 		};
 
 		socket.onerror = function (evt) {
@@ -54,7 +54,7 @@ function* listenForSocketMessages(idGame) {
 
 		// tell the application that we have a connection
 		//yield dispatch(LiveDataActions.connectionSuccess());
-		yield put(gameActions.receiveHostGame());
+		//yield put(gameActions.receiveHostGame());
 
 		while (true) {
 			// wait for a message from the channel
@@ -63,9 +63,16 @@ function* listenForSocketMessages(idGame) {
 			// a message has been received, dispatch an action with the message payload
 			//yield dispatch(LiveDataActions.incomingEvent(payload));
 			const obj = JSON.parse(payload)
-			console.log(obj)
+			console.log('Obiectul primit prin websocket este: ',obj)
+			console.log(obj.type)
+			console.log(obj.object)
+			switch(obj.type){
+				case socketActions.ADMIN_SUCCESSFULLY_JOINED:
+					yield put(gameActions.receiveHostGame(obj.object));
+			}
 		}
 	} catch (error) {
+		console.log(error)
 		yield put(gameActions.receiveHostGameFail());
 	} finally {
 		if (yield cancelled()) {
@@ -78,8 +85,8 @@ function* listenForSocketMessages(idGame) {
 }
 
 export function* hostGame(action) {
+	yield put(gameActions.requestHostGame());
 	console.log("Trying to connect to websocket ...")
-	console.log(action)
 	const socketTask = yield fork(listenForSocketMessages, action.payload);
 
 	// when DISCONNECT action is dispatched, we cancel the socket task
