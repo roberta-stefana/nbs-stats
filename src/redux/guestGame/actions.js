@@ -48,4 +48,9 @@ export const actions = {
     stopChannel: () => ({
         type: types.STOP_CHANNEL,
     }),
+
+    setCurrentGame: currentGame => ({
+        type: types.SET_CURRENT_GAME,
+        currentGame,
+    }),
 }

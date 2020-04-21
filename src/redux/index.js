@@ -4,6 +4,7 @@ import { connectRouter } from 'connected-react-router';
 import user from './user';
 import team from './team';
 import game from './game';
+import guestGame from './guestGame';
 
 /*
   Contains the root reducer
@@ -14,6 +15,7 @@ export default history => combineReducers({
   user,
   team,
   game,
+  guestGame,
 });
 
 export {

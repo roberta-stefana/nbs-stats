@@ -6,13 +6,14 @@ import PlayByPlay from './PlayByPlay'
 import {
     gameSelectors,
     gameActions,
+    guestGameSelectors,
 } from '../../redux';
 
 const enhance = compose(
     withStyles(styles),
     connect(
         state => ({
-            playersTeam1: gameSelectors.getPlayersTeam1(state),
+            currentGame: guestGameSelectors.getCurrentGame(state),
         }),
         dispatch => ({
             updatePlayer(payload){

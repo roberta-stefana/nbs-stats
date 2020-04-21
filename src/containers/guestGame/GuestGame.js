@@ -11,6 +11,11 @@ class GuestGame extends Component {
         step: 0,
     }
 
+    componentDidMount(){
+        const currentGameId= localStorage.getItem('currentGameId');
+        this.props.joinGame(currentGameId);
+    }
+
     handleTabChange = () => {
 
     }

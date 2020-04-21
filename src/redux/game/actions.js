@@ -91,8 +91,9 @@ export const actions = {
         type: types.RECEIVE_ADD_GAME_FAIL,
     }),
 
-    hostGame: () => ({
+    hostGame: payload => ({
         type: types.HOST_GAME,
+        payload
     }),
     requestHostGame: () => ({
         type: types.REQUEST_HOST_GAME,

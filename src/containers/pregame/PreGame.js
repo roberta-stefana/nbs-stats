@@ -102,7 +102,7 @@ class PreGame extends Component {
         const {playersTeam1, playersTeam2, addStatsTeam1, addStatsTeam2, goToGame, game, hostGame} = this.props;
         addStatsTeam1({playerList: playersTeam1, game: game})
         addStatsTeam2({playerList: playersTeam2, game: game}) 
-        hostGame();
+        hostGame(game.idGame);
         goToGame();
     }
 

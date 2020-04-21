@@ -14,7 +14,7 @@ const guestGame = (state = initialState, action) => {
         case types.REQUEST_GET_LIVE_GAME_LIST:
             return { ...state, listLoader: true };
         case types.RECEIVE_GET_LIVE_GAME_LIST:
-            return { ...state, teams: action.games, listLoader: false };
+            return { ...state, liveGames: action.games, listLoader: false };
         case types.RECEIVE_GET_LIVE_GAME_LIST_FAIL:
             return { ...state, listLoader: false };
 
@@ -34,7 +34,10 @@ const guestGame = (state = initialState, action) => {
         
         case types.RECEIVE_STOP_CHANNEL:
             return { ...state, channelStatus: 'off' };
-            
+        
+        case types.SET_CURRENT_GAME:
+            return { ...state, currentGame: action.currentGame  };
+        
 
         default:
             return state;

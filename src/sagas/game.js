@@ -1,21 +1,23 @@
 import { call, put, takeLatest, all, fork, cancelled, cancel, take } from 'redux-saga/effects';
 import { gameApi } from "../api";
 import { eventChannel, END } from 'redux-saga';
+import {socketActions } from '../static/socketActions';
 import {
-        gameActions,
+    gameActions,
 	gameTypes,
 } from "../redux";
 
 
 const socketServerURL = "ws://192.168.100.89:8081";
 
-function createWebSocketConnection() {
+function createWebSocketConnection(idGame) {
 	return new Promise((resolve, reject) => {
 		const socket = new WebSocket(socketServerURL);
 
 		socket.onopen = function () {
 			console.log("Connected to the websocket")
 			resolve(socket);
+			socket.send(JSON.stringify({type: socketActions.ADMIN_JOINED, data: idGame.toString()}))
 		};
 
 		socket.onerror = function (evt) {
@@ -42,12 +44,12 @@ function createSocketChannel(socket) {
 	});
 }
 
-function* listenForSocketMessages() {
+function* listenForSocketMessages(idGame) {
 	let socket;
 	let socketChannel;
 
 	try {
-		socket        = yield call(createWebSocketConnection);
+		socket        = yield call(createWebSocketConnection, idGame);
 		socketChannel = yield call(createSocketChannel, socket);
 
 		// tell the application that we have a connection
@@ -75,9 +77,10 @@ function* listenForSocketMessages() {
 	}
 }
 
-export function* hostGame() {
+export function* hostGame(action) {
 	console.log("Trying to connect to websocket ...")
-	const socketTask = yield fork(listenForSocketMessages);
+	console.log(action)
+	const socketTask = yield fork(listenForSocketMessages, action.payload);
 
 	// when DISCONNECT action is dispatched, we cancel the socket task
 	yield take(gameTypes.REQUEST_STOP_CHANNEL);

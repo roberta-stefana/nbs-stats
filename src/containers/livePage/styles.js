@@ -7,8 +7,10 @@ const styles = theme => createStyles({
     mainContainer:{
         display:'flex', 
         flexDirection: 'column',
-        justifyContent: 'center',
-        paddingTop: 50,
+        justifyContent: 'space-around',
+        paddingTop: 30,
+        alignItems: 'center',
+        height: '100%',
     }
 });
 
