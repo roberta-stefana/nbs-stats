@@ -33,7 +33,10 @@ const enhance = compose(
             },
             setBigLoader(payload){
                 dispatch(gameActions.setBigLoader(payload))
-            }
+            },
+            getStatsListTeam1(payload){
+                dispatch(gameActions.getStatsListTeam1(payload))
+            },
         }),
     )
 );

@@ -64,11 +64,13 @@ function* listenForSocketMessages(idGame) {
 			//yield dispatch(LiveDataActions.incomingEvent(payload));
 			const obj = JSON.parse(payload)
 			console.log('Obiectul primit prin websocket este: ',obj)
-			console.log(obj.type)
-			console.log(obj.object)
 			switch(obj.type){
 				case socketActions.ADMIN_SUCCESSFULLY_JOINED:
 					yield put(gameActions.receiveHostGame(obj.object));
+					break;
+				case socketActions.ADMIN_SUCCESSFULL_REFRESH:
+					yield put(gameActions.successfullRefresh(obj.object));
+					break;
 			}
 		}
 	} catch (error) {
@@ -158,6 +160,28 @@ const addGame = function* (action) {
         }
 };
 
+const getStatsListTeam1 = function*(action) {
+	yield put(gameActions.requestGetStatsListTeam1());
+
+	try {
+    const response = yield call(gameApi.getStatsListTeam, action.payload);
+    yield put(gameActions.receiveGetStatsListTeam1(response.data));
+	} catch (e) {
+    yield put(gameActions.receiveGetStatsListTeam1Fail());
+	}
+};
+
+const getStatsListTeam2 = function*(action) {
+	yield put(gameActions.requestGetStatsListTeam2());
+
+	try {
+    const response = yield call(gameApi.getStatsListTeam, action.payload);
+    yield put(gameActions.receiveGetStatsListTeam2(response.data));
+	} catch (e) {
+    yield put(gameActions.receiveGetStatsListTeam2Fail());
+	}
+};
+
 export default function*() {
 	yield all([
         takeLatest(gameTypes.GET_PLAYERS_TEAM1, getPlayersTeam1),
@@ -166,6 +190,8 @@ export default function*() {
 		takeLatest(gameTypes.ADD_STATS_TEAM1, addStatsTeam1),
 		takeLatest(gameTypes.ADD_STATS_TEAM2, addStatsTeam2),
 		takeLatest(gameTypes.ADD_GAME, addGame),
+		takeLatest(gameTypes.GET_STATS_LIST_TEAM1, getStatsListTeam1),
+		takeLatest(gameTypes.GET_STATS_LIST_TEAM2, getStatsListTeam2),
 		takeLatest(gameTypes.HOST_GAME, hostGame),
 	]);
 }

@@ -1,5 +1,16 @@
 import { types } from "./types";
 
+const successfullRefresh = (state, action) => {
+    const {game, stats} = action.payload;
+    const idTeam1 = game.team1.idTeam;
+    const idTeam2 = game.team2.idTeam;
+
+    return {
+        ...state, game: game, liveGame: game.liveGame, buttonLoader: false,
+        statsTeam1: stats.filter(obj => obj.player.idTeam === idTeam1),
+        statsTeam2: stats.filter(obj => obj.player.idTeam === idTeam2),
+    };
+};
 
 const initialState = {
     game: null,
@@ -72,6 +83,23 @@ const game = (state = initialState, action) => {
 
         case types.SET_BIG_LOADER:
             return { ...state, bigLoader: action.bigLoader };
+
+        case types.REQUEST_GET_STATS_LIST_TEAM1:
+            return { ...state, listLoader: true };
+        case types.RECEIVE_GET_STATS_LIST_TEAM1:
+            return { ...state, statsTeam1: action.stats, listLoader: false };
+        case types.RECEIVE_GET_STATS_LIST_TEAM1_FAIL:
+            return { ...state, listLoader: false };
+
+        case types.REQUEST_GET_STATS_LIST_TEAM2:
+            return { ...state, listLoader: true };
+        case types.RECEIVE_GET_STATS_LIST_TEAM2:
+            return { ...state, statsTeam2: action.stats, listLoader: false };
+        case types.RECEIVE_GET_STATS_LIST_TEAM2_FAIL:
+            return { ...state, listLoader: false };
+
+        case types.SUCCESSFULL_REFRESH:
+            return successfullRefresh(state, action);
 
         default:
             return state;

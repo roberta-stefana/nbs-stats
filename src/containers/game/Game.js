@@ -59,18 +59,18 @@ class Game extends Component {
 
     componentDidMount(){
         const idGame = localStorage.getItem("currentGameId");
-        const nameTeam1 = localStorage.getItem("team1");
-        const nameTeam2 = localStorage.getItem("team2");
+        const idTeam1 = localStorage.getItem("team1");
+        const idTeam2 = localStorage.getItem("team2");
         this.props.hostGame(idGame);  
-        
+
         //TODO: call pentru stats 
         
         logoList.map(l=>{
-            if(l.team === nameTeam1){
+            if(l.idTeam == idTeam1){
                 this.setState({
                     imageTeam1: l.img
                 });
-            }else if(l.team === nameTeam2){
+            }else if(l.idTeam == idTeam2){
                 this.setState({
                     imageTeam2: l.img
                 });

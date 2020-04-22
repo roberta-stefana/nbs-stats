@@ -14,16 +14,16 @@ import LogoTimisoara from './timisoara.jpg';
 export { default as LogoNbs} from './nbs.jpg';
 
 export const logoList = [
-    {team: 'CS Universitatea NBS Cluj', img: LogoNbs},
-    {team: 'ACS Champions Bucuresti', img: LogoChampions},
-    {team: 'CSS Gloria Arad', img: LogoArad},
-    {team: 'ACS Rookies Oradea', img: LogoRookies},
-    {team: 'CS BBB Raptors Bucuresti', img: LogoRaptors},
-    {team: 'CSS Bega Timisoara', img: LogoTimisoara},
-    {team: 'CSS CSM Targoviste', img: LogoTargoviste},
-    {team: 'CSS Nr1 Phoenix Constanta', img: LogoConstanta},
-    {team: 'CSS Sfantu Gheorghe', img: LogoSfGheorghe},
-    {team: 'CSS Sibiu', img: LogoSibiu},
-    {team: 'LPS CSS Satu Mare', img: LogoSatuMare},
-    {team: 'CSS CSM Alexandria', img: LogoAlexandria},
+    {idTeam: 1, team: 'CS Universitatea NBS Cluj', img: LogoNbs},
+    {idTeam: 2, team: 'ACS Champions Bucuresti', img: LogoChampions},
+    {idTeam: 3, team: 'CSS Gloria Arad', img: LogoArad},
+    {idTeam: 4, team: 'ACS Rookies Oradea', img: LogoRookies},
+    {idTeam: 5, team: 'CS BBB Raptors Bucuresti', img: LogoRaptors},
+    {idTeam: 6, team: 'CSS Bega Timisoara', img: LogoTimisoara},
+    {idTeam: 7, team: 'CSS CSM Targoviste', img: LogoTargoviste},
+    {idTeam: 8, team: 'CSS Nr1 Phoenix Constanta', img: LogoConstanta},
+    {idTeam: 9, team: 'CSS Sfantu Gheorghe', img: LogoSfGheorghe},
+    {idTeam: 10, team: 'CSS Sibiu', img: LogoSibiu},
+    {idTeam: 11, team: 'LPS CSS Satu Mare', img: LogoSatuMare},
+    {idTeam: 12, team: 'CSS CSM Alexandria', img: LogoAlexandria},
 ]

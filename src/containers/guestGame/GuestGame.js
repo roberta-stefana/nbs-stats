@@ -13,6 +13,7 @@ class GuestGame extends Component {
 
     componentDidMount(){
         const currentGameId= localStorage.getItem('currentGameId');
+        //get comments
         this.props.joinGame(currentGameId);
     }
 
