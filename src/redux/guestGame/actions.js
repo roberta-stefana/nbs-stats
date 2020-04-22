@@ -23,9 +23,9 @@ export const actions = {
     requestJoinGame: () => ({
         type: types.REQUEST_JOIN_GAME,
     }),
-    receiveJoinGame: game => ({
+    receiveJoinGame: payload => ({
         type: types.RECEIVE_JOIN_GAME,
-        game,
+        payload,
     }),
     receiveJoinGameFail: () => ({
         type: types.RECEIVE_JOIN_GAME_FAIL,
@@ -49,9 +49,14 @@ export const actions = {
         type: types.STOP_CHANNEL,
     }),
 
-    setCurrentGame: currentGame => ({
-        type: types.SET_CURRENT_GAME,
-        currentGame,
+    setGame: game => ({
+        type: types.SET_GAME,
+        game,
+    }),
+
+    setActiveUsers: users => ({
+        type: types.SET_ACTIVE_USERS,
+        users,
     }),
 
     getCommentList: payload => ({

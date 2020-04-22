@@ -37,10 +37,10 @@ class GameCard extends Component {
     }
 
     handleClick = () => {
-        const { game, goTo, setCurrentGame } = this.props;
-        setCurrentGame(game);
-        console.log("set current game in store: ", game)
+        const { game, goTo} = this.props;
         localStorage.setItem('currentGameId', this.props.game.idGame)
+        localStorage.setItem('team1', game.team1.name)
+        localStorage.setItem('team2', game.team2.name)
         goTo('/guest-game');
     }
 

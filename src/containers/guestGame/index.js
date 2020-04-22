@@ -12,13 +12,16 @@ const enhance = compose(
     withStyles(styles),
     connect(
         state => ({
-            currentGame: guestGameSelectors.getCurrentGame(state),
+            game: guestGameSelectors.getGame(state),
             bigLoader: guestGameSelectors.getBigLoader(state),
         }),
         dispatch => ({
             joinGame(payload){
                 dispatch(guestGameActions.joinGame(payload))
             },
+            requestLeaveGame(){
+                dispatch(guestGameActions.requestLeaveGame())
+            }
         }),
     )
 );

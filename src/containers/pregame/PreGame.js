@@ -88,8 +88,8 @@ class PreGame extends Component {
 
         const fullTeam1 = teamList.filter(x =>x.name === team1 &&  x.category == category.category)
         const fullTeam2 = teamList.filter(x => x.name === team2.name && x.category == category.category )
-        localStorage.setItem("team1", fullTeam1[0].idTeam);
-        localStorage.setItem("team2", fullTeam2[0].idTeam);
+        localStorage.setItem("team1", team1);
+        localStorage.setItem("team2", team2.name);
 
         this.setState({
             step: step + 1,

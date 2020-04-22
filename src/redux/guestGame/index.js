@@ -1,9 +1,23 @@
 import { types } from "./types";
 
+const receiveJoinGame = (state, action) => {
+    const {game, stats} = action.payload;
+    const idTeam1 = game.team1.idTeam;
+    const idTeam2 = game.team2.idTeam;
+
+    return {
+        ...state, game: game, liveGame: game.liveGame, buttonLoader: false,
+        statsTeam1: stats.filter(obj => obj.player.idTeam === idTeam1),
+        statsTeam2: stats.filter(obj => obj.player.idTeam === idTeam2),
+    };
+};
 
 const initialState = {
     channelStatus: 'off',
-    currentGame: null,
+    game: null,
+    liveGame: null,
+    statsTeam1:[],
+    statsTeam2:[],
     liveGames: [],
     listLoader: false,
     buttonLoader: false,
@@ -23,7 +37,7 @@ const guestGame = (state = initialState, action) => {
         case types.REQUEST_JOIN_GAME:
             return { ...state, buttonLoader: true, bigLoader: true };
         case types.RECEIVE_JOIN_GAME:
-            return { ...state, buttonLoader: false, channelStatus: 'on', bigLoader: false };
+            return receiveJoinGame(state, action);
         case types.RECEIVE_JOIN_GAME_FAIL:
             return { ...state, buttonLoader: false, bigLoader: false };
 
@@ -37,8 +51,10 @@ const guestGame = (state = initialState, action) => {
         case types.RECEIVE_STOP_CHANNEL:
             return { ...state, channelStatus: 'off' };
         
-        case types.SET_CURRENT_GAME:
-            return { ...state, currentGame: action.currentGame  };
+        case types.SET_GAME:
+            return { ...state, game: action.game  };
+        case types.SET_ACTIVE_USERS:
+            return { ...state, liveGame:{...state.liveGame, activeUsers: action.users} };
         
         case types.REQUEST_GET_COMMENT_LIST:
             return { ...state, listLoader: true };

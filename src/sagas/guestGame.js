@@ -54,7 +54,6 @@ function* listenForSocketMessages(idGame) {
 
 		// tell the application that we have a connection
 		//yield dispatch(LiveDataActions.connectionSuccess());
-		yield put(guestGameActions.receiveJoinGame());
 
 		while (true) {
 			// wait for a message from the channel
@@ -64,8 +63,17 @@ function* listenForSocketMessages(idGame) {
 			//yield dispatch(LiveDataActions.incomingEvent(payload));
 			const obj = JSON.parse(payload)
 			console.log('Obiectul primit prin websocket este: ',obj)
+			switch(obj.type){
+				case socketActions.GUEST_SUCCESSFULLY_JOINED:
+					yield put(guestGameActions.receiveJoinGame(obj.object));
+					break;
+				case socketActions.ACTIVE_USERS:
+					yield put(guestGameActions.setActiveUsers(obj.object));
+					break;
+			}
 		}
 	} catch (error) {
+		console.log(error)
 		yield put(guestGameActions.receiveJoinGameFail());
 	} finally {
 		if (yield cancelled()) {

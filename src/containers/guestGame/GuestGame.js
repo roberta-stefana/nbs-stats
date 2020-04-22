@@ -27,9 +27,10 @@ class GuestGame extends Component {
     }
 
     renderSwitch = step =>{
+        const {game} = this.props
         switch(step) {
             case 0:
-              return <PlayByPlay/>;
+              return <PlayByPlay game={game}/>;
             default:
               return 'foo';
           }
