@@ -4,22 +4,21 @@ import { withStyles } from '@material-ui/styles';
 import styles from './styles';
 import PlayByPlay from './PlayByPlay'
 import {
-    gameSelectors,
-    gameActions,
     guestGameSelectors,
+    guestGameActions
 } from '../../redux';
 
 const enhance = compose(
     withStyles(styles),
     connect(
         state => ({
-            game: guestGameSelectors.getGame(state),
-            liveGame: guestGameSelectors.getLiveGame(state),
+            commentList: guestGameSelectors.getCommentList(state),
         }),
         dispatch => ({
-            updatePlayer(payload){
-                dispatch(gameActions.updatePlayer(payload))
-            },
+            getCommentList(payload){
+                dispatch(guestGameActions.getCommentList(payload))
+            }
+
         }),
     )
 );

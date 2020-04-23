@@ -13,7 +13,6 @@ class GuestGame extends Component {
 
     componentDidMount(){
         const currentGameId= localStorage.getItem('currentGameId');
-        //get comments
         this.props.joinGame(currentGameId);
     }
 
@@ -27,10 +26,10 @@ class GuestGame extends Component {
     }
 
     renderSwitch = step =>{
-        const {game} = this.props
+        const {game, liveGame, statsTeam1, statsTeam2} = this.props
         switch(step) {
             case 0:
-              return <PlayByPlay game={game}/>;
+              return <PlayByPlay game={game} liveGame={liveGame} statsTeam1={statsTeam1} statsTeam2={statsTeam2}/>;
             default:
               return 'foo';
           }

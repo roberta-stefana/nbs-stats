@@ -60,18 +60,18 @@ export const actions = {
     }),
 
     getCommentList: payload => ({
-        type: types.GET_COMMENTS_LIST,
+        type: types.GET_COMMENT_LIST,
         payload,
       }),
     requestGetCommentList: () => ({
-        type: types.REQUEST_GET_COMMENTS_LIST,
+        type: types.REQUEST_GET_COMMENT_LIST,
     }),
     receiveGetCommentList: comments => ({
-        type: types.RECEIVE_GET_COMMENTS_LIST,
+        type: types.RECEIVE_GET_COMMENT_LIST,
         comments,
     }),
     receiveGetCommentListFail: () => ({
-        type: types.RECEIVE_GET_COMMENTS_LIST_FAIL,
+        type: types.RECEIVE_GET_COMMENT_LIST_FAIL,
     }),
 
 }

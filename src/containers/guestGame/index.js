@@ -13,7 +13,11 @@ const enhance = compose(
     connect(
         state => ({
             game: guestGameSelectors.getGame(state),
+            liveGame: guestGameSelectors.getLiveGame(state),
             bigLoader: guestGameSelectors.getBigLoader(state),
+            statsTeam1: guestGameSelectors.getStatsTeam1(state),
+            statsTeam2: guestGameSelectors.getStatsTeam2(state),
+            commentList: guestGameSelectors.getCommentList(state),
         }),
         dispatch => ({
             joinGame(payload){
@@ -21,7 +25,7 @@ const enhance = compose(
             },
             requestLeaveGame(){
                 dispatch(guestGameActions.requestLeaveGame())
-            }
+            },
         }),
     )
 );

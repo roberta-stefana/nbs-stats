@@ -7,4 +7,6 @@ export const selectors = {
     getChannelStatus: state => state.guestGame.channelStatus,
     getCommentList: state => state.guestGame.comments,
     getBigLoader: state => state.guestGame.bigLoader,
+    getStatsTeam1: state => state.guestGame.statsTeam1,
+    getStatsTeam2: state => state.guestGame.statsTeam2,
 };
