@@ -6,7 +6,6 @@ import { Table,
     TableBody
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
-import {logoList} from '../../static/logo'
 
 
 function GuestTableHead(props) {

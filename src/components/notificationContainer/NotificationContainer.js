@@ -8,7 +8,6 @@ import {
     TableHead
 }from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
-import {logoList} from '../../static/logo'
 
 function TableHeadNotifications(props) {
     const {classes} = props;

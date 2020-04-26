@@ -155,4 +155,14 @@ export const actions = {
         type: types.SUCCESSFULL_REFRESH,
         payload
     }),
+
+    sendStartGame: payload => ({
+        type: types.SEND_START_GAME,
+        payload
+    }),
+    sendEndGame: payload => ({
+        type: types.SEND_END_GAME,
+        payload
+    }),
+    
 }

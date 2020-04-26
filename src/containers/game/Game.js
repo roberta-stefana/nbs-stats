@@ -51,6 +51,17 @@ class Game extends Component {
         clearInterval(this.state.timerId)
     }
 
+    startGame = () =>{
+        const idGame = localStorage.getItem("currentGameId");
+        this.props.sendStartGame(idGame);
+        this.startTime();
+    }
+
+    endGame = () =>{
+        const idGame = localStorage.getItem("currentGameId");
+        this.props.sendEndGame(idGame);
+    }
+
     handleSelectPlayer = selectedPlayerStats =>{
         this.setState({
             selectedPlayerStats: selectedPlayerStats
@@ -143,7 +154,8 @@ class Game extends Component {
                             <Button className={classes.buttonSquare} onClick={this.startTime}>Start Time</Button>
                             <Button className={classes.buttonSquare} onClick={this.stopTime}>Stop Time</Button>
                             <Button className={classes.buttonSquare}>Timeout</Button>
-                            <Button className={classes.buttonSquare}>Start Game</Button>
+                            <Button className={classes.buttonSquare} onClick={this.startGame}>Start Game</Button>
+                            <Button className={classes.buttonSquare} onClick={this.endGame}>End Game</Button>
                         </div>
                     </div>  
                 </Grid>

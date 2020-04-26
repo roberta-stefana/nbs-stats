@@ -37,6 +37,12 @@ const enhance = compose(
             getStatsListTeam1(payload){
                 dispatch(gameActions.getStatsListTeam1(payload))
             },
+            sendStartGame(payload){
+                dispatch(gameActions.sendStartGame(payload))
+            },
+            sendEndGame(payload){
+                dispatch(gameActions.sendEndGame(payload))
+            }
         }),
     )
 );

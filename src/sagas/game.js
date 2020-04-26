@@ -1,7 +1,8 @@
-import { call, put, takeLatest, all, fork, cancelled, cancel, take } from 'redux-saga/effects';
+import { call, put, takeLatest, all, fork, cancelled, cancel, take, delay } from 'redux-saga/effects';
 import { gameApi } from "../api";
 import { eventChannel, END } from 'redux-saga';
 import {socketActions } from '../static/socketActions';
+import { push } from 'connected-react-router';
 import {
     gameActions,
 	gameTypes,
@@ -9,10 +10,11 @@ import {
 
 
 const socketServerURL = "ws://192.168.100.89:8081";
+let socket;
 
 function createWebSocketConnection(idGame) {
 	return new Promise((resolve, reject) => {
-		const socket = new WebSocket(socketServerURL);
+		socket = new WebSocket(socketServerURL);
 
 		socket.onopen = function () {
 			console.log("Connected to the websocket")
@@ -45,7 +47,6 @@ function createSocketChannel(socket) {
 }
 
 function* listenForSocketMessages(idGame) {
-	let socket;
 	let socketChannel;
 
 	try {
@@ -182,6 +183,19 @@ const getStatsListTeam2 = function*(action) {
 	}
 };
 
+const startGame = function* (action) {
+    socket.send(JSON.stringify({type: socketActions.SEND_START_GAME, object: action.payload}))
+};
+
+const endGame = function* (action) {
+	socket.send(JSON.stringify({type: socketActions.SEND_END_GAME, object: action.payload}))
+	localStorage.removeItem('currentGameId');
+	localStorage.removeItem('team1');
+	localStorage.removeItem('team2');
+    yield delay(5000);
+    yield put(push('/pregame'));
+};
+
 export default function*() {
 	yield all([
         takeLatest(gameTypes.GET_PLAYERS_TEAM1, getPlayersTeam1),
@@ -193,5 +207,7 @@ export default function*() {
 		takeLatest(gameTypes.GET_STATS_LIST_TEAM1, getStatsListTeam1),
 		takeLatest(gameTypes.GET_STATS_LIST_TEAM2, getStatsListTeam2),
 		takeLatest(gameTypes.HOST_GAME, hostGame),
+		takeLatest(gameTypes.SEND_START_GAME, startGame),
+		takeLatest(gameTypes.SEND_END_GAME, endGame),
 	]);
 }

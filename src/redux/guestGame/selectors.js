@@ -9,4 +9,5 @@ export const selectors = {
     getBigLoader: state => state.guestGame.bigLoader,
     getStatsTeam1: state => state.guestGame.statsTeam1,
     getStatsTeam2: state => state.guestGame.statsTeam2,
+    getEndGameFlag: state => state.guestGame.endGameFlag
 };

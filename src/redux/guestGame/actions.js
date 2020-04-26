@@ -74,4 +74,13 @@ export const actions = {
         type: types.RECEIVE_GET_COMMENT_LIST_FAIL,
     }),
 
+    receiveStartGame: comment => ({
+        type: types.RECEIVE_START_GAME,
+        comment,
+    }),
+    receiveEndGame: comment => ({
+        type: types.RECEIVE_END_GAME,
+        comment,
+    }),
+
 }

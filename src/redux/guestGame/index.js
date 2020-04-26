@@ -23,6 +23,7 @@ const initialState = {
     buttonLoader: false,
     comments: [],
     bigLoader: false,
+    endGameFlag: false,
 };
 
 const guestGame = (state = initialState, action) => {
@@ -63,6 +64,10 @@ const guestGame = (state = initialState, action) => {
         case types.RECEIVE_GET_COMMENT_LIST_FAIL:
             return { ...state, listLoader: false };
         
+        case types.RECEIVE_START_GAME:
+            return { ...state, comments: [action.comment].concat(state.comments)};
+        case types.RECEIVE_END_GAME:
+            return { ...state, endGameFlag: true};
 
         default:
             return state;

@@ -4,7 +4,7 @@ import {
     Tabs,
     Tab,
 }from '@material-ui/core'
-import {Loading} from '../../components'
+import {Loading, DialogBox} from '../../components'
 import {PlayByPlay} from '../index'
 
 class GuestGame extends Component {
@@ -26,6 +26,10 @@ class GuestGame extends Component {
 
     }
 
+    handleEndGame = () =>{
+        this.props.goTo('/live-games')
+    }
+
     renderSwitch = step =>{
         const {game, liveGame, statsTeam1, statsTeam2} = this.props
         switch(step) {
@@ -37,7 +41,7 @@ class GuestGame extends Component {
     }
 
     render() {
-        const {classes, game }= this.props;
+        const {classes, game, endGameFlag }= this.props;
         const { step } = this.state;
         
         return (  
@@ -57,6 +61,12 @@ class GuestGame extends Component {
                             <Tab label="Leaders" className={classes.tab}/>
                         </Tabs>
                     </AppBar>
+                    <DialogBox
+                        title="End Game"
+                        content="The game ended. You will be redirected to the Statistics page"
+                        open={endGameFlag}
+                        handleDialogClose={this.handleEndGame}
+                    />
                     {this.renderSwitch(step)}
                 </React.Fragment>
                 }   
