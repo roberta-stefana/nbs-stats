@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Typography, Button } from '@material-ui/core';
-import {NotificationContainer, GuestPlayersTable} from '../../components';
+import {NotificationContainer, GuestPlayersTable, Loading} from '../../components';
 import {logoList} from '../../static/logo'
 
 class PlayByPlay extends Component {
@@ -40,18 +40,20 @@ class PlayByPlay extends Component {
 
         return (
             <Grid container className={classes.mainContainer}> 
-                {game === null && liveGame === null
-                ? <Typography>LOADING</Typography>
-                :
-                <React.Fragment>
                 <Grid item xs={6}>
                     <Grid item xs={12} className={classes.infoContainer}>
                         <div className={classes.imageContainer}>
                             <img src={imageTeam1} className={classes.image} alt="LOGO"></img>
-                            <Typography className={classes.score}>{liveGame.points1}-{liveGame.points2}</Typography> 
+                            <div>
+                                <Typography className={classes.score}>{liveGame.points1}-{liveGame.points2}</Typography> 
+                                <Typography>Quater: {liveGame.quater}</Typography>
+                                <Typography>Time: {liveGame.time}</Typography>
+                                </div>
                             <img src={imageTeam2} className={classes.image} alt="LOGO"></img>
+                            
                         </div>
                         <Typography>Watching: {liveGame.activeUsers}</Typography>
+                        
                     </Grid>
                     <Grid item xs={12} className={classes.tableContainer}>
                         <div className={classes.buttonsContainer}>
@@ -86,9 +88,6 @@ class PlayByPlay extends Component {
                         imageTeam2={imageTeam2}
                     />
                 </Grid>
-                </React.Fragment>
-                }
-                
             </Grid>
         );
     }
