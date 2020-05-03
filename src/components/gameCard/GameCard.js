@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Card,
      Avatar, 
      CardHeader,
@@ -15,32 +15,54 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
-const GameCard = props => {
-    const {classes} = props;
+class GameCard extends Component {
+    state = {
+        imageTeam1: null,
+        imageTeam2: null,
+    }
 
-    return (
-        <Card className={classes.card}>
+    componentDidMount(){
+        const { game } = this.props;
+        logoList.map(l=>{
+            if(l.team === game.team1.name){
+                this.setState({
+                    imageTeam1: l.img
+                });
+            }else if(l.team === game.team2.name){
+                this.setState({
+                    imageTeam2: l.img
+                });
+            }
+        })
+    }
+
+    handleClick = () => {
+        const { game, goTo} = this.props;
+        localStorage.setItem('currentGameId', this.props.game.idGame)
+        localStorage.setItem('team1', game.team1.name)
+        localStorage.setItem('team2', game.team2.name)
+        goTo('/guest-game');
+    }
+
+    render() { 
+        const {classes, game} = this.props;
+        const { team1, team2, liveGame} = game;
+        const { imageTeam1, imageTeam2 } = this.state;
+
+
+        return ( 
+            <Card className={classes.card}>
             <CardHeader
                 className={classes.header}
-                avatar={
-                <Avatar className={classes.avatar}>
-                        18
-                </Avatar>
-                }
-                action={
-                <IconButton>
-                        <MoreVertIcon />
-                </IconButton>
-                }
-                title="CS universt=itatea vs kjakdcnlsncl"
-                subheader="kasdlcbdc"
+                avatar={<Avatar className={classes.avatar}>18</Avatar>}
+                title={team1.name}
+                subheader={team2.name}
             >
             </CardHeader> 
             <CardContent className={classes.imageContainer}>
-                    <img src={logoList[0].img} className={classes.image} alt="LOGO"></img>
-                    <Typography className={classes.score}>65 - 27</Typography>
-                    
-                    <img src={logoList[6].img} className={classes.image} alt="LOGO"></img>
+                    <img src={imageTeam1} className={classes.image} alt="LOGO"></img>
+                    <Typography variant="h4" className={classes.score}>{liveGame.points1}-{liveGame.points2}</Typography>
+                    <img src={imageTeam2} className={classes.image} alt="LOGO"></img>
             </CardContent>
             <CardActions disableSpacing>
                 <div className={classes.shareButtons}>
@@ -53,12 +75,15 @@ const GameCard = props => {
                     <IconButton>
                         <TwitterIcon/>
                     </IconButton>
+                    <Typography>Watching: {liveGame.activeUsers}</Typography>
                 </div>
                 <FiberManualRecordIcon color="error"/>
-                <Button className={classes.liveButton} variant="outlined" >LIVE</Button>
+                <Button className={classes.liveButton} variant="outlined" onClick={this.handleClick}>LIVE</Button>
             </CardActions>
         </Card>
-    );
+        );
+    }
 }
  
 export default GameCard;
+

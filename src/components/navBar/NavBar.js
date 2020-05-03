@@ -12,7 +12,7 @@ class NavBar extends Component {
 
     }
     render() { 
-        const { classes }= this.props
+        const { classes, goTo }= this.props
         const { active } = this.state
         
         return ( 
@@ -23,22 +23,22 @@ class NavBar extends Component {
                     </div>
                     <div>
                         <Tooltip title="Home">
-                            <IconButton className={active==='acasa'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton  onClick={()=> goTo('/')} className={active==='acasa'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <HomeIcon/>
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Live Games">
-                            <IconButton className={active==='live'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton onClick={()=> goTo('/live-games')} className={active==='live'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <LiveTvIcon/>
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Statistics">
-                            <IconButton className={active==='stats'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton onClick={()=> goTo('/')} className={active==='stats'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <EqualizerIcon/>
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Schedule and Results">
-                            <IconButton className={active==='results'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton onClick={()=> goTo('/')} className={active==='results'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <ScheduleIcon/>
                             </IconButton>
                         </Tooltip>

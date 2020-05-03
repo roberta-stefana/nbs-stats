@@ -3,26 +3,33 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles';
 import GuestGame from './GuestGame';
+import {push} from 'connected-react-router';
 import {
-    gameSelectors,
-    gameActions,
+    guestGameActions,
+    guestGameSelectors
 } from '../../redux';
 
 const enhance = compose(
     withStyles(styles),
     connect(
         state => ({
-            playersTeam1: gameSelectors.getPlayersTeam1(state),
-            playersTeam2: gameSelectors.getPlayersTeam2(state),
-			game: gameSelectors.getGame(state),
-			liveGame: gameSelectors.getLiveGame(state),
-			statsTeam1: gameSelectors.getStatsTeam1(state),
-			statsTeam2: gameSelectors.getStatsTeam2(state),
-
+            game: guestGameSelectors.getGame(state),
+            liveGame: guestGameSelectors.getLiveGame(state),
+            bigLoader: guestGameSelectors.getBigLoader(state),
+            statsTeam1: guestGameSelectors.getStatsTeam1(state),
+            statsTeam2: guestGameSelectors.getStatsTeam2(state),
+            commentList: guestGameSelectors.getCommentList(state),
+            endGameFlag: guestGameSelectors.getEndGameFlag(state),
         }),
         dispatch => ({
-            updatePlayer(payload){
-                    dispatch(gameActions.updatePlayer(payload))
+            joinGame(payload){
+                dispatch(guestGameActions.joinGame(payload))
+            },
+            requestLeaveGame(){
+                dispatch(guestGameActions.requestLeaveGame())
+            },
+            goTo(path){
+                dispatch(push(path))
             },
         }),
     )

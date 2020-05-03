@@ -6,11 +6,10 @@ import { Table,
     TableBody
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
-import {logoList} from '../../static/logo'
 
 
 function GuestTableHead(props) {
-    const {classes} = props;
+    const {classes, imageTeam} = props;
 
     const headCells = [
         { id: 'name', numeric: false, label: 'NAME' },
@@ -24,7 +23,7 @@ function GuestTableHead(props) {
         <TableHead>
             <TableRow >
                 <TableCell>
-                    <img src={logoList[5].img} alt="LOGO" className={classes.logo}/>
+                    <img src={imageTeam} alt="LOGO" className={classes.logo}/>
                 </TableCell>
                 {headCells.map(headCell => (
                     <TableCell
@@ -49,20 +48,21 @@ const StyledTableRow = withStyles(theme => ({
   }))(TableRow);
 
 const GuestPlayersTable = props => {
-    const {classes} = props;
+    const {classes, stats, imageTeam} = props;
+    let filteredStats = stats.filter(s => s.player.onCourt == true)
 
     return (  
         <Table size="small">
-            <GuestTableHead classes={classes}/>
+            <GuestTableHead classes={classes} imageTeam={imageTeam}/>
                 <TableBody>
-                    {[1,2,3,4,5].map(s =>
-                        <StyledTableRow key={s}>
-                            <TableCell className={classes.cell} align="left">{s}</TableCell>
-                            <TableCell className={classes.cell} align="right">{s} </TableCell>
-                            <TableCell className={classes.cell} align="left">{s}</TableCell>
-                            <TableCell className={classes.cell} align="right">{s}</TableCell>
-                            <TableCell className={classes.cell} align="right">{s}</TableCell>
-                            <TableCell className={classes.cell} align="right">{s}</TableCell>
+                    {filteredStats.map(s =>
+                        <StyledTableRow key={s.idStats}>
+                            <TableCell className={classes.cell} align="left">{s.player.number}</TableCell>
+                            <TableCell className={classes.cell} align="right">{s.player.name} </TableCell>
+                            <TableCell className={classes.cell} align="left">{s.minutes}</TableCell> 
+                            <TableCell className={classes.cell} align="right">{s.madeFt + s.made2p*2 + s.made3p * 3}</TableCell>
+                            <TableCell className={classes.cell} align="right">{s.assists}</TableCell>
+                            <TableCell className={classes.cell} align="right">{s.defRebounds+ s.offRebounds}</TableCell>
                         </StyledTableRow>
                     )}
                 </TableBody>

@@ -22,6 +22,19 @@ const styles = theme => createStyles({
         maxHeight:'100%',
         justifyContent: 'flex-end',
         display: 'flex'
+    },
+    switchButton:{
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
+    },
+    infoContainer:{
+        height: 200
+    },
+    buttonsContainer:{
+        paddingBottom: 30
+    },
+    tableContainer:{
+
     }
 });
 

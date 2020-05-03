@@ -10,8 +10,7 @@ const getTeamList = function*(action) {
 	yield put(teamActions.requestGetTeamList());
 
 	try {
-        const response = yield call(teamApi.getTeamList);
-        // posibil sa nu fie data --> cred ca e doar JSON 
+        const response = yield call(teamApi.getTeamList); 
 		yield put(teamActions.receiveGetTeamList(response.data));
 	} catch (e) {
 		yield put(teamActions.receiveGetTeamListFail());

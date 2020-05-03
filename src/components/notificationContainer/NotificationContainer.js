@@ -8,7 +8,6 @@ import {
     TableHead
 }from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
-import {logoList} from '../../static/logo'
 
 function TableHeadNotifications(props) {
     const {classes} = props;
@@ -46,7 +45,7 @@ const StyledTableRow = withStyles(theme => ({
   }))(TableRow);
 
 const NotificationContainer = props => {
-    const {classes} = props;
+    const {classes, commentList, idTeam1, idTeam2, imageTeam1, imageTeam2} = props;
 
     return (
         <div>
@@ -54,14 +53,17 @@ const NotificationContainer = props => {
             <Table className={classes.table}>
                 <TableHeadNotifications classes={classes}/>
                 <TableBody>
-                    {[1,2].map(s =>
-                        <StyledTableRow key={s}>
+                    {commentList.map(com =>
+                        <StyledTableRow key={com.comment}>
                             <TableCell className={classes.cell} align="left">
-                                <img src={logoList[3].img} alt="LOGO" className={classes.logo}/>
+                                {idTeam1 === com.idTeam
+                                ?   <img src={imageTeam1} alt="LOGO" className={classes.logo}/>
+                                :   <img src={imageTeam2} alt="LOGO" className={classes.logo}/>
+                                }
                             </TableCell>
-                            <TableCell className={classes.cell} align="right">{s} </TableCell>
-                            <TableCell className={classes.cell} align="left">{s}</TableCell>
-                            <TableCell className={classes.cell} align="right">{s}</TableCell>
+                            <TableCell className={classes.cell} align="right">{com.time} </TableCell>
+                            <TableCell className={classes.cell} align="left">{com.comment}</TableCell>
+                            <TableCell className={classes.cell} align="right">{com.score}</TableCell>
                         </StyledTableRow>
                     )}
                 </TableBody>

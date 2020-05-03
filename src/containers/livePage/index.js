@@ -4,25 +4,19 @@ import { withStyles } from '@material-ui/styles';
 import styles from './styles';
 import LivePage from './LivePage'
 import {
-    gameSelectors,
-    gameActions,
+    guestGameSelectors,
+    guestGameActions
 } from '../../redux';
 
 const enhance = compose(
     withStyles(styles),
     connect(
         state => ({
-            playersTeam1: gameSelectors.getPlayersTeam1(state),
-            playersTeam2: gameSelectors.getPlayersTeam2(state),
-			game: gameSelectors.getGame(state),
-			liveGame: gameSelectors.getLiveGame(state),
-			statsTeam1: gameSelectors.getStatsTeam1(state),
-			statsTeam2: gameSelectors.getStatsTeam2(state),
-
+            liveGameList : guestGameSelectors.getLiveGameList(state),
         }),
         dispatch => ({
-            updatePlayer(payload){
-                    dispatch(gameActions.updatePlayer(payload))
+            getLiveGameList(payload){
+                    dispatch(guestGameActions.getLiveGameList())
             },
         }),
     )

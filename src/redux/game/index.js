@@ -1,5 +1,16 @@
 import { types } from "./types";
 
+const successfullRefresh = (state, action) => {
+    const {game, stats} = action.payload;
+    const idTeam1 = game.team1.idTeam;
+    const idTeam2 = game.team2.idTeam;
+
+    return {
+        ...state, game: game, liveGame: game.liveGame, buttonLoader: false,
+        statsTeam1: stats.filter(obj => obj.player.idTeam === idTeam1),
+        statsTeam2: stats.filter(obj => obj.player.idTeam === idTeam2),
+    };
+};
 
 const initialState = {
     game: null,
@@ -11,6 +22,7 @@ const initialState = {
     statsTeam1:[],
     statsTeam2:[],
     channelStatus: '',
+    bigLoader: false,
 };
 
 const game = (state = initialState, action) => {
@@ -58,16 +70,36 @@ const game = (state = initialState, action) => {
             return { ...state, buttonLoader: false };
         
         case types.REQUEST_HOST_GAME:
-            return {...state};
+            return {...state, bigLoader: true};
         case types.RECEIVE_HOST_GAME:
-            return {...state, channelStatus: 'on'};
+            return {...state, channelStatus: 'on', bigLoader: false, game: action.game, liveGame: action.game.liveGame};
         case types.RECEIVE_HOST_GAME_FAIL:
-            return state;
+            return {...state, bigLoader: false};
 
         case types.REQUEST_STOP_CHANNEL:
             return { ...state, buttonLoader: true };
-        case types.RECEIVE_STOP_CHREQUEST_STOP_CHANNEL:
+        case types.RECEIVE_STOP_CHANNEL:
             return { ...state, channelStatus: 'off', buttonLoader: true };
+
+        case types.SET_BIG_LOADER:
+            return { ...state, bigLoader: action.bigLoader };
+
+        case types.REQUEST_GET_STATS_LIST_TEAM1:
+            return { ...state, listLoader: true };
+        case types.RECEIVE_GET_STATS_LIST_TEAM1:
+            return { ...state, statsTeam1: action.stats, listLoader: false };
+        case types.RECEIVE_GET_STATS_LIST_TEAM1_FAIL:
+            return { ...state, listLoader: false };
+
+        case types.REQUEST_GET_STATS_LIST_TEAM2:
+            return { ...state, listLoader: true };
+        case types.RECEIVE_GET_STATS_LIST_TEAM2:
+            return { ...state, statsTeam2: action.stats, listLoader: false };
+        case types.RECEIVE_GET_STATS_LIST_TEAM2_FAIL:
+            return { ...state, listLoader: false };
+
+        case types.SUCCESSFULL_REFRESH:
+            return successfullRefresh(state, action);
 
         default:
             return state;

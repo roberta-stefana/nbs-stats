@@ -51,34 +51,57 @@ class Game extends Component {
         clearInterval(this.state.timerId)
     }
 
+    startGame = () =>{
+        const idGame = localStorage.getItem("currentGameId");
+        this.props.sendStartGame(idGame);
+        this.startTime();
+    }
+
+    endGame = () =>{
+        const idGame = localStorage.getItem("currentGameId");
+        this.props.sendEndGame(idGame);
+    }
+
     handleSelectPlayer = selectedPlayerStats =>{
         this.setState({
             selectedPlayerStats: selectedPlayerStats
         })
     }
 
-    componentDidMount(){  
-        const { game } = this.props;
+    componentDidMount(){
+        const idGame = localStorage.getItem("currentGameId");
+        const team1 = localStorage.getItem("team1");
+        const team2 = localStorage.getItem("team2");
+        this.props.hostGame(idGame);  
+
         logoList.map(l=>{
-            if(l.team === game.team1.name){
+            if(l.team == team1){
                 this.setState({
                     imageTeam1: l.img
                 });
-            }else if(l.team === game.team2.name){
+            }else if(l.team == team2){
                 this.setState({
                     imageTeam2: l.img
                 });
             }
-        })
+        });
+    }
+
+    componentWillUnmount() {
+        // disconnecting from the saga channel and the socket
+        this.props.requestStopChannel();
     }
 
     render() { 
-        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater} = this.props;
+        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater, bigLoader} = this.props;
         const {imageTeam1, imageTeam2, seconds, minutes, quaters} = this.state;
     
-
-        return ( 
+        return (
             <Grid container>
+                {game === null 
+                ? <Typography>LOADING</Typography>
+                :
+                <React.Fragment>
                 <Grid item xs={12} className={classes.teams}>
                     <div className={classes.teamNameLeft}>
                         <img src={imageTeam1} alt="logo" className={classes.logo}/>
@@ -131,11 +154,14 @@ class Game extends Component {
                             <Button className={classes.buttonSquare} onClick={this.startTime}>Start Time</Button>
                             <Button className={classes.buttonSquare} onClick={this.stopTime}>Stop Time</Button>
                             <Button className={classes.buttonSquare}>Timeout</Button>
-                            <Button className={classes.buttonSquare}>Start Game</Button>
+                            <Button className={classes.buttonSquare} onClick={this.startGame}>Start Game</Button>
+                            <Button className={classes.buttonSquare} onClick={this.endGame}>End Game</Button>
                         </div>
                     </div>  
                 </Grid>
-            </Grid>     
+                </React.Fragment> }  
+            </Grid> 
+                            
         );
     }
 }

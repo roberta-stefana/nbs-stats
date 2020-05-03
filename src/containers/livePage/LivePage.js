@@ -4,11 +4,19 @@ import {GameCard} from '../../components';
 
 class LivePage extends Component {
     state = {  }
+
+    componentDidMount(){
+        this.props.getLiveGameList();
+    }
     render() { 
-        const {classes} = this.props;
-        return (  
+        const {classes, liveGameList} = this.props;
+        return ( 
+            
             <Grid className ={classes.mainContainer}>
-                <GameCard></GameCard>
+                {liveGameList.map(g => 
+                    <GameCard key={g.idGame} game={g} ></GameCard>
+                )} 
+
             </Grid>
         );
     }

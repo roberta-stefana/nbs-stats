@@ -19,7 +19,8 @@ const styles = theme => createStyles({
         paddingBottom: 20,
     },
     score:{
-        fontSize: 30,
+        height: 'min-content',
+        paddingTop: 'inherit',
     },
     avatar:{
         backgroundColor: theme.palette.secondary.main,
