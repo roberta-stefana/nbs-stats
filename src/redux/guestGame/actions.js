@@ -83,4 +83,29 @@ export const actions = {
         comment,
     }),
 
+    receiveScore1: payload => ({
+        type: types.RECEIVE_SCORE_1,
+        payload,
+    }),
+    receiveScore2: payload => ({
+        type: types.RECEIVE_SCORE_2,
+        payload,
+    }),
+    receiveScore3: payload => ({
+        type: types.RECEIVE_SCORE_3,
+        payload,
+    }),
+
+    receiveMiss1: payload => ({
+        type: types.RECEIVE_MISS_1,
+        payload,
+    }),
+    receiveMiss2: payload => ({
+        type: types.RECEIVE_MISS_2,
+        payload,
+    }),
+    receiveMiss3: payload => ({
+        type: types.RECEIVE_MISS_3,
+        payload,
+    }),
 }

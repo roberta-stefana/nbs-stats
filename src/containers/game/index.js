@@ -42,7 +42,26 @@ const enhance = compose(
             },
             sendEndGame(payload){
                 dispatch(gameActions.sendEndGame(payload))
-            }
+            },
+            sendScore1(payload){
+                dispatch(gameActions.sendScore1(payload))
+            },
+            sendScore2(payload){
+                dispatch(gameActions.sendScore2(payload))
+            },
+            sendScore3(payload){
+                dispatch(gameActions.sendScore3(payload))
+            },
+            sendMiss1(payload){
+                dispatch(gameActions.sendMiss1(payload))
+            },
+            sendMiss2(payload){
+                dispatch(gameActions.sendMiss2(payload))
+            },
+            sendMiss3(payload){
+                dispatch(gameActions.sendMiss3(payload))
+            },
+
         }),
     )
 );

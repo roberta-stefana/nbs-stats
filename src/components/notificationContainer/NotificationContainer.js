@@ -54,7 +54,7 @@ const NotificationContainer = props => {
                 <TableHeadNotifications classes={classes}/>
                 <TableBody>
                     {commentList.map(com =>
-                        <StyledTableRow key={com.comment}>
+                        <StyledTableRow key={com.idComment}>
                             <TableCell className={classes.cell} align="left">
                                 {idTeam1 === com.idTeam
                                 ?   <img src={imageTeam1} alt="LOGO" className={classes.logo}/>

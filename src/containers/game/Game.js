@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import {logoList} from '../../static/logo'
-import{ 
-    Grid, 
-    Typography, 
-    Button,
-    Stepper,
-    Step,
-    StepLabel
-} from '@material-ui/core'
+import{ Grid,Typography,Button,Stepper,Step,StepLabel} from '@material-ui/core'
 import {PlayersTable, Timer} from '../../components';
+import {Loading} from '../../components';
 
 class Game extends Component {
     state = { 
@@ -18,8 +12,9 @@ class Game extends Component {
         seconds: 0,
         timerId: null,
         quaters: ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'],
-        activeQuater: 0,
+        stats:[],
         selectedPlayerStats: null,
+        idGame: 0,
     }
 
     startTime = () =>{
@@ -68,6 +63,37 @@ class Game extends Component {
         })
     }
 
+
+    sendScore = (points, action) =>{
+        const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
+        const time = `${minutes}:${seconds}` 
+        if(selectedPlayerStats !== null){
+            switch(points){
+                case 1:
+                    if(action === 'SCORE')
+                        this.props.sendScore1({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    else
+                        this.props.sendMiss1({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 2:
+                    if(action === 'SCORE')
+                        this.props.sendScore2({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    else
+                        this.props.sendMiss2({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 3:
+                    if(action === 'SCORE')
+                        this.props.sendScore3({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    else
+                        this.props.sendMiss3({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+            }
+            this.setState({
+                selectedPlayerStats: null
+            })
+        }
+    }
+
     componentDidMount(){
         const idGame = localStorage.getItem("currentGameId");
         const team1 = localStorage.getItem("team1");
@@ -77,29 +103,30 @@ class Game extends Component {
         logoList.map(l=>{
             if(l.team == team1){
                 this.setState({
-                    imageTeam1: l.img
+                    imageTeam1: l.img,
+                    idGame: idGame
                 });
             }else if(l.team == team2){
                 this.setState({
-                    imageTeam2: l.img
+                    imageTeam2: l.img,
+                    idGame: idGame
                 });
             }
         });
     }
 
     componentWillUnmount() {
-        // disconnecting from the saga channel and the socket
         this.props.requestStopChannel();
     }
 
     render() { 
-        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater, bigLoader} = this.props;
-        const {imageTeam1, imageTeam2, seconds, minutes, quaters} = this.state;
+        const {classes, statsTeam1, statsTeam2, game, liveGame,} = this.props;
+        const {imageTeam1, imageTeam2, seconds, minutes, quaters, selectedPlayerStats} = this.state;
     
         return (
             <Grid container>
                 {game === null 
-                ? <Typography>LOADING</Typography>
+                ? <Loading/>
                 :
                 <React.Fragment>
                 <Grid item xs={12} className={classes.teams}>
@@ -116,10 +143,10 @@ class Game extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerLeft} ${classes.flexColumn}`}>
-                    <PlayersTable stats={statsTeam1} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
+                    <PlayersTable stats={statsTeam1} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
                 </Grid>
                 <Grid item xs={2} >
-                    <Stepper activeStep={activeQuater} alternativeLabel>
+                    <Stepper activeStep={liveGame.quater-1} alternativeLabel>
                         {quaters.map(quater => (
                         <Step key={quater}>
                             <StepLabel>{quater}</StepLabel>
@@ -129,16 +156,16 @@ class Game extends Component {
                     <Timer minutes={minutes} seconds={seconds}/>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerRight} ${classes.flexColumn}`}>
-                    <PlayersTable stats={statsTeam2} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
+                    <PlayersTable stats={statsTeam2} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
                 </Grid>
                 <Grid item xs={12} className={classes.buttonContainer}>
                     <div className={classes.buttonSection}>
-                        <Button className={classes.button}>+1</Button>
-                        <Button className={classes.button}>+2</Button>
-                        <Button className={classes.button}>+3</Button>
-                        <Button className={classes.button}>Miss 1</Button>
-                        <Button className={classes.button}>Miss 2</Button>
-                        <Button className={classes.button}>Miss 3</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(1, 'SCORE')}>+1</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(2, 'SCORE')}>+2</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(3, 'SCORE')}>+3</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(1, 'MISS')}>Miss 1</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(2, 'MISS')}>Miss 2</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(3, 'MISS')}>Miss 3</Button>
 
                         <Button className={classes.button}>Off Reb</Button>
                         <Button className={classes.button}>Def Reb</Button>

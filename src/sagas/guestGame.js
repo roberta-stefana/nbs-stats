@@ -17,7 +17,7 @@ function createWebSocketConnection(idGame) {
 		socket.onopen = function () {
 			console.log("Client connected to the websocket")
 			resolve(socket);
-			socket.send(JSON.stringify({type: socketActions.USER_JOINED, object: idGame}))
+			socket.send(JSON.stringify({type: socketActions.USER_JOINED, idGame: idGame}))
 		};
 
 		socket.onerror = function (evt) {
@@ -71,11 +71,30 @@ function* listenForSocketMessages(idGame) {
 					yield put(guestGameActions.setActiveUsers(obj.object));
 					break;
 				case socketActions.RECEIVE_START_GAME:
-					yield put(guestGameActions.receiveStartGame(obj.object));
+					yield put(guestGameActions.receiveStartGame(obj.comment));
 					break;
 				case socketActions.RECEIVE_END_GAME:
 					yield put(guestGameActions.receiveEndGame(obj.object));
 					break;
+				case socketActions.RECEIVE_SCORE_1:
+					yield put(guestGameActions.receiveScore1(obj));
+					break;
+				case socketActions.RECEIVE_SCORE_2:
+					yield put(guestGameActions.receiveScore2(obj));
+					break;
+				case socketActions.RECEIVE_SCORE_3:
+					yield put(guestGameActions.receiveScore3(obj));
+					break;
+				case socketActions.RECEIVE_MISS_1:
+					yield put(guestGameActions.receiveMiss1(obj));
+					break;
+				case socketActions.RECEIVE_MISS_2:
+					yield put(guestGameActions.receiveMiss2(obj));
+					break;
+				case socketActions.RECEIVE_MISS_3:
+					yield put(guestGameActions.receiveMiss3(obj));
+					break;
+
 			}
 		}
 	} catch (error) {

@@ -1,16 +1,5 @@
 import { types } from "./types";
-
-const successfullRefresh = (state, action) => {
-    const {game, stats} = action.payload;
-    const idTeam1 = game.team1.idTeam;
-    const idTeam2 = game.team2.idTeam;
-
-    return {
-        ...state, game: game, liveGame: game.liveGame, buttonLoader: false,
-        statsTeam1: stats.filter(obj => obj.player.idTeam === idTeam1),
-        statsTeam2: stats.filter(obj => obj.player.idTeam === idTeam2),
-    };
-};
+import {successfullRefresh, receiveScore, receiveMiss} from './helperFunctions'
 
 const initialState = {
     game: null,
@@ -100,6 +89,21 @@ const game = (state = initialState, action) => {
 
         case types.SUCCESSFULL_REFRESH:
             return successfullRefresh(state, action);
+
+        case types.RECEIVE_ADMIN_SCORE_1:
+            return receiveScore(state, action, 1);
+        case types.RECEIVE_ADMIN_SCORE_2:
+            return receiveScore(state, action, 2);
+        case types.RECEIVE_ADMIN_SCORE_3:
+            return receiveScore(state, action, 3);
+
+        case types.RECEIVE_ADMIN_MISS_1:
+            return receiveMiss(state, action);
+        case types.RECEIVE_ADMIN_MISS_2:
+            return receiveMiss(state, action);
+        case types.RECEIVE_ADMIN_MISS_3:
+            return receiveMiss(state, action);
+    
 
         default:
             return state;

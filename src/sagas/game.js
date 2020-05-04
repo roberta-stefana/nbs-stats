@@ -1,5 +1,5 @@
+import {getPlayersTeam1, getPlayersTeam2, updatePlayer, addStatsTeam2, addStatsTeam1, getStatsListTeam1, getStatsListTeam2, addGame } from './helperGame';
 import { call, put, takeLatest, all, fork, cancelled, cancel, take, delay } from 'redux-saga/effects';
-import { gameApi } from "../api";
 import { eventChannel, END } from 'redux-saga';
 import {socketActions } from '../static/socketActions';
 import { push } from 'connected-react-router';
@@ -19,7 +19,7 @@ function createWebSocketConnection(idGame) {
 		socket.onopen = function () {
 			console.log("Connected to the websocket")
 			resolve(socket);
-			socket.send(JSON.stringify({type: socketActions.ADMIN_JOINED, object: idGame}))
+			socket.send(JSON.stringify({type: socketActions.ADMIN_JOINED, idGame: idGame}))
 		};
 
 		socket.onerror = function (evt) {
@@ -53,16 +53,11 @@ function* listenForSocketMessages(idGame) {
 		socket        = yield call(createWebSocketConnection, idGame);
 		socketChannel = yield call(createSocketChannel, socket);
 
-		// tell the application that we have a connection
-		//yield dispatch(LiveDataActions.connectionSuccess());
-		//yield put(gameActions.receiveHostGame());
-
 		while (true) {
 			// wait for a message from the channel
 			const payload = yield take(socketChannel);
 
 			// a message has been received, dispatch an action with the message payload
-			//yield dispatch(LiveDataActions.incomingEvent(payload));
 			const obj = JSON.parse(payload)
 			console.log('Obiectul primit prin websocket este: ',obj)
 			switch(obj.type){
@@ -72,6 +67,24 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.ADMIN_SUCCESSFULL_REFRESH:
 					yield put(gameActions.successfullRefresh(obj.object));
 					break;
+				case socketActions.RECEIVE_SCORE_1:
+					yield put(gameActions.receiveAdminScore1(obj));
+					break;
+				case socketActions.RECEIVE_SCORE_2:
+					yield put(gameActions.receiveAdminScore2(obj));
+					break;
+				case socketActions.RECEIVE_SCORE_3:
+					yield put(gameActions.receiveAdminScore3(obj));
+					break;
+				case socketActions.RECEIVE_MISS_1:
+					yield put(gameActions.receiveAdminMiss1(obj));
+				break;
+				case socketActions.RECEIVE_MISS_2:
+					yield put(gameActions.receiveAdminMiss2(obj));
+				break;
+				case socketActions.RECEIVE_MISS_3:
+					yield put(gameActions.receiveAdminMiss3(obj));
+				break;
 			}
 		}
 	} catch (error) {
@@ -98,102 +111,48 @@ export function* hostGame(action) {
 	yield put(gameActions.receiveStopChannel());
 }
 
-const getPlayersTeam1 = function*(action) {
-	yield put(gameActions.requestGetPlayersTeam1());
 
-	try {
-	const response = yield call(gameApi.getPlayersTeam, action.payload);
-    yield put(gameActions.receiveGetPlayersTeam1(response.data));
-	} catch (e) {
-    yield put(gameActions.receiveGetPlayersTeam1Fail());
-	}
-};
-
-const getPlayersTeam2 = function*(action) {
-	yield put(gameActions.requestGetPlayersTeam2());
-
-	try {
-    const response = yield call(gameApi.getPlayersTeam, action.payload);
-    yield put(gameActions.receiveGetPlayersTeam2(response.data));
-	} catch (e) {
-    yield put(gameActions.receiveGetPlayersTeam2Fail());
-	}
-};
-
-const updatePlayer = function* (action) {
-        yield put(gameActions.requestUpdatePlayer());
-
-        try {
-                const response = yield call(gameApi.updatePlayer, action.payload);
-                yield put(gameActions.receiveUpdatePlayer(response.data));
-        } catch (e) {
-                yield put(gameActions.receiveUpdatePlayerFail());
-        }
-};
-
-const addStatsTeam1 = function* (action) {
-        yield put(gameActions.requestAddStatsTeam1());
-        try {
-                const response = yield call(gameApi.addStatsTeam1, action.payload);
-                yield put(gameActions.receiveAddStatsTeam1(response.data));
-        } catch (e) {
-                yield put(gameActions.receiveAddStatsTeam1Fail());
-        }
-};
-
-const addStatsTeam2 = function* (action) {
-        yield put(gameActions.requestAddStatsTeam2());
-        try {
-                const response = yield call(gameApi.addStatsTeam2, action.payload);
-                yield put(gameActions.receiveAddStatsTeam2(response.data));
-        } catch (e) {
-                yield put(gameActions.receiveAddStatsTeam2Fail());
-        }
-};
-
-const addGame = function* (action) {
-        yield put(gameActions.requestAddGame());
-        try {
-                const response = yield call(gameApi.addGame, action.payload);
-                yield put(gameActions.receiveAddGame(response.data));
-        } catch (e) {
-                yield put(gameActions.receiveAddGameFail());
-        }
-};
-
-const getStatsListTeam1 = function*(action) {
-	yield put(gameActions.requestGetStatsListTeam1());
-
-	try {
-    const response = yield call(gameApi.getStatsListTeam, action.payload);
-    yield put(gameActions.receiveGetStatsListTeam1(response.data));
-	} catch (e) {
-    yield put(gameActions.receiveGetStatsListTeam1Fail());
-	}
-};
-
-const getStatsListTeam2 = function*(action) {
-	yield put(gameActions.requestGetStatsListTeam2());
-
-	try {
-    const response = yield call(gameApi.getStatsListTeam, action.payload);
-    yield put(gameActions.receiveGetStatsListTeam2(response.data));
-	} catch (e) {
-    yield put(gameActions.receiveGetStatsListTeam2Fail());
-	}
-};
-
-const startGame = function* (action) {
-    socket.send(JSON.stringify({type: socketActions.SEND_START_GAME, object: action.payload}))
+const startGame = function(action) {
+    socket.send(JSON.stringify({type: socketActions.SEND_START_GAME, idGame: action.payload}))
 };
 
 const endGame = function* (action) {
-	socket.send(JSON.stringify({type: socketActions.SEND_END_GAME, object: action.payload}))
+	socket.send(JSON.stringify({type: socketActions.SEND_END_GAME, idGame: action.payload}))
 	localStorage.removeItem('currentGameId');
 	localStorage.removeItem('team1');
 	localStorage.removeItem('team2');
-    yield delay(5000);
+    yield delay(2000);
     yield put(push('/pregame'));
+};
+
+const sendScore1 = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_SCORE_1, object: stats, time: time, idGame: idGame}))
+};
+
+const sendScore2 = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_SCORE_2, object: stats, time: time, idGame: idGame}))
+};
+
+const sendScore3 = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_SCORE_3, object: stats, time: time, idGame: idGame}))
+};
+
+const sendMiss1 = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_MISS_1, object: stats, time: time, idGame: idGame}))
+};
+
+const sendMiss2 = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_MISS_2, object: stats, time: time, idGame: idGame}))
+};
+
+const sendMiss3 = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_MISS_3, object: stats, time: time, idGame: idGame}))
 };
 
 export default function*() {
@@ -209,5 +168,13 @@ export default function*() {
 		takeLatest(gameTypes.HOST_GAME, hostGame),
 		takeLatest(gameTypes.SEND_START_GAME, startGame),
 		takeLatest(gameTypes.SEND_END_GAME, endGame),
+
+		takeLatest(gameTypes.SEND_SCORE_1, sendScore1),
+		takeLatest(gameTypes.SEND_SCORE_2, sendScore2),
+		takeLatest(gameTypes.SEND_SCORE_3, sendScore3),
+
+		takeLatest(gameTypes.SEND_MISS_1, sendMiss1),
+		takeLatest(gameTypes.SEND_MISS_2, sendMiss2),
+		takeLatest(gameTypes.SEND_MISS_3, sendMiss3),
 	]);
 }
