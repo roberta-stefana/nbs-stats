@@ -79,6 +79,21 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_SCORE_1:
 					yield put(guestGameActions.receiveScore1(obj));
 					break;
+				case socketActions.RECEIVE_SCORE_2:
+					yield put(guestGameActions.receiveScore2(obj));
+					break;
+				case socketActions.RECEIVE_SCORE_3:
+					yield put(guestGameActions.receiveScore3(obj));
+					break;
+				case socketActions.RECEIVE_MISS_1:
+					yield put(guestGameActions.receiveMiss1(obj));
+					break;
+				case socketActions.RECEIVE_MISS_2:
+					yield put(guestGameActions.receiveMiss2(obj));
+					break;
+				case socketActions.RECEIVE_MISS_3:
+					yield put(guestGameActions.receiveMiss3(obj));
+					break;
 
 			}
 		}

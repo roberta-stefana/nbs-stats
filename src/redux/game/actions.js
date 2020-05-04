@@ -190,6 +190,7 @@ export const actions = {
         type: types.SEND_MISS_3,
         payload
     }),
+
     receiveAdminScore1: payload => ({
         type: types.RECEIVE_ADMIN_SCORE_1,
         payload,
@@ -200,6 +201,19 @@ export const actions = {
     }),
     receiveAdminScore3: payload => ({
         type: types.RECEIVE_ADMIN_SCORE_3,
+        payload,
+    }),
+
+    receiveAdminMiss1: payload => ({
+        type: types.RECEIVE_ADMIN_MISS_1,
+        payload,
+    }),
+    receiveAdminMiss2: payload => ({
+        type: types.RECEIVE_ADMIN_MISS_2,
+        payload,
+    }),
+    receiveAdminMiss3: payload => ({
+        type: types.RECEIVE_ADMIN_MISS_3,
         payload,
     }),
     

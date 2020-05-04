@@ -47,7 +47,7 @@ const enhance = compose(
                 dispatch(gameActions.sendScore1(payload))
             },
             sendScore2(payload){
-                dispatch(gameActions.sendScore3(payload))
+                dispatch(gameActions.sendScore2(payload))
             },
             sendScore3(payload){
                 dispatch(gameActions.sendScore3(payload))
@@ -56,7 +56,7 @@ const enhance = compose(
                 dispatch(gameActions.sendMiss1(payload))
             },
             sendMiss2(payload){
-                dispatch(gameActions.sendMiss3(payload))
+                dispatch(gameActions.sendMiss2(payload))
             },
             sendMiss3(payload){
                 dispatch(gameActions.sendMiss3(payload))

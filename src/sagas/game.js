@@ -53,16 +53,11 @@ function* listenForSocketMessages(idGame) {
 		socket        = yield call(createWebSocketConnection, idGame);
 		socketChannel = yield call(createSocketChannel, socket);
 
-		// tell the application that we have a connection
-		//yield dispatch(LiveDataActions.connectionSuccess());
-		//yield put(gameActions.receiveHostGame());
-
 		while (true) {
 			// wait for a message from the channel
 			const payload = yield take(socketChannel);
 
 			// a message has been received, dispatch an action with the message payload
-			//yield dispatch(LiveDataActions.incomingEvent(payload));
 			const obj = JSON.parse(payload)
 			console.log('Obiectul primit prin websocket este: ',obj)
 			switch(obj.type){
@@ -75,6 +70,21 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_SCORE_1:
 					yield put(gameActions.receiveAdminScore1(obj));
 					break;
+				case socketActions.RECEIVE_SCORE_2:
+					yield put(gameActions.receiveAdminScore2(obj));
+					break;
+				case socketActions.RECEIVE_SCORE_3:
+					yield put(gameActions.receiveAdminScore3(obj));
+					break;
+				case socketActions.RECEIVE_MISS_1:
+					yield put(gameActions.receiveAdminMiss1(obj));
+				break;
+				case socketActions.RECEIVE_MISS_2:
+					yield put(gameActions.receiveAdminMiss2(obj));
+				break;
+				case socketActions.RECEIVE_MISS_3:
+					yield put(gameActions.receiveAdminMiss3(obj));
+				break;
 			}
 		}
 	} catch (error) {
@@ -117,28 +127,32 @@ const endGame = function* (action) {
 
 const sendScore1 = function(action) {
 	const {stats, time, idGame} = action.payload;
-	console.log(stats)
     socket.send(JSON.stringify({type: socketActions.SEND_SCORE_1, object: stats, time: time, idGame: idGame}))
 };
 
 const sendScore2 = function(action) {
-    socket.send(JSON.stringify({type: socketActions.SEND_SCORE_2, object: action.payload}))
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_SCORE_2, object: stats, time: time, idGame: idGame}))
 };
 
 const sendScore3 = function(action) {
-    socket.send(JSON.stringify({type: socketActions.SEND_SCORE_3, object: action.payload}))
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_SCORE_3, object: stats, time: time, idGame: idGame}))
 };
 
 const sendMiss1 = function(action) {
-    socket.send(JSON.stringify({type: socketActions.SEND_MISS_1, object: action.payload}))
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_MISS_1, object: stats, time: time, idGame: idGame}))
 };
 
 const sendMiss2 = function(action) {
-    socket.send(JSON.stringify({type: socketActions.SEND_MISS_2, object: action.payload}))
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_MISS_2, object: stats, time: time, idGame: idGame}))
 };
 
 const sendMiss3 = function(action) {
-    socket.send(JSON.stringify({type: socketActions.SEND_MISS_3, object: action.payload}))
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_MISS_3, object: stats, time: time, idGame: idGame}))
 };
 
 export default function*() {

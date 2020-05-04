@@ -46,7 +46,6 @@ const StyledTableRow = withStyles(theme => ({
 
 const NotificationContainer = props => {
     const {classes, commentList, idTeam1, idTeam2, imageTeam1, imageTeam2} = props;
-    console.log(commentList)
 
     return (
         <div>

@@ -1,36 +1,5 @@
 import { types } from "./types";
-
-const receiveJoinGame = (state, action) => {
-    const {game, stats} = action.payload;
-    const idTeam1 = game.team1.idTeam;
-    const idTeam2 = game.team2.idTeam;
-
-    return {
-        ...state, game: game, liveGame: game.liveGame, buttonLoader: false,
-        statsTeam1: stats.filter(obj => obj.player.idTeam === idTeam1),
-        statsTeam2: stats.filter(obj => obj.player.idTeam === idTeam2),
-    };
-};
-
-const receiveScore = (state, action, points) => {
-    const {comment, object} = action.payload;
-    console.log(state.game.team1.idTeam === object.player.idTeam)
-    if(state.game.team1.idTeam === object.player.idTeam)
-        return {
-            ...state,
-            comments: [comment].concat(state.comments),
-            statsTeam1: state.statsTeam1.map(s => s.idStats === object.idStats ? object : s),
-            liveGame: {...state.liveGame, points1: state.liveGame.points1+points, time: comment.time }
-        };
-    else{
-        return {
-            ...state,
-            comments: [comment].concat(state.comments),
-            statsTeam2: state.statsTeam2.map(s => s.idStats === object.idStats ? object : s),
-            liveGame: {...state.liveGame, points2: state.liveGame.points2+points, time: comment.time }
-        };
-    }  
-};
+import {receiveJoinGame, receiveScore, receiveMiss} from './helperFunctions';
 
 const initialState = {
     channelStatus: 'off',
@@ -91,6 +60,17 @@ const guestGame = (state = initialState, action) => {
         
         case types.RECEIVE_SCORE_1:
             return receiveScore(state, action, 1);
+        case types.RECEIVE_SCORE_2:
+            return receiveScore(state, action, 2);
+        case types.RECEIVE_SCORE_3:
+            return receiveScore(state, action, 3);
+
+        case types.RECEIVE_MISS_1:
+            return receiveMiss(state, action);
+        case types.RECEIVE_MISS_2:
+            return receiveMiss(state, action);
+        case types.RECEIVE_MISS_3:
+            return receiveMiss(state, action);
 
         default:
             return state;

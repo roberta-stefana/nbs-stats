@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import {logoList} from '../../static/logo'
-import{ 
-    Grid, 
-    Typography, 
-    Button,
-    Stepper,
-    Step,
-    StepLabel
-} from '@material-ui/core'
+import{ Grid,Typography,Button,Stepper,Step,StepLabel} from '@material-ui/core'
 import {PlayersTable, Timer} from '../../components';
 import {Loading} from '../../components';
 
@@ -70,11 +63,31 @@ class Game extends Component {
         })
     }
 
-    sendScore1 = () =>{
+
+    sendScore = (points, action) =>{
         const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
         const time = `${minutes}:${seconds}` 
         if(selectedPlayerStats !== null){
-            this.props.sendScore1({stats: selectedPlayerStats, idGame:idGame, time:time})
+            switch(points){
+                case 1:
+                    if(action === 'SCORE')
+                        this.props.sendScore1({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    else
+                        this.props.sendMiss1({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 2:
+                    if(action === 'SCORE')
+                        this.props.sendScore2({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    else
+                        this.props.sendMiss2({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 3:
+                    if(action === 'SCORE')
+                        this.props.sendScore3({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    else
+                        this.props.sendMiss3({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+            }
             this.setState({
                 selectedPlayerStats: null
             })
@@ -147,12 +160,12 @@ class Game extends Component {
                 </Grid>
                 <Grid item xs={12} className={classes.buttonContainer}>
                     <div className={classes.buttonSection}>
-                        <Button className={classes.button} onClick={this.sendScore1}>+1</Button>
-                        <Button className={classes.button}>+2</Button>
-                        <Button className={classes.button}>+3</Button>
-                        <Button className={classes.button}>Miss 1</Button>
-                        <Button className={classes.button}>Miss 2</Button>
-                        <Button className={classes.button}>Miss 3</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(1, 'SCORE')}>+1</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(2, 'SCORE')}>+2</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(3, 'SCORE')}>+3</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(1, 'MISS')}>Miss 1</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(2, 'MISS')}>Miss 2</Button>
+                        <Button className={classes.button} onClick={()=>this.sendScore(3, 'MISS')}>Miss 3</Button>
 
                         <Button className={classes.button}>Off Reb</Button>
                         <Button className={classes.button}>Def Reb</Button>
