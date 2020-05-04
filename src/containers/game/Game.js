@@ -9,6 +9,7 @@ import{
     StepLabel
 } from '@material-ui/core'
 import {PlayersTable, Timer} from '../../components';
+import {Loading} from '../../components';
 
 class Game extends Component {
     state = { 
@@ -18,7 +19,6 @@ class Game extends Component {
         seconds: 0,
         timerId: null,
         quaters: ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'],
-        activeQuater: 0,
         stats:[],
         selectedPlayerStats: null,
         idGame: 0,
@@ -75,6 +75,9 @@ class Game extends Component {
         const time = `${minutes}:${seconds}` 
         if(selectedPlayerStats !== null){
             this.props.sendScore1({stats: selectedPlayerStats, idGame:idGame, time:time})
+            this.setState({
+                selectedPlayerStats: null
+            })
         }
     }
 
@@ -100,18 +103,17 @@ class Game extends Component {
     }
 
     componentWillUnmount() {
-        // disconnecting from the saga channel and the socket
         this.props.requestStopChannel();
     }
 
     render() { 
-        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater} = this.props;
+        const {classes, statsTeam1, statsTeam2, game, liveGame,} = this.props;
         const {imageTeam1, imageTeam2, seconds, minutes, quaters, selectedPlayerStats} = this.state;
     
         return (
             <Grid container>
                 {game === null 
-                ? <Typography>LOADING</Typography>
+                ? <Loading/>
                 :
                 <React.Fragment>
                 <Grid item xs={12} className={classes.teams}>
@@ -131,7 +133,7 @@ class Game extends Component {
                     <PlayersTable stats={statsTeam1} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
                 </Grid>
                 <Grid item xs={2} >
-                    <Stepper activeStep={activeQuater} alternativeLabel>
+                    <Stepper activeStep={liveGame.quater-1} alternativeLabel>
                         {quaters.map(quater => (
                         <Step key={quater}>
                             <StepLabel>{quater}</StepLabel>

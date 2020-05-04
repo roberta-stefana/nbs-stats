@@ -72,6 +72,9 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.ADMIN_SUCCESSFULL_REFRESH:
 					yield put(gameActions.successfullRefresh(obj.object));
 					break;
+				case socketActions.RECEIVE_SCORE_1:
+					yield put(gameActions.receiveAdminScore1(obj));
+					break;
 			}
 		}
 	} catch (error) {

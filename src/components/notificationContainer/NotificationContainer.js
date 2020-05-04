@@ -46,6 +46,7 @@ const StyledTableRow = withStyles(theme => ({
 
 const NotificationContainer = props => {
     const {classes, commentList, idTeam1, idTeam2, imageTeam1, imageTeam2} = props;
+    console.log(commentList)
 
     return (
         <div>
@@ -54,7 +55,7 @@ const NotificationContainer = props => {
                 <TableHeadNotifications classes={classes}/>
                 <TableBody>
                     {commentList.map(com =>
-                        <StyledTableRow key={com.comment}>
+                        <StyledTableRow key={com.idComment}>
                             <TableCell className={classes.cell} align="left">
                                 {idTeam1 === com.idTeam
                                 ?   <img src={imageTeam1} alt="LOGO" className={classes.logo}/>

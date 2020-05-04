@@ -12,6 +12,23 @@ const successfullRefresh = (state, action) => {
     };
 };
 
+const receiveScore = (state, action, points) => {
+    const {comment, object} = action.payload;
+    if(state.game.team1.idTeam === object.player.idTeam)
+        return {
+            ...state,
+            statsTeam1: state.statsTeam1.map(s => s.idStats === object.idStats ? object : s),
+            liveGame: {...state.liveGame, points1: state.liveGame.points1+points, time: comment.time }
+        };
+    else{
+        return {
+            ...state,
+            statsTeam2: state.statsTeam2.map(s => s.idStats === object.idStats ? object : s),
+            liveGame: {...state.liveGame, points2: state.liveGame.points2+points, time: comment.time }
+        };
+    }  
+};
+
 const initialState = {
     game: null,
     liveGame: null,
@@ -100,6 +117,14 @@ const game = (state = initialState, action) => {
 
         case types.SUCCESSFULL_REFRESH:
             return successfullRefresh(state, action);
+
+        case types.RECEIVE_ADMIN_SCORE_1:
+            return receiveScore(state, action, 1);
+        case types.RECEIVE_ADMIN_SCORE_2:
+            return receiveScore(state, action, 2);
+        case types.RECEIVE_ADMIN_SCORE_3:
+            return receiveScore(state, action, 3);
+    
 
         default:
             return state;

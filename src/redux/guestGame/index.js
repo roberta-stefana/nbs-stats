@@ -12,6 +12,26 @@ const receiveJoinGame = (state, action) => {
     };
 };
 
+const receiveScore = (state, action, points) => {
+    const {comment, object} = action.payload;
+    console.log(state.game.team1.idTeam === object.player.idTeam)
+    if(state.game.team1.idTeam === object.player.idTeam)
+        return {
+            ...state,
+            comments: [comment].concat(state.comments),
+            statsTeam1: state.statsTeam1.map(s => s.idStats === object.idStats ? object : s),
+            liveGame: {...state.liveGame, points1: state.liveGame.points1+points, time: comment.time }
+        };
+    else{
+        return {
+            ...state,
+            comments: [comment].concat(state.comments),
+            statsTeam2: state.statsTeam2.map(s => s.idStats === object.idStats ? object : s),
+            liveGame: {...state.liveGame, points2: state.liveGame.points2+points, time: comment.time }
+        };
+    }  
+};
+
 const initialState = {
     channelStatus: 'off',
     game: null,
@@ -68,6 +88,9 @@ const guestGame = (state = initialState, action) => {
             return { ...state, comments: [action.comment].concat(state.comments)};
         case types.RECEIVE_END_GAME:
             return { ...state, endGameFlag: true};
+        
+        case types.RECEIVE_SCORE_1:
+            return receiveScore(state, action, 1);
 
         default:
             return state;
