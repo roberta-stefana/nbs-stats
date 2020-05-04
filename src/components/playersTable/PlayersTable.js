@@ -14,11 +14,11 @@ import {
 } from '@material-ui/core';
 
 const PlayersTableToolbar = props => {
-    const { classes, selectedPlayerStats } = props;
+    const { classes, selectedPlayerStats, idTeam } = props;
 
     return (
         <Toolbar className={classes.toolbar}>
-            {selectedPlayerStats === null ? (
+            {selectedPlayerStats === null || idTeam !== selectedPlayerStats.player.idTeam ?  (
                     <Typography className={classes.selectedPlayer} variant="subtitle1">
                         No player selected
                     </Typography>
@@ -80,63 +80,58 @@ const StyledTableRow = withStyles(theme => ({
 
 class PlayersTable extends Component {
 
-    state={
-        selectedPlayerStats: null,
-        stats: [],
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps){
-        //In case the normal stats don't work 
-        this.setState({
-            stats: nextProps.stats
-        })    
-    }  
-
     handleCheckboxChange= e =>{
         const playerStatsList = this.props.stats.filter(s=> s.player.number == e.target.value)
         const newPlayerStats = {...playerStatsList[0], selected: true}
-        const newStats = this.props.stats.map(s=> s.player.idPlayer == newPlayerStats.player.idPlayer ? newPlayerStats : {...s, selected: false})
-        this.setState({
-            selectedPlayerStats: newPlayerStats,
-            stats: newStats,
-
-        });
         this.props.handleSelectPlayer(newPlayerStats)
     }
     
     render() { 
-        const {classes, stats} = this.props;
-        const {selectedPlayerStats} = this.state;
+        const {classes, selectedPlayerStats, stats} = this.props;
         let filteredStats = stats.filter(s => s.player.onCourt == true)
+        let newFilteredStats;
+        if(selectedPlayerStats !== null)
+            newFilteredStats = filteredStats.map(s => s.player.idPlayer == selectedPlayerStats.player.idPlayer ? {...s, selected: true} : {...s, selected: false})
+        else
+            newFilteredStats = filteredStats.map(s=>({...s, selected:false}))
 
         return ( 
             <React.Fragment>
-                <PlayersTableToolbar classes={classes} selectedPlayerStats={selectedPlayerStats}/>
-                <Table>
-                    <PlayersTableHead classes={classes}/>
-                    <TableBody>
-                        {filteredStats.map(s =>
-                            <StyledTableRow key={s.player.number}>
-                                <TableCell padding="checkbox">
-                                    <Checkbox
-                                        checked={s.selected}
-                                        onChange={this.handleCheckboxChange}
-                                        value={s.player.number}
-                                    />
-                                </TableCell>
-                                <TableCell className={classes.cell} align="right">{s.player.number}</TableCell>
-                                <TableCell className={classes.cell} align="left">{s.player.name}</TableCell>
-                                <TableCell className={classes.cell} align="right">{s.madeFt + s.made2p*2 + s.made3p * 3}</TableCell>
-                                <TableCell className={classes.cell} align="right">{s.assists}</TableCell>
-                                <TableCell className={classes.cell} align="right">{s.turnovers}</TableCell>
-                                <TableCell className={classes.cell} align="right">{s.defRebounds+ s.offRebounds}</TableCell>
-                                <TableCell className={classes.cell} align="right">{s.fauls}</TableCell>
-                                <TableCell className={classes.cell} align="right">{s.blockedShots}</TableCell>
-                            </StyledTableRow>
-                        )}
-                    
-                    </TableBody>
-                </Table>
+                {
+                filteredStats.length &&
+                <React.Fragment>
+                    <PlayersTableToolbar 
+                        idTeam={filteredStats[0].player.idTeam} 
+                        classes={classes} 
+                        selectedPlayerStats={selectedPlayerStats}
+                    />
+                    <Table>
+                        <PlayersTableHead classes={classes}/>
+                        <TableBody>
+                            {newFilteredStats.map(s =>
+                                <StyledTableRow key={s.player.number}>
+                                    <TableCell padding="checkbox">
+                                        <Checkbox
+                                            checked={s.selected}
+                                            onChange={this.handleCheckboxChange}
+                                            value={s.player.number}
+                                        />
+                                    </TableCell>
+                                    <TableCell className={classes.cell} align="right">{s.player.number}</TableCell>
+                                    <TableCell className={classes.cell} align="left">{s.player.name}</TableCell>
+                                    <TableCell className={classes.cell} align="right">{s.madeFt + s.made2p*2 + s.made3p * 3}</TableCell>
+                                    <TableCell className={classes.cell} align="right">{s.assists}</TableCell>
+                                    <TableCell className={classes.cell} align="right">{s.turnovers}</TableCell>
+                                    <TableCell className={classes.cell} align="right">{s.defRebounds+ s.offRebounds}</TableCell>
+                                    <TableCell className={classes.cell} align="right">{s.fauls}</TableCell>
+                                    <TableCell className={classes.cell} align="right">{s.blockedShots}</TableCell>
+                                </StyledTableRow>
+                            )}
+                        
+                        </TableBody>
+                    </Table>
+                </React.Fragment>
+                }
             </React.Fragment>
         );
     }

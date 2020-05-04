@@ -17,7 +17,7 @@ function createWebSocketConnection(idGame) {
 		socket.onopen = function () {
 			console.log("Client connected to the websocket")
 			resolve(socket);
-			socket.send(JSON.stringify({type: socketActions.USER_JOINED, object: idGame}))
+			socket.send(JSON.stringify({type: socketActions.USER_JOINED, idGame: idGame}))
 		};
 
 		socket.onerror = function (evt) {
@@ -71,7 +71,7 @@ function* listenForSocketMessages(idGame) {
 					yield put(guestGameActions.setActiveUsers(obj.object));
 					break;
 				case socketActions.RECEIVE_START_GAME:
-					yield put(guestGameActions.receiveStartGame(obj.object));
+					yield put(guestGameActions.receiveStartGame(obj.comment));
 					break;
 				case socketActions.RECEIVE_END_GAME:
 					yield put(guestGameActions.receiveEndGame(obj.object));

@@ -19,7 +19,9 @@ class Game extends Component {
         timerId: null,
         quaters: ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'],
         activeQuater: 0,
+        stats:[],
         selectedPlayerStats: null,
+        idGame: 0,
     }
 
     startTime = () =>{
@@ -68,6 +70,14 @@ class Game extends Component {
         })
     }
 
+    sendScore1 = () =>{
+        const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
+        const time = `${minutes}:${seconds}` 
+        if(selectedPlayerStats !== null){
+            this.props.sendScore1({stats: selectedPlayerStats, idGame:idGame, time:time})
+        }
+    }
+
     componentDidMount(){
         const idGame = localStorage.getItem("currentGameId");
         const team1 = localStorage.getItem("team1");
@@ -77,11 +87,13 @@ class Game extends Component {
         logoList.map(l=>{
             if(l.team == team1){
                 this.setState({
-                    imageTeam1: l.img
+                    imageTeam1: l.img,
+                    idGame: idGame
                 });
             }else if(l.team == team2){
                 this.setState({
-                    imageTeam2: l.img
+                    imageTeam2: l.img,
+                    idGame: idGame
                 });
             }
         });
@@ -93,8 +105,8 @@ class Game extends Component {
     }
 
     render() { 
-        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater, bigLoader} = this.props;
-        const {imageTeam1, imageTeam2, seconds, minutes, quaters} = this.state;
+        const {classes, statsTeam1, statsTeam2, game, liveGame, activeQuater} = this.props;
+        const {imageTeam1, imageTeam2, seconds, minutes, quaters, selectedPlayerStats} = this.state;
     
         return (
             <Grid container>
@@ -116,7 +128,7 @@ class Game extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerLeft} ${classes.flexColumn}`}>
-                    <PlayersTable stats={statsTeam1} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
+                    <PlayersTable stats={statsTeam1} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
                 </Grid>
                 <Grid item xs={2} >
                     <Stepper activeStep={activeQuater} alternativeLabel>
@@ -129,11 +141,11 @@ class Game extends Component {
                     <Timer minutes={minutes} seconds={seconds}/>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerRight} ${classes.flexColumn}`}>
-                    <PlayersTable stats={statsTeam2} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
+                    <PlayersTable stats={statsTeam2} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
                 </Grid>
                 <Grid item xs={12} className={classes.buttonContainer}>
                     <div className={classes.buttonSection}>
-                        <Button className={classes.button}>+1</Button>
+                        <Button className={classes.button} onClick={this.sendScore1}>+1</Button>
                         <Button className={classes.button}>+2</Button>
                         <Button className={classes.button}>+3</Button>
                         <Button className={classes.button}>Miss 1</Button>

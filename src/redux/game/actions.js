@@ -164,5 +164,31 @@ export const actions = {
         type: types.SEND_END_GAME,
         payload
     }),
+
+    sendScore1: payload => ({
+        type: types.SEND_SCORE_1,
+        payload
+    }),
+    sendScore2: payload => ({
+        type: types.SEND_SCORE_1,
+        payload
+    }),
+    sendScore3: payload => ({
+        type: types.SEND_SCORE_1,
+        payload
+    }),
+
+    sendMiss1: payload => ({
+        type: types.SEND_MISS_1,
+        payload
+    }),
+    sendMiss2: payload => ({
+        type: types.SEND_MISS_1,
+        payload
+    }),
+    sendMiss3: payload => ({
+        type: types.SEND_MISS_1,
+        payload
+    }),
     
 }
