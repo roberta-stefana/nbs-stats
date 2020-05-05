@@ -63,6 +63,38 @@ class Game extends Component {
         })
     }
 
+    sendAction = (action) =>{
+        const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
+        const time = `${minutes}:${seconds}` 
+        if(selectedPlayerStats !== null){
+            switch(action){
+                case 'OFF REB':
+                    this.props.sendOffRebound({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'DEF REB':
+                    this.props.sendDefRebound({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'BS':
+                    this.props.sendBlockedShot({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'AS':
+                    this.props.sendAssist({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'TO':
+                    this.props.sendTurnover({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'PF':
+                    this.props.sendFoul({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'FD':
+                    this.props.sendFoulDrawn({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                default:
+                    console.log('Default case send action')
+            }
+        }
+    }
+
 
     sendScore = (points, action) =>{
         const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
@@ -167,14 +199,14 @@ class Game extends Component {
                         <Button className={classes.button} onClick={()=>this.sendScore(2, 'MISS')}>Miss 2</Button>
                         <Button className={classes.button} onClick={()=>this.sendScore(3, 'MISS')}>Miss 3</Button>
 
-                        <Button className={classes.button}>Off Reb</Button>
-                        <Button className={classes.button}>Def Reb</Button>
-                        <Button className={classes.button}>Bs</Button>
-                        <Button className={classes.button}>As</Button>
-                        <Button className={classes.button}>To</Button>
-                        <Button className={classes.button}>St</Button>
-                        <Button className={classes.button}>PF</Button>
-                        <Button className={classes.button}>FD</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('OFF REB')}>Off Reb</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('DEF REB')}>Def Reb</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('BS')}>Bs</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('AS')}>As</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('TO')}>To</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('ST')}>St</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('PF')}>PF</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('FD')}>FD</Button>
                     </div>
                     <div className={classes.wrapper}>
                         <div className={classes.timeButtons}>

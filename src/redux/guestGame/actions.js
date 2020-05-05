@@ -108,4 +108,9 @@ export const actions = {
         type: types.RECEIVE_MISS_3,
         payload,
     }),
+
+    receiveStatsUpdate: payload => ({
+        type: types.RECEIVE_STATS_UPDATE,
+        payload,
+    }),
 }

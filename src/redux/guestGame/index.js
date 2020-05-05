@@ -1,5 +1,5 @@
 import { types } from "./types";
-import {receiveJoinGame, receiveScore, receiveMiss} from './helperFunctions';
+import {receiveJoinGame, receiveScore, receiveStatsUpdate} from './helperFunctions';
 
 const initialState = {
     channelStatus: 'off',
@@ -66,11 +66,14 @@ const guestGame = (state = initialState, action) => {
             return receiveScore(state, action, 3);
 
         case types.RECEIVE_MISS_1:
-            return receiveMiss(state, action);
+            return receiveStatsUpdate(state, action);
         case types.RECEIVE_MISS_2:
-            return receiveMiss(state, action);
+            return receiveStatsUpdate(state, action);
         case types.RECEIVE_MISS_3:
-            return receiveMiss(state, action);
+            return receiveStatsUpdate(state, action);
+
+        case types.RECEIVE_STATS_UPDATE:
+            return receiveStatsUpdate(state, action);
 
         default:
             return state;

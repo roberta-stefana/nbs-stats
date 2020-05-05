@@ -1,5 +1,5 @@
 import { types } from "./types";
-import {successfullRefresh, receiveScore, receiveMiss} from './helperFunctions'
+import {successfullRefresh, receiveScore, receiveStatsUpdate} from './helperFunctions'
 
 const initialState = {
     game: null,
@@ -98,12 +98,15 @@ const game = (state = initialState, action) => {
             return receiveScore(state, action, 3);
 
         case types.RECEIVE_ADMIN_MISS_1:
-            return receiveMiss(state, action);
+            return receiveStatsUpdate(state, action);
         case types.RECEIVE_ADMIN_MISS_2:
-            return receiveMiss(state, action);
+            return receiveStatsUpdate(state, action);
         case types.RECEIVE_ADMIN_MISS_3:
-            return receiveMiss(state, action);
-    
+            return receiveStatsUpdate(state, action);
+
+        case types.RECEIVE_ADMIN_STATS_UPDATE:
+            return receiveStatsUpdate(state, action);
+
 
         default:
             return state;

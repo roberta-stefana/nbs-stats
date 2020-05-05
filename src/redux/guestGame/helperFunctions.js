@@ -30,7 +30,7 @@ export const receiveScore = (state, action, points) => {
 };
 
 
-export const receiveMiss = (state, action) => {
+export const receiveStatsUpdate = (state, action) => {
     const {comment, object} = action.payload;
     if(state.game.team1.idTeam === object.player.idTeam)
         return {

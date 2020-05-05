@@ -81,10 +81,13 @@ function* listenForSocketMessages(idGame) {
 				break;
 				case socketActions.RECEIVE_MISS_2:
 					yield put(gameActions.receiveAdminMiss2(obj));
-				break;
+					break;
 				case socketActions.RECEIVE_MISS_3:
 					yield put(gameActions.receiveAdminMiss3(obj));
-				break;
+					break;
+				case socketActions.RECEIVE_STATS_UPDATE:
+					yield put(gameActions.receiveAdminStatsUpdate(obj));
+					break;
 			}
 		}
 	} catch (error) {
@@ -155,6 +158,55 @@ const sendMiss3 = function(action) {
     socket.send(JSON.stringify({type: socketActions.SEND_MISS_3, object: stats, time: time, idGame: idGame}))
 };
 
+const sendOffRebound = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_OFF_REBOUND, object: stats, time: time, idGame: idGame}))
+};
+
+const sendDefRebound = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_DEF_REBOUND, object: stats, time: time, idGame: idGame}))
+};
+
+const sendBlockedShot = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_BLOCKED_SHOT, object: stats, time: time, idGame: idGame}))
+};
+
+const sendAssist = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_ASSIST, object: stats, time: time, idGame: idGame}))
+};
+
+const sendTurnover = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_TURNOVER, object: stats, time: time, idGame: idGame}))
+};
+
+const sendFoul = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_FOUL, object: stats, time: time, idGame: idGame}))
+};
+
+const sendFoulDrawn = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_FOUL_DRAWN, object: stats, time: time, idGame: idGame}))
+};
+
+const sendTimeout = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_FOUL_DRAWN, object: stats, time: time, idGame: idGame}))
+};
+
+const sendSubstitution = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_FOUL_DRAWN, object: stats, time: time, idGame: idGame}))
+};
+
+
+
+
+
 export default function*() {
 	yield all([
         takeLatest(gameTypes.GET_PLAYERS_TEAM1, getPlayersTeam1),
@@ -176,5 +228,17 @@ export default function*() {
 		takeLatest(gameTypes.SEND_MISS_1, sendMiss1),
 		takeLatest(gameTypes.SEND_MISS_2, sendMiss2),
 		takeLatest(gameTypes.SEND_MISS_3, sendMiss3),
+
+		takeLatest(gameTypes.SEND_OFF_REBOUND, sendOffRebound),
+		takeLatest(gameTypes.SEND_DEF_REBOUND, sendDefRebound),
+
+		takeLatest(gameTypes.SEND_BLOCKED_SHOT, sendBlockedShot),
+		takeLatest(gameTypes.SEND_ASSIST, sendAssist),
+		takeLatest(gameTypes.SEND_TURNOVER, sendTurnover),
+		takeLatest(gameTypes.SEND_FAUL, sendFoul),
+		takeLatest(gameTypes.SEND_FAUL_DRAWN, sendFoulDrawn),
+
+		takeLatest(gameTypes.SEND_TIMEOUT, sendTimeout),
+		takeLatest(gameTypes.SEND_SUBSTITUTION, sendSubstitution),
 	]);
 }

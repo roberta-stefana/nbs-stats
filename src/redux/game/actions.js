@@ -216,5 +216,50 @@ export const actions = {
         type: types.RECEIVE_ADMIN_MISS_3,
         payload,
     }),
+
+    sendOffRebound: payload => ({
+        type: types.SEND_OFF_REBOUND,
+        payload
+    }),
+    sendDefRebound: payload => ({
+        type: types.SEND_DEF_REBOUND,
+        payload
+    }),
+
+    sendBlockedShot: payload => ({
+        type: types.SEND_BLOCKED_SHOT,
+        payload
+    }),
+    sendAssist: payload => ({
+        type: types.SEND_ASSIST,
+        payload
+    }),
+    sendTurnover: payload => ({
+        type: types.SEND_TURNOVER,
+        payload
+    }),
+
+    sendFaul: payload => ({
+        type: types.SEND_FAUL,
+        payload
+    }),
+    sendFaulDrawn: payload => ({
+        type: types.SEND_FAUL_DRAWN,
+        payload
+    }),
+
+    sendTimeout: payload => ({
+        type: types.SEND_TIMEOUT,
+        payload
+    }),
+    sendSubstitution: payload => ({
+        type: types.SEND_SUBSTITUTION,
+        payload
+    }),
+
+    receiveAdminStatsUpdate: payload => ({
+        type: types.RECEIVE_ADMIN_STATS_UPDATE,
+        payload,
+    }),
     
 }

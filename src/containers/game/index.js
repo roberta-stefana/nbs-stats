@@ -61,6 +61,28 @@ const enhance = compose(
             sendMiss3(payload){
                 dispatch(gameActions.sendMiss3(payload))
             },
+            sendOffRebound(payload){
+                dispatch(gameActions.sendOffRebound(payload))
+            },
+            sendDefRebound(payload){
+                dispatch(gameActions.sendDefRebound(payload))
+            },
+            sendBlockedShot(payload){
+                dispatch(gameActions.sendBlockedShot(payload))
+            },
+            sendAssist(payload){
+                dispatch(gameActions.sendAssist(payload))
+            },
+            sendTurnover(payload){
+                dispatch(gameActions.sendTurnover(payload))
+            },
+            sendFoul(payload){
+                dispatch(gameActions.sendFaul(payload))
+            },
+            sendFoulDrawn(payload){
+                dispatch(gameActions.sendFaulDrawn(payload))
+            },
+
 
         }),
     )

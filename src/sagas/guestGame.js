@@ -94,6 +94,9 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_MISS_3:
 					yield put(guestGameActions.receiveMiss3(obj));
 					break;
+				case socketActions.RECEIVE_STATS_UPDATE:
+					yield put(guestGameActions.receiveStatsUpdate(obj));
+					break;
 
 			}
 		}
