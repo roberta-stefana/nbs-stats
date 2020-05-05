@@ -24,7 +24,7 @@ const styles = theme => createStyles({
         display: 'flex'
     },
     switchButton:{
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.secondary.dark,
         color: theme.palette.common.white,
     },
     infoContainer:{

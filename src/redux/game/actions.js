@@ -234,17 +234,21 @@ export const actions = {
         type: types.SEND_ASSIST,
         payload
     }),
+    sendSteal: payload => ({
+        type: types.SEND_STEAL,
+        payload
+    }),
     sendTurnover: payload => ({
         type: types.SEND_TURNOVER,
         payload
     }),
 
-    sendFaul: payload => ({
-        type: types.SEND_FAUL,
+    sendFoul: payload => ({
+        type: types.SEND_FOUL,
         payload
     }),
-    sendFaulDrawn: payload => ({
-        type: types.SEND_FAUL_DRAWN,
+    sendFoulDrawn: payload => ({
+        type: types.SEND_FOUL_DRAWN,
         payload
     }),
 

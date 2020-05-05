@@ -178,6 +178,11 @@ const sendAssist = function(action) {
     socket.send(JSON.stringify({type: socketActions.SEND_ASSIST, object: stats, time: time, idGame: idGame}))
 };
 
+const sendSteal = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_STEAL, object: stats, time: time, idGame: idGame}))
+};
+
 const sendTurnover = function(action) {
 	const {stats, time, idGame} = action.payload;
     socket.send(JSON.stringify({type: socketActions.SEND_TURNOVER, object: stats, time: time, idGame: idGame}))
@@ -234,9 +239,10 @@ export default function*() {
 
 		takeLatest(gameTypes.SEND_BLOCKED_SHOT, sendBlockedShot),
 		takeLatest(gameTypes.SEND_ASSIST, sendAssist),
+		takeLatest(gameTypes.SEND_STEAL, sendSteal),
 		takeLatest(gameTypes.SEND_TURNOVER, sendTurnover),
-		takeLatest(gameTypes.SEND_FAUL, sendFoul),
-		takeLatest(gameTypes.SEND_FAUL_DRAWN, sendFoulDrawn),
+		takeLatest(gameTypes.SEND_FOUL, sendFoul),
+		takeLatest(gameTypes.SEND_FOUL_DRAWN, sendFoulDrawn),
 
 		takeLatest(gameTypes.SEND_TIMEOUT, sendTimeout),
 		takeLatest(gameTypes.SEND_SUBSTITUTION, sendSubstitution),

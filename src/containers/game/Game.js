@@ -66,6 +66,7 @@ class Game extends Component {
     sendAction = (action) =>{
         const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
         const time = `${minutes}:${seconds}` 
+        if(minutes)
         if(selectedPlayerStats !== null){
             switch(action){
                 case 'OFF REB':
@@ -80,6 +81,9 @@ class Game extends Component {
                 case 'AS':
                     this.props.sendAssist({stats: selectedPlayerStats, idGame:idGame, time:time})
                     break;
+                case 'ST':
+                    this.props.sendSteal({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
                 case 'TO':
                     this.props.sendTurnover({stats: selectedPlayerStats, idGame:idGame, time:time})
                     break;
@@ -92,6 +96,9 @@ class Game extends Component {
                 default:
                     console.log('Default case send action')
             }
+            this.setState({
+                selectedPlayerStats: null
+            })
         }
     }
 

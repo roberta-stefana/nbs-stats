@@ -9,6 +9,7 @@ import {
 import { ThemeProvider, createStyles } from '@material-ui/core/styles';
 import { Landing, Login, Team, PreGame, Game, LivePage, GuestGame } from './containers';
 import {NavBar, WithoutAuthentication } from './components';
+import Background from './static/logo/background.jpg';
 
 const styles = createStyles({
     containerHost: {
@@ -24,7 +25,11 @@ const styles = createStyles({
         maxWidth: '1100px',
         paddingRight: 0,
         paddingLeft: 0,
-    },
+        //backgroundImage: `url(${Background})`,
+        //backgroundPosition: 'center',
+        //backgroundSize: 'cover',
+        //backgroundRepeat: 'no-repeat'
+        },
     ...globalStyles
 });
 
@@ -41,8 +46,8 @@ class App extends React.Component {
                             <Container className={classes.containerGuest}>
                             <Switch>
                                 <Route exact path="/">
-                                        <Landing/>
-                                    </Route>
+                                    <Landing/>
+                                </Route>
                                 <Route path="/team">
                                     <Team/>
                                 </Route>

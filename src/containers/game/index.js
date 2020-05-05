@@ -73,14 +73,17 @@ const enhance = compose(
             sendAssist(payload){
                 dispatch(gameActions.sendAssist(payload))
             },
+            sendSteal(payload){
+                dispatch(gameActions.sendSteal(payload))
+            },
             sendTurnover(payload){
                 dispatch(gameActions.sendTurnover(payload))
             },
             sendFoul(payload){
-                dispatch(gameActions.sendFaul(payload))
+                dispatch(gameActions.sendFoul(payload))
             },
             sendFoulDrawn(payload){
-                dispatch(gameActions.sendFaulDrawn(payload))
+                dispatch(gameActions.sendFoulDrawn(payload))
             },
 
 

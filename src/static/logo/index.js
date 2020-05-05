@@ -12,6 +12,7 @@ import LogoTargoviste from './targoviste.jpg';
 import LogoTimisoara from './timisoara.jpg';
 
 export { default as LogoNbs} from './nbs.jpg';
+export { dafault as Background} from './background.jpg'
 
 export const logoList = [
     {idTeam: 1, team: 'CS Universitatea NBS Cluj', img: LogoNbs},

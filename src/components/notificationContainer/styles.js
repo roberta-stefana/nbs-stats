@@ -22,7 +22,7 @@ const styles = theme => createStyles({
     },
     toolbar:{
         display:'flex',
-        backgroundColor:theme.palette.primary.main,
+        backgroundColor:theme.palette.secondary.dark,
         width: '430px',
         height: '50px',
     },

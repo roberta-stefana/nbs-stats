@@ -5,7 +5,7 @@ import {Typography } from '@material-ui/core';
 class Landing extends Component {
   
   render() { 
-    return ( <Typography>Landing Page</Typography> );
+    return ( <Typography></Typography> );
   }
 }
  

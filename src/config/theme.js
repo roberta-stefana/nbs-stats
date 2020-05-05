@@ -5,11 +5,14 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const brandColors = {
     darkBlue: '#34577B',
     normalBlue: '#9FAFC1',
+    //normalBlue: '#4e5361',
     lightBlue: '#BFCBD6',
     white: '#FFFFFF',
     gray: '#9FA2A3',
     green: '#C0F442',
     black: '#000000',
+    darkGray: '#444854',
+    anotherDarkGray: '#4e5361',
 
     paper: '#EEEEEE',
     inputBorder: '#80BDFF',
@@ -36,6 +39,7 @@ const theme = createMuiTheme({
         },
         secondary: { // gray
             main: brandColors.gray,
+            dark: brandColors.anotherDarkGray
         },
         error: {
             main: brandColors.error,
