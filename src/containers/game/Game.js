@@ -27,21 +27,27 @@ class Game extends Component {
         })
         const timerId = setInterval(() => {
             const { seconds, minutes } = this.state
-            if (seconds > 0) {
-                this.setState(({ seconds }) => ({
-                    seconds: seconds - 1
-                }))
+            if(minutes === 0 && seconds === 0){
+                this.sendAction('Q');
+                this.stopTime();
             }
-            if (seconds === 0) {
-                if (minutes === 0) {
-                    clearInterval(this.myInterval)
-                } else {
-                    this.setState(({ minutes }) => ({
-                        minutes: minutes - 1,
-                        seconds: 59
+            else{
+                if (seconds > 0) {
+                    this.setState(({ seconds }) => ({
+                        seconds: seconds - 1
                     }))
                 }
-            } 
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(this.myInterval)
+                    } else {
+                        this.setState(({ minutes }) => ({
+                            minutes: minutes - 1,
+                            seconds: 59
+                        }))
+                    }
+                } 
+            }
         }, 1000)
         this.setState({
             timerId,
@@ -55,7 +61,6 @@ class Game extends Component {
         var d1 = new Date(1776, 6, 4, 12, startMin, startSec, 0);
         var d2 = new Date(1776, 6, 4, 12, minutes, seconds,0);
         var diff = new Date(d1 - d2);
-        console.log(diff.getMinutes(), " ", diff.getSeconds())
         var filteredStats1 = this.props.statsTeam1.filter(s => s.player.onCourt == true)
         var filteredStats2 = this.props.statsTeam2.filter(s => s.player.onCourt == true)
         this.props.sendPlayersTime({stats: filteredStats1.concat(filteredStats2), idGame:idGame, time:`${diff.getMinutes()}:${diff.getSeconds()}/${minutes}:${seconds}`})
@@ -81,8 +86,14 @@ class Game extends Component {
 
     sendAction = (action) =>{
         const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
-        const time = `${minutes}:${seconds}` 
-        if(minutes)
+        const time = `${minutes}:${seconds}`
+        if(action === 'Q'){
+            this.setState({
+                minutes: 10,
+                seconds: 0,
+            })
+            this.props.sendChangeQuater({idGame:idGame, time:time})
+        } 
         if(selectedPlayerStats !== null){
             switch(action){
                 case 'OFF REB':
@@ -149,28 +160,43 @@ class Game extends Component {
         }
     }
 
+    setTime = () =>{
+        localStorage.setItem("time", `${this.state.minutes}:${this.state.seconds}`);
+    }
+
     componentDidMount(){
+        window.addEventListener('beforeunload', this.setTime);
         const idGame = localStorage.getItem("currentGameId");
         const team1 = localStorage.getItem("team1");
         const team2 = localStorage.getItem("team2");
+        const time = localStorage.getItem("time");
         this.props.hostGame(idGame);  
 
+        if(time !== null ){
+            const timeElements = time.split(':')
+            this.setState({
+                minutes: parseInt(timeElements[0]),
+                seconds: parseInt(timeElements[1]),
+            });
+        }
         logoList.map(l=>{
             if(l.team == team1){
                 this.setState({
                     imageTeam1: l.img,
-                    idGame: idGame
+                    idGame: idGame,
                 });
             }else if(l.team == team2){
                 this.setState({
                     imageTeam2: l.img,
-                    idGame: idGame
+                    idGame: idGame,
                 });
             }
         });
     }
 
     componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.setTime); 
+        localStorage.setItem("time", this.props.liveGame.time)
         this.props.requestStopChannel();
     }
 

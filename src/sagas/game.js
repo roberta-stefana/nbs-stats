@@ -91,6 +91,9 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_PLAYERS_TIME:
 					yield put(gameActions.receiveAdminPlayersTime(obj));
 					break;
+				case socketActions.RECEIVE_CHANGE_QUATER:
+					yield put(gameActions.receiveAdminChangeQuater(obj));
+					break;
 			}
 		}
 	} catch (error) {
@@ -208,12 +211,18 @@ const sendTimeout = function(action) {
 
 const sendSubstitution = function(action) {
 	const {stats, time, idGame} = action.payload;
-    socket.send(JSON.stringify({type: socketActions.SEND_FOUL_DRAWN, object: stats, time: time, idGame: idGame}))
+    socket.send(JSON.stringify({type: socketActions.SEND_SUBSTITUTION, object: stats, time: time, idGame: idGame}))
 };
 
 const sendPlayersTime = function(action) {
 	const {stats, time, idGame} = action.payload;
     socket.send(JSON.stringify({type: socketActions.SEND_PLAYERS_TIME, object: stats, time: time, idGame: idGame}))
+};
+
+const sendChangeQuater = function(action) {
+	const {time, idGame} = action.payload;
+	console.log("acum trimit", time, idGame)
+    socket.send(JSON.stringify({type: socketActions.SEND_CHANGE_QUATER, object: null, time: time, idGame: idGame}))
 };
 
 
@@ -255,5 +264,7 @@ export default function*() {
 
 		takeLatest(gameTypes.SEND_TIMEOUT, sendTimeout),
 		takeLatest(gameTypes.SEND_SUBSTITUTION, sendSubstitution),
+		takeLatest(gameTypes.SEND_CHANGE_QUATER, sendChangeQuater),
+
 	]);
 }

@@ -117,4 +117,9 @@ export const actions = {
         type: types.RECEIVE_PLAYERS_TIME,
         payload,
     }),
+
+    receiveChangeQuater: payload => ({
+        type: types.RECEIVE_CHANGE_QUATER,
+        payload,
+    }),
 }

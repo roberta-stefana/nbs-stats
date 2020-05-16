@@ -108,6 +108,8 @@ const game = (state = initialState, action) => {
             return receiveStatsUpdate(state, action);
         case types.RECEIVE_ADMIN_PLAYERS_TIME:
             return receivePlayersTime(state, action);
+        case types.RECEIVE_ADMIN_CHANGE_QUATER:
+            return { ...state, liveGame: {...state.liveGame, time: '10:00', quater: action.payload.comment.quater}};
 
 
         default:

@@ -76,7 +76,8 @@ const guestGame = (state = initialState, action) => {
             return receiveStatsUpdate(state, action);
         case types.RECEIVE_PLAYERS_TIME:
             return receivePlayersTime(state, action);
-
+        case types.RECEIVE_CHANGE_QUATER:
+            return { ...state,  comments: [action.payload.comment].concat(state.comments), liveGame: {...state.liveGame, time: action.payload.comment.time, quater:action.payload.comment.quater }};
         default:
             return state;
     }

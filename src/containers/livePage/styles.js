@@ -10,7 +10,6 @@ const styles = theme => createStyles({
         justifyContent: 'space-around',
         paddingTop: 30,
         alignItems: 'center',
-        height: '100%',
     }
 });
 

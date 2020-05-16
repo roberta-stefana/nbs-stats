@@ -26,12 +26,15 @@ const styles = theme => createStyles({
     switchButton:{
         backgroundColor: theme.palette.secondary.dark,
         color: theme.palette.common.white,
+        height: '3.5em',
+        width: '14em',
+        marginRight: '30px'
     },
     infoContainer:{
         height: 200
     },
     buttonsContainer:{
-        paddingBottom: 30
+        paddingBottom: 25
     },
     tableContainer:{
 

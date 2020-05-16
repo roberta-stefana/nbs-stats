@@ -100,7 +100,10 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_PLAYERS_TIME:
 					yield put(guestGameActions.receivePlayersTime(obj));
 					break;
-
+				case socketActions.RECEIVE_CHANGE_QUATER:
+					yield put(guestGameActions.receiveChangeQuater(obj));
+					break;
+					
 			}
 		}
 	} catch (error) {

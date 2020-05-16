@@ -27,10 +27,10 @@ const PlayersTableToolbar = props => {
                     Number #{selectedPlayerStats.player.number} was selected
                 </Typography>
             )}
-            <SwapHorizIcon/>
-            {/*<Fab size="small" className={classes.fab}>
+            
+            <Fab size="small" className={classes.fab}>
                 <SwapHorizIcon/>
-            </Fab>*/}
+            </Fab>
         </Toolbar>
     );
 };

@@ -275,5 +275,14 @@ export const actions = {
         type: types.RECEIVE_ADMIN_PLAYERS_TIME,
         payload,
     }),
+
+    sendChangeQuater: payload => ({
+        type: types.SEND_CHANGE_QUATER,
+        payload
+    }),
+    receiveAdminChangeQuater: payload => ({
+        type: types.RECEIVE_ADMIN_CHANGE_QUATER,
+        payload
+    }),
     
 }

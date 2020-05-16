@@ -88,6 +88,9 @@ const enhance = compose(
             sendPlayersTime(payload){
                 dispatch(gameActions.sendPlayersTime(payload))
             },
+            sendChangeQuater(payload){
+                dispatch(gameActions.sendChangeQuater(payload))
+            },
 
 
         }),
