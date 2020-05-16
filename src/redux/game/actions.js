@@ -265,5 +265,15 @@ export const actions = {
         type: types.RECEIVE_ADMIN_STATS_UPDATE,
         payload,
     }),
+
+    
+    sendPlayersTime: payload => ({
+        type: types.SEND_PLAYERS_TIME,
+        payload
+    }),
+    receiveAdminPlayersTime: payload => ({
+        type: types.RECEIVE_ADMIN_PLAYERS_TIME,
+        payload,
+    }),
     
 }

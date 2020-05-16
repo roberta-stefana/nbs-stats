@@ -97,6 +97,9 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_STATS_UPDATE:
 					yield put(guestGameActions.receiveStatsUpdate(obj));
 					break;
+				case socketActions.RECEIVE_PLAYERS_TIME:
+					yield put(guestGameActions.receivePlayersTime(obj));
+					break;
 
 			}
 		}

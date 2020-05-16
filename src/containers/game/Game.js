@@ -10,6 +10,8 @@ class Game extends Component {
         imageTeam2: null,
         minutes: 10,
         seconds: 0,
+        startMin:0,
+        startSec:0,
         timerId: null,
         quaters: ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'],
         stats:[],
@@ -18,9 +20,13 @@ class Game extends Component {
     }
 
     startTime = () =>{
+
+        this.setState({
+            startMin: this.state.minutes,
+            startSec: this.state.seconds,
+        })
         const timerId = setInterval(() => {
             const { seconds, minutes } = this.state
-
             if (seconds > 0) {
                 this.setState(({ seconds }) => ({
                     seconds: seconds - 1
@@ -38,12 +44,22 @@ class Game extends Component {
             } 
         }, 1000)
         this.setState({
-            timerId
+            timerId,
         })
     }
 
     stopTime = () => {
-        clearInterval(this.state.timerId)
+        const { startMin, startSec, minutes, seconds, idGame} = this.state;
+        clearInterval(this.state.timerId);
+
+        var d1 = new Date(1776, 6, 4, 12, startMin, startSec, 0);
+        var d2 = new Date(1776, 6, 4, 12, minutes, seconds,0);
+        var diff = new Date(d1 - d2);
+        console.log(diff.getMinutes(), " ", diff.getSeconds())
+        var filteredStats1 = this.props.statsTeam1.filter(s => s.player.onCourt == true)
+        var filteredStats2 = this.props.statsTeam2.filter(s => s.player.onCourt == true)
+        this.props.sendPlayersTime({stats: filteredStats1.concat(filteredStats2), idGame:idGame, time:`${diff.getMinutes()}:${diff.getSeconds()}/${minutes}:${seconds}`})
+        
     }
 
     startGame = () =>{

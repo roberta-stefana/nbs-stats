@@ -59,7 +59,7 @@ const GuestPlayersTable = props => {
                         <StyledTableRow key={s.idStats}>
                             <TableCell className={classes.cell} align="left">{s.player.number}</TableCell>
                             <TableCell className={classes.cell} align="right">{s.player.name} </TableCell>
-                            <TableCell className={classes.cell} align="left">{s.minutes}</TableCell> 
+                            <TableCell className={classes.cell} align="left">{s.time}</TableCell> 
                             <TableCell className={classes.cell} align="right">{s.madeFt + s.made2p*2 + s.made3p * 3}</TableCell>
                             <TableCell className={classes.cell} align="right">{s.assists}</TableCell>
                             <TableCell className={classes.cell} align="right">{s.defRebounds+ s.offRebounds}</TableCell>

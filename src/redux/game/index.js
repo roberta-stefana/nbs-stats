@@ -1,5 +1,5 @@
 import { types } from "./types";
-import {successfullRefresh, receiveScore, receiveStatsUpdate} from './helperFunctions'
+import {successfullRefresh, receiveScore, receiveStatsUpdate, receivePlayersTime} from './helperFunctions'
 
 const initialState = {
     game: null,
@@ -106,6 +106,8 @@ const game = (state = initialState, action) => {
 
         case types.RECEIVE_ADMIN_STATS_UPDATE:
             return receiveStatsUpdate(state, action);
+        case types.RECEIVE_ADMIN_PLAYERS_TIME:
+            return receivePlayersTime(state, action);
 
 
         default:

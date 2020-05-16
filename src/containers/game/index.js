@@ -85,6 +85,9 @@ const enhance = compose(
             sendFoulDrawn(payload){
                 dispatch(gameActions.sendFoulDrawn(payload))
             },
+            sendPlayersTime(payload){
+                dispatch(gameActions.sendPlayersTime(payload))
+            },
 
 
         }),

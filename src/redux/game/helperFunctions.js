@@ -43,3 +43,18 @@ export const receiveStatsUpdate = (state, action) => {
         };
     }  
 };
+
+export const receivePlayersTime = (state, action) => {
+    const {object, time} = action.payload;
+    let stats1 = state.statsTeam1;
+    let stats2 = state.statsTeam2;
+    object.map(s=>{
+        if(state.game.team1.idTeam === s.player.idTeam)
+            stats1 = stats1.map(obj => obj.idStats === s.idStats ? s : obj);
+        else
+            stats2 = stats2.map(obj => obj.idStats === s.idStats ? s : obj); 
+    })
+    return{
+        ...state, statsTeam1: stats1, statsTeam2: stats2, liveGame: {...state.liveGame, time: time }
+    }
+};

@@ -113,4 +113,8 @@ export const actions = {
         type: types.RECEIVE_STATS_UPDATE,
         payload,
     }),
+    receivePlayersTime: payload => ({
+        type: types.RECEIVE_PLAYERS_TIME,
+        payload,
+    }),
 }

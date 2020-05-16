@@ -88,6 +88,9 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_STATS_UPDATE:
 					yield put(gameActions.receiveAdminStatsUpdate(obj));
 					break;
+				case socketActions.RECEIVE_PLAYERS_TIME:
+					yield put(gameActions.receiveAdminPlayersTime(obj));
+					break;
 			}
 		}
 	} catch (error) {
@@ -208,6 +211,11 @@ const sendSubstitution = function(action) {
     socket.send(JSON.stringify({type: socketActions.SEND_FOUL_DRAWN, object: stats, time: time, idGame: idGame}))
 };
 
+const sendPlayersTime = function(action) {
+	const {stats, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_PLAYERS_TIME, object: stats, time: time, idGame: idGame}))
+};
+
 
 
 
@@ -243,6 +251,7 @@ export default function*() {
 		takeLatest(gameTypes.SEND_TURNOVER, sendTurnover),
 		takeLatest(gameTypes.SEND_FOUL, sendFoul),
 		takeLatest(gameTypes.SEND_FOUL_DRAWN, sendFoulDrawn),
+		takeLatest(gameTypes.SEND_PLAYERS_TIME, sendPlayersTime),
 
 		takeLatest(gameTypes.SEND_TIMEOUT, sendTimeout),
 		takeLatest(gameTypes.SEND_SUBSTITUTION, sendSubstitution),
