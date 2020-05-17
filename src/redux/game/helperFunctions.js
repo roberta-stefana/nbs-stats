@@ -58,3 +58,23 @@ export const receivePlayersTime = (state, action) => {
         ...state, statsTeam1: stats1, statsTeam2: stats2, liveGame: {...state.liveGame, time: time }
     }
 };
+
+export const receiveSubstitution = (state, action) => { 
+    // object: 1,2,3 --> 1 out, 2 in, 3 team 
+    const {comment, object} = action.payload;
+    const elements = object.split(',');
+    if(state.game.team1.idTeam === parseInt(elements[2]))
+        return {
+            ...state,
+            statsTeam1: state.statsTeam1.map(s => s.player.idPlayer === parseInt(elements[0]) ? {...s, player:{...s.player, onCourt:false}} : 
+            s.player.idPlayer === parseInt(elements[1]) ? {...s, player:{...s.player, onCourt:true}} : s),
+
+        };
+    else{
+        return {
+            ...state,
+            statsTeam2: state.statsTeam2.map(s => s.player.idPlayer === parseInt(elements[0]) ? {...s, player:{...s.player, onCourt:false}} : 
+            s.player.idPlayer === parseInt(elements[1]) ? {...s, player:{...s.player, onCourt:true}} : s),
+        };
+    }  
+};

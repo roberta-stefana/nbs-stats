@@ -1,5 +1,5 @@
 import { types } from "./types";
-import {receiveJoinGame, receiveScore, receiveStatsUpdate, receivePlayersTime} from './helperFunctions';
+import {receiveJoinGame, receiveScore, receiveStatsUpdate, receivePlayersTime, receiveSubstitution} from './helperFunctions';
 
 const initialState = {
     channelStatus: 'off',
@@ -78,6 +78,8 @@ const guestGame = (state = initialState, action) => {
             return receivePlayersTime(state, action);
         case types.RECEIVE_CHANGE_QUATER:
             return { ...state,  comments: [action.payload.comment].concat(state.comments), liveGame: {...state.liveGame, time: action.payload.comment.time, quater:action.payload.comment.quater }};
+        case types.RECEIVE_SUBSTITUTION:
+            return receiveSubstitution(state, action);
         default:
             return state;
     }

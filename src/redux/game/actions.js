@@ -256,8 +256,13 @@ export const actions = {
         type: types.SEND_TIMEOUT,
         payload
     }),
+
     sendSubstitution: payload => ({
         type: types.SEND_SUBSTITUTION,
+        payload
+    }),
+    receiveAdminSubstitution: payload => ({
+        type: types.RECEIVE_ADMIN_SUBSTITUTION,
         payload
     }),
 

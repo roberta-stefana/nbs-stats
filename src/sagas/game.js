@@ -94,6 +94,9 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_CHANGE_QUATER:
 					yield put(gameActions.receiveAdminChangeQuater(obj));
 					break;
+				case socketActions.RECEIVE_SUBSTITUTION:
+					yield put(gameActions.receiveAdminSubstitution(obj));
+					break;
 			}
 		}
 	} catch (error) {
@@ -210,8 +213,8 @@ const sendTimeout = function(action) {
 };
 
 const sendSubstitution = function(action) {
-	const {stats, time, idGame} = action.payload;
-    socket.send(JSON.stringify({type: socketActions.SEND_SUBSTITUTION, object: stats, time: time, idGame: idGame}))
+	const {object, time, idGame} = action.payload;
+    socket.send(JSON.stringify({type: socketActions.SEND_SUBSTITUTION, object: object, time: time, idGame: idGame}))
 };
 
 const sendPlayersTime = function(action) {

@@ -122,4 +122,8 @@ export const actions = {
         type: types.RECEIVE_CHANGE_QUATER,
         payload,
     }),
+    receiveSubstitution: payload => ({
+        type: types.RECEIVE_SUBSTITUTION,
+        payload,
+    }),
 }

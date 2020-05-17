@@ -1,10 +1,10 @@
 import { compose } from 'redux';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles';
-import PlayersTable from './PlayersTable';
+import SubstitutionBox from './SubstitutionBox'
 
 const enhance = compose(
-  withStyles(styles),
+  withStyles(styles)
 );
 
-export default enhance(PlayersTable);
+export default enhance(SubstitutionBox);

@@ -91,6 +91,9 @@ const enhance = compose(
             sendChangeQuater(payload){
                 dispatch(gameActions.sendChangeQuater(payload))
             },
+            sendSubstitution(payload){
+                dispatch(gameActions.sendSubstitution(payload))
+            },
 
 
         }),

@@ -7,3 +7,4 @@ export { default as GameCard } from './gameCard';
 export { default as NotificationContainer } from './notificationContainer';
 export { default as GuestPlayersTable } from './guestPlayersTable';
 export { default as Loading } from './loading';
+export { default as SubstitutionBox } from './substitutionBox';

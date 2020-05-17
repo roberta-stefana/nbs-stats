@@ -103,6 +103,9 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_CHANGE_QUATER:
 					yield put(guestGameActions.receiveChangeQuater(obj));
 					break;
+				case socketActions.RECEIVE_SUBSTITUTION:
+					yield put(guestGameActions.receiveSubstitution(obj));
+					break;
 					
 			}
 		}

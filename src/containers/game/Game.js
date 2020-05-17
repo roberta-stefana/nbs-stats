@@ -84,6 +84,19 @@ class Game extends Component {
         })
     }
 
+    setSelectedPlayerStatsNull = () =>{
+        this.setState({
+            selectedPlayerStats: null
+        })
+    }
+
+    sendSubstitution = object =>{
+        const {idGame, minutes, seconds} = this.state;
+        const time = `${minutes}:${seconds}`;
+        this.props.sendSubstitution({object: object, idGame:idGame, time:time})
+
+    }
+
     sendAction = (action) =>{
         const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
         const time = `${minutes}:${seconds}`
@@ -224,7 +237,13 @@ class Game extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerLeft} ${classes.flexColumn}`}>
-                    <PlayersTable stats={statsTeam1} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
+                    <PlayersTable 
+                        setSelectedPlayerStatsNull={this.setSelectedPlayerStatsNull}
+                        sendSubstitution={this.sendSubstitution} 
+                        stats={statsTeam1} 
+                        selectedPlayerStats={selectedPlayerStats} 
+                        handleSelectPlayer={this.handleSelectPlayer}>
+                    </PlayersTable>
                 </Grid>
                 <Grid item xs={2} >
                     <Stepper activeStep={liveGame.quater-1} alternativeLabel>
@@ -237,7 +256,12 @@ class Game extends Component {
                     <Timer minutes={minutes} seconds={seconds}/>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerRight} ${classes.flexColumn}`}>
-                    <PlayersTable stats={statsTeam2} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
+                    <PlayersTable 
+                        setSelectedPlayerStatsNull={this.setSelectedPlayerStatsNull} 
+                        sendSubstitution={this.sendSubstitution} stats={statsTeam2} 
+                        selectedPlayerStats={selectedPlayerStats} 
+                        handleSelectPlayer={this.handleSelectPlayer}>
+                    </PlayersTable>
                 </Grid>
                 <Grid item xs={12} className={classes.buttonContainer}>
                     <div className={classes.buttonSection}>
