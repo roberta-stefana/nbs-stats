@@ -5,7 +5,7 @@ import {
     Tab,
 }from '@material-ui/core'
 import {Loading, DialogBox} from '../../components'
-import {PlayByPlay} from '../index'
+import {PlayByPlay, Boxscore} from '../index'
 
 class GuestGame extends Component {
     state = { 
@@ -22,9 +22,13 @@ class GuestGame extends Component {
         this.props.requestLeaveGame();
     }
 
-    handleTabChange = () => {
-
+    handleTabChange = (event, newValue) => {
+        console.log(newValue)
+        this.setState({
+            step:newValue,
+        })
     }
+    
 
     handleEndGame = () =>{
         this.props.goTo('/live-games')
@@ -34,9 +38,11 @@ class GuestGame extends Component {
         const {game, liveGame, statsTeam1, statsTeam2} = this.props
         switch(step) {
             case 0:
-              return <PlayByPlay game={game} liveGame={liveGame} statsTeam1={statsTeam1} statsTeam2={statsTeam2}/>;
+                return <PlayByPlay game={game} liveGame={liveGame} statsTeam1={statsTeam1} statsTeam2={statsTeam2}/>;
+            case 1:
+                return <Boxscore statsTeam1={statsTeam1} statsTeam2={statsTeam2} team1={game.team1} team2={game.team2}/>
             default:
-              return 'foo';
+                return 'foo';
           }
     }
 

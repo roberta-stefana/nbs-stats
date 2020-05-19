@@ -6,3 +6,4 @@ export { default as Game } from './game';
 export { default as LivePage } from './livePage'
 export { default as GuestGame} from './guestGame'
 export { default as PlayByPlay} from './playByPlay'
+export { default as Boxscore} from './boxscore'
