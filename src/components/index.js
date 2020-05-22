@@ -10,3 +10,4 @@ export { default as Loading } from './loading';
 export { default as BoxscoreTable } from './boxscoreTable';
 export { default as SubstitutionBox } from './substitutionBox';
 export { default as LeadersList } from './leadersList';
+export { default as BarChart} from './barChart';

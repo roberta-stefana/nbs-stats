@@ -6,6 +6,9 @@ const styles = theme => createStyles({
         fontWeight: 800,
         fontFamily: 'nunito, sans-serif',
         fontSize: 'inherit',
+    },
+    tabs:{
+        zIndex: '1'
     }
 });
 

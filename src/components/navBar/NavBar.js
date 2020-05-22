@@ -33,7 +33,7 @@ class NavBar extends Component {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Statistics">
-                            <IconButton onClick={()=> goTo('/')} className={active==='stats'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton onClick={()=> goTo('statistics/')} className={active==='stats'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <EqualizerIcon/>
                             </IconButton>
                         </Tooltip>

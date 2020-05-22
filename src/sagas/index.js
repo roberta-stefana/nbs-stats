@@ -5,6 +5,7 @@ import userSaga from './user';
 import teamSaga from './team';
 import gameSaga from './game';
 import guestGameSaga from './guestGame';
+import statisticsSaga from './guestGame';
 
 import { userActions } from '../redux';
 import { userApi } from '../api';
@@ -40,5 +41,6 @@ export default function* rootSaga() {
       teamSaga(),
       gameSaga(),
       guestGameSaga(),
+      statisticsSaga(),
     ]);
 }
