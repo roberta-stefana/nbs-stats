@@ -5,7 +5,7 @@ import {
     Tab,
 }from '@material-ui/core'
 import {Loading, DialogBox} from '../../components'
-import {PlayByPlay, Boxscore} from '../index'
+import {PlayByPlay, Boxscore, Leaders} from '../index'
 
 class GuestGame extends Component {
     state = { 
@@ -41,6 +41,9 @@ class GuestGame extends Component {
                 return <PlayByPlay game={game} liveGame={liveGame} statsTeam1={statsTeam1} statsTeam2={statsTeam2}/>;
             case 1:
                 return <Boxscore statsTeam1={statsTeam1} statsTeam2={statsTeam2} team1={game.team1} team2={game.team2}/>
+            case 2:{
+                return <Leaders statsTeam1={statsTeam1} statsTeam2={statsTeam2} team1={game.team1} team2={game.team2}/>
+            }
             default:
                 return 'foo';
           }
