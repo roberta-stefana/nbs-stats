@@ -5,7 +5,7 @@ import userSaga from './user';
 import teamSaga from './team';
 import gameSaga from './game';
 import guestGameSaga from './guestGame';
-import statisticsSaga from './guestGame';
+import statisticsSaga from './statistics';
 
 import { userActions } from '../redux';
 import { userApi } from '../api';

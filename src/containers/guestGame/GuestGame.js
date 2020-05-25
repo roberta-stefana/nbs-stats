@@ -19,6 +19,7 @@ class GuestGame extends Component {
 
     componentWillUnmount() {
         // disconnecting from the saga channel and the socket
+        localStorage.removeItem('currentGameId');
         this.props.requestLeaveGame();
     }
 

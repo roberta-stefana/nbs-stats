@@ -127,7 +127,6 @@ export function* joinGame(action) {
 	yield put(guestGameActions.requestJoinGame());
 	const socketTask = yield fork(listenForSocketMessages, action.payload);
 
-	// when DISCONNECT action is dispatched, we cancel the socket task
 	yield take(guestGameTypes.REQUEST_LEAVE_GAME);
 	yield cancel(socketTask);
 	yield put(guestGameActions.receiveLeaveGame());

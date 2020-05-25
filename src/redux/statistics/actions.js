@@ -30,4 +30,34 @@ export const actions = {
     receiveGetPlayerList2Fail: () => ({
         type: types.RECEIVE_GET_PLAYER_LIST_2_FAIL,
     }),
+
+    getStatsPlayer1: payload => ({
+        type: types.GET_STATS_PLAYER_1,
+        payload,
+      }),
+    requestGetStatsPlayer1: () => ({
+        type: types.REQUEST_GET_STATS_PLAYER_1,
+    }),
+    receiveGetStatsPlayer1: stats => ({
+        type: types.RECEIVE_GET_STATS_PLAYER_1,
+        stats,
+    }),
+    receiveGetStatsPlayer1Fail: () => ({
+        type: types.RECEIVE_GET_STATS_PLAYER_1_FAIL,
+    }),
+
+    getStatsPlayer2: payload => ({
+        type: types.GET_STATS_PLAYER_2,
+        payload,
+      }),
+    requestGetStatsPlayer2: () => ({
+        type: types.REQUEST_GET_STATS_PLAYER_2,
+    }),
+    receiveGetStatsPlayer2: stats => ({
+        type: types.RECEIVE_GET_STATS_PLAYER_2,
+        stats,
+    }),
+    receiveGetStatsPlayer2Fail: () => ({
+        type: types.RECEIVE_GET_STATS_PLAYER_2_FAIL,
+    }),
 }
