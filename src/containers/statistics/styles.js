@@ -11,7 +11,7 @@ const styles = theme => createStyles({
         display: 'flex',
         justifyContent: 'space-around',
         width: '90%',
-        marginTop: 20,
+        marginTop: 10,
     },
     textField:{
         width: 200,
@@ -20,6 +20,12 @@ const styles = theme => createStyles({
         marginTop: 'auto',
         marginBottom: 'auto',
         color: theme.palette.primary.dark
+    },
+    diagramsContainer:{
+        width: '100%'
+    },
+    chartContainer:{
+        marginTop: 40,
     }
 });
 

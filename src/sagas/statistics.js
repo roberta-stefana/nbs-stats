@@ -43,7 +43,7 @@ const getStatsPlayer2 = function*(action) {
 	yield put(statisticsActions.requestGetStatsPlayer2());
 
 	try {
-        const response = yield call(gameApi.getPlayersTeam, action.payload); 
+		const response = yield call(statsApi.getStatsPlayer, action.payload); 
 		yield put(statisticsActions.receiveGetStatsPlayer2(response.data));
 	} catch (e) {
 		yield put(statisticsActions.receiveGetStatsPlayer2Fail());

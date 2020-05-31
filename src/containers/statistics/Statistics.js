@@ -5,7 +5,7 @@ import {
     Typography
 } from '@material-ui/core';
 import {Autocomplete} from '@material-ui/lab';
-import {BarChart} from '../../components';
+import Diagrams from './Diagrams'
 
 
 class Statistics extends Component {
@@ -23,7 +23,6 @@ class Statistics extends Component {
     }
 
     handleAutocompleteChange = input =>(event, value) => {
-        console.log(input, value)
         const {team1, player1, player2} = this.state;
         const {teamList, getPlayerList1, getPlayerList2 } = this.props;
         if(value === null){
@@ -62,7 +61,7 @@ class Statistics extends Component {
 
     render() { 
         const {team1, team2, player1, player2, showPlayers, showChart} = this.state;
-        const{ teamList, playersTeam1, playersTeam2, classes} = this.props;
+        const{ teamList, playersTeam1, playersTeam2, classes, statsPlayer1, statsPlayer2} = this.props;
 
 
         const uniqueTeams = Array.from(new Set(teamList.map(x=>x.name)))
@@ -143,8 +142,13 @@ class Statistics extends Component {
                     </div>
                 </div>
                 }
-                {showChart &&
-                <BarChart/>
+                {showChart && 
+                <Diagrams 
+                    classes={classes}
+                    statsPlayer1={statsPlayer1} 
+                    statsPlayer2={statsPlayer2} 
+                    namePlayer1={player1.name} 
+                    namePlayer2={player2.name}/>
                 }
             </Grid>
         );

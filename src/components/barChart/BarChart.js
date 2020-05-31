@@ -1,27 +1,46 @@
 import React from 'react';
 import {Bar} from 'react-chartjs-2';
 
+
+
 const BarChart = props => {
 
+    const {labels,data1, data2, namePlayer1, namePlayer2, title} = props;
+
+    
     const list = {
-        labels: ['January', 'February', 'March','April', 'May'],
+        labels: labels,
         datasets: [
             {
-                label: 'Rainfall',
-                backgroundColor: 'rgba(75,192,192,1)',
-                borderColor: 'rgba(0,0,0,1)',
-                borderWidth: 2,
-                data: [65, 59, 80, 81, 56]
+              label: namePlayer1,
+              backgroundColor: "#4e5361",
+              borderColor: "#C0F442",
+              borderWidth: 1,
+              hoverBackgroundColor: "rgba(255,99,132,1)",
+              hoverBorderColor: "rgba(255,99,132,1)",
+              data: data1
+            },
+  
+            {
+              label: namePlayer2,
+              backgroundColor: "#BFCBD6",
+              borderColor: "#C0F442",
+              borderWidth: 1,
+              hoverBackgroundColor: "rgba(255,199,132,0.4)",
+              hoverBorderColor: "rgba(255,99,132,1)",
+              data: data2
             }
         ]
     }
     return ( 
         <Bar
             data={list}
+            height={200}
+            width={500}
             options={{
                 title:{
                     display:true,
-                    text:'Average Rainfall per month',
+                    text:title,
                     fontSize:20
                 },
                 legend:{
