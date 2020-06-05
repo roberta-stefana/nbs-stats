@@ -16,6 +16,21 @@ export const actions = {
         type: types.RECEIVE_GET_LIVE_GAME_LIST_FAIL,
     }),
 
+    getResultList: payload => ({
+        type: types.GET_RESULT_LIST,
+        payload,
+      }),
+    requestGetResultList: () => ({
+        type: types.REQUEST_GET_RESULT_LIST,
+    }),
+    receiveGetResultList: games => ({
+        type: types.RECEIVE_GET_RESULT_LIST,
+        games,
+    }),
+    receiveGetResultListFail: () => ({
+        type: types.RECEIVE_GET_RESULT_LIST_FAIL,
+    }),
+
     joinGame: payload => ({
         type: types.JOIN_GAME,
         payload,

@@ -37,8 +37,8 @@ class NavBar extends Component {
                                 <EqualizerIcon/>
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Schedule and Results">
-                            <IconButton onClick={()=> goTo('/')} className={active==='results'? `${classes.icon} ${classes.active}` : classes.icon}>
+                        <Tooltip title="Results">
+                            <IconButton onClick={()=> goTo('/results')} className={active==='results'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <ScheduleIcon/>
                             </IconButton>
                         </Tooltip>

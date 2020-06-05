@@ -131,9 +131,9 @@ const startGame = function(action) {
 const endGame = function* (action) {
 	socket.send(JSON.stringify({type: socketActions.SEND_END_GAME, idGame: action.payload}))
 	localStorage.removeItem('currentGameId');
+	localStorage.removeItem('time');
 	localStorage.removeItem('team1');
 	localStorage.removeItem('team2');
-    yield delay(2000);
     yield put(push('/pregame'));
 };
 

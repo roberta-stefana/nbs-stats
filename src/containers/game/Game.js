@@ -174,7 +174,7 @@ class Game extends Component {
     }
 
     setTime = () =>{
-        //localStorage.setItem("time", `${this.state.minutes}:${this.state.seconds}`);
+        localStorage.setItem("time", `${this.state.minutes}:${this.state.seconds}`);
     }
 
     componentDidMount(){
@@ -209,7 +209,7 @@ class Game extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('beforeunload', this.setTime); 
-        //localStorage.setItem("time", this.props.liveGame.time)
+        localStorage.setItem("time", this.props.liveGame.time)
         this.props.requestStopChannel();
     }
 
@@ -285,7 +285,6 @@ class Game extends Component {
                         <div className={classes.timeButtons}>
                             <Button className={classes.buttonSquare} onClick={this.startTime}>Start Time</Button>
                             <Button className={classes.buttonSquare} onClick={this.stopTime}>Stop Time</Button>
-                            <Button className={classes.buttonSquare}>Timeout</Button>
                             <Button className={classes.buttonSquare} onClick={this.startGame}>Start Game</Button>
                             <Button className={classes.buttonSquare} onClick={this.endGame}>End Game</Button>
                         </div>

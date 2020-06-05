@@ -143,6 +143,17 @@ const getLiveGameList = function*(action) {
 	}
 };
 
+const getResultList = function*(action) {
+	yield put(guestGameActions.requestGetResultList());
+
+	try {
+        const response = yield call(gameApi.getResultList);
+		yield put(guestGameActions.receiveGetResultList(response.data));
+	} catch (e) {
+		yield put(guestGameActions.receiveGetResultListFail());
+	}
+};
+
 const getCommentList = function*(action) {
 	yield put(guestGameActions.requestGetCommentList());
 
@@ -157,6 +168,7 @@ const getCommentList = function*(action) {
 export default function*() {
 	yield all([
 		takeLatest(guestGameTypes.GET_LIVE_GAME_LIST, getLiveGameList),
+		takeLatest(guestGameTypes.GET_RESULT_LIST, getResultList),
 		takeLatest(guestGameTypes.GET_COMMENT_LIST, getCommentList),
 		takeLatest(guestGameTypes.JOIN_GAME, joinGame),
 	]);

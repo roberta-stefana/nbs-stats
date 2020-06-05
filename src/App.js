@@ -7,7 +7,7 @@ import {
     CssBaseline,
 } from '@material-ui/core';
 import { ThemeProvider, createStyles } from '@material-ui/core/styles';
-import { Landing, Login, Team, PreGame, Game, LivePage, GuestGame, Statistics } from './containers';
+import { Landing, Login, Team, PreGame, Game, LivePage, GuestGame, Statistics, Results } from './containers';
 import {NavBar, WithoutAuthentication } from './components';
 import Background from './static/logo/background.jpg';
 
@@ -62,6 +62,9 @@ class App extends React.Component {
                                 </Route>
                                 <Route path="/statistics">
                                     <Statistics/>
+                                </Route>
+                                <Route path="/results">
+                                    <Results/>
                                 </Route>
                                 <Redirect to="/"/>
                             </Switch>

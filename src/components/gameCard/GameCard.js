@@ -8,7 +8,6 @@ import { Card,
      CardActions,
      Button
 } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {logoList} from '../../static/logo';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import FacebookIcon from '@material-ui/icons/Facebook';

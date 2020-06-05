@@ -162,7 +162,7 @@ class PlayersTable extends Component {
                                     <TableCell className={classes.cell} align="right">{s.assists}</TableCell>
                                     <TableCell className={classes.cell} align="right">{s.turnovers}</TableCell>
                                     <TableCell className={classes.cell} align="right">{s.defRebounds+ s.offRebounds}</TableCell>
-                                    <TableCell className={classes.cell} align="right">{s.fauls}</TableCell>
+                                    <TableCell className={classes.cell} align="right">{s.fouls}</TableCell>
                                     <TableCell className={classes.cell} align="right">{s.blockedShots}</TableCell>
                                 </StyledTableRow>
                             )}
