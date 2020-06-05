@@ -28,13 +28,18 @@ const styles = theme => createStyles({
         color: theme.palette.common.white,
         height: '3.5em',
         width: '14em',
-        marginRight: '30px'
+    },
+    leftButton:{
+        marginRight: '50px'
+    },
+    rightButton:{
+        marginLeft: '50px'
     },
     infoContainer:{
         height: 200
     },
     buttonsContainer:{
-        paddingBottom: 25
+        paddingBottom: 15
     },
     tableContainer:{
 

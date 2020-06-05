@@ -8,12 +8,20 @@ import {LogoNbs} from '../../static/logo';
 
 class NavBar extends Component {
     state = { 
-        active: 'acasa',
+        active: '/',
 
+    }
+
+    handleClick = path => {
+        this.setState({
+            active: path
+        })
+        this.props.goTo(path)
     }
     render() { 
         const { classes, goTo }= this.props
         const { active } = this.state
+        console.log(active)
         
         return ( 
             <AppBar className={classes.appbar}>
@@ -23,22 +31,22 @@ class NavBar extends Component {
                     </div>
                     <div>
                         <Tooltip title="Home">
-                            <IconButton  onClick={()=> goTo('/')} className={active==='acasa'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton  onClick={()=> this.handleClick('/')} className={active==='/'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <HomeIcon/>
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Live Games">
-                            <IconButton onClick={()=> goTo('/live-games')} className={active==='live'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton onClick={()=> this.handleClick('/live-games')} className={active==='/live-games'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <LiveTvIcon/>
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Statistics">
-                            <IconButton onClick={()=> goTo('statistics/')} className={active==='stats'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton onClick={()=> this.handleClick('/statistics')} className={active==='/statistics'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <EqualizerIcon/>
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Results">
-                            <IconButton onClick={()=> goTo('/results')} className={active==='results'? `${classes.icon} ${classes.active}` : classes.icon}>
+                            <IconButton onClick={()=> this.handleClick('/results')} className={active==='/results'? `${classes.icon} ${classes.active}` : classes.icon}>
                                 <ScheduleIcon/>
                             </IconButton>
                         </Tooltip>

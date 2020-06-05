@@ -17,6 +17,7 @@ function GuestTableHead(props) {
         { id: 'points', numeric: true, label: 'PTS' },
         { id: 'assists', numeric: true, label: 'AS' },
         { id: 'rebounds', numeric: true, label: 'RB' },
+        { id: 'steals', numeric: true, label: 'ST' },
     ];
 
     return (
@@ -52,17 +53,22 @@ const GuestPlayersTable = props => {
     let filteredStats = stats.filter(s => s.player.onCourt == true)
 
     return (  
-        <Table size="small">
+        <Table 
+            classes={{
+                root: classes.table,
+            }}
+        >
             <GuestTableHead classes={classes} imageTeam={imageTeam}/>
                 <TableBody>
                     {filteredStats.map(s =>
                         <StyledTableRow key={s.idStats}>
-                            <TableCell className={classes.cell} align="left">{s.player.number}</TableCell>
-                            <TableCell className={classes.cell} align="right">{s.player.name} </TableCell>
-                            <TableCell className={classes.cell} align="left">{s.time}</TableCell> 
-                            <TableCell className={classes.cell} align="right">{s.madeFt + s.made2p*2 + s.made3p * 3}</TableCell>
-                            <TableCell className={classes.cell} align="right">{s.assists}</TableCell>
-                            <TableCell className={classes.cell} align="right">{s.defRebounds+ s.offRebounds}</TableCell>
+                            <TableCell className={classes.cell} align="center">{s.player.number}</TableCell>
+                            <TableCell className={classes.cell} align="left">{s.player.name} </TableCell>
+                            <TableCell className={classes.cell} align="center">{s.time}</TableCell> 
+                            <TableCell className={classes.cell} align="center">{s.madeFt + s.made2p*2 + s.made3p * 3}</TableCell>
+                            <TableCell className={classes.cell} align="center">{s.assists}</TableCell>
+                            <TableCell className={classes.cell} align="center">{s.defRebounds+ s.offRebounds}</TableCell>
+                            <TableCell className={classes.cell} align="center">{s.steals}</TableCell>
                         </StyledTableRow>
                     )}
                 </TableBody>
