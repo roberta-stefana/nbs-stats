@@ -26,6 +26,8 @@ const styles = theme => createStyles({
         backgroundColor:theme.palette.secondary.dark,
         width: '430px',
         height: '30px',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
     },
     toolbarTitle:{
         flex:1,
@@ -35,6 +37,10 @@ const styles = theme => createStyles({
     },
     fab:{
         backgroundColor: theme.palette.primary.light,
+    },
+    teamText:{
+        marginTop: 5,
+        color: theme.palette.common.white
     }
 });
 

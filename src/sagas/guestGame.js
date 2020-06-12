@@ -147,7 +147,7 @@ const getResultList = function*(action) {
 	yield put(guestGameActions.requestGetResultList());
 
 	try {
-        const response = yield call(gameApi.getResultList);
+		const response = yield call(gameApi.getResultList);
 		yield put(guestGameActions.receiveGetResultList(response.data));
 	} catch (e) {
 		yield put(guestGameActions.receiveGetResultListFail());

@@ -7,7 +7,6 @@ const Leaders = props => {
 
     let orderedPointsTeam1 =statsTeam1.slice().sort(function(a, b){
         let pointsA = a.madeFt + a.made2p*2 + a.made3p * 3
-        console.log(pointsA)
         let pointsB = b.madeFt + b.made2p*2 + b.made3p * 3
         return pointsA<pointsB
     }).slice(0,3)

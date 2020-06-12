@@ -5,9 +5,21 @@ import {
     TableCell,
     Toolbar,
     TableBody,
-    TableHead
+    TableHead,
+    Typography
 }from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
+
+const TeamsToolbar = props => {
+    const { classes, team1, team2} = props;
+
+    return (
+        <Toolbar className={classes.toolbar}>
+            <Typography className={classes.teamText}>{team1.name}</Typography>
+            <Typography className={classes.teamText}>{team2.name}</Typography>
+        </Toolbar>
+    );
+};
 
 function TableHeadNotifications(props) {
     const {classes} = props;
@@ -45,18 +57,18 @@ const StyledTableRow = withStyles(theme => ({
   }))(TableRow);
 
 const NotificationContainer = props => {
-    const {classes, commentList, idTeam1, idTeam2, imageTeam1, imageTeam2} = props;
+    const {classes, commentList, team1, team2, imageTeam1, imageTeam2} = props;
 
     return (
         <div>
-            <Toolbar className={classes.toolbar}></Toolbar>
+            <TeamsToolbar classes={classes} team1={team1} team2={team2} />
             <Table className={classes.table}>
                 <TableHeadNotifications classes={classes}/>
                 <TableBody>
                     {commentList.map(com =>
                         <StyledTableRow key={com.idComment}>
                             <TableCell className={classes.cell} align="left">
-                                {idTeam1 === com.idTeam
+                                {team1.idTeam === com.idTeam
                                 ?   <img src={imageTeam1} alt="LOGO" className={classes.logo}/>
                                 :   <img src={imageTeam2} alt="LOGO" className={classes.logo}/>
                                 }

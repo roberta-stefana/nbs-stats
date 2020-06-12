@@ -24,7 +24,7 @@ const styles = theme => createStyles({
         flexDirection: 'column-reverse',
     },
     greenLine:{
-        height: 15,
+        height: 10,
         display: 'flex',
         backgroundColor: theme.palette.common.green,
     },

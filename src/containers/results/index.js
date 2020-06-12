@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles';
 import Results from './Results'
-import {
-    guestGameSelectors,
-    guestGameActions
-} from '../../redux';
+import{
+    guestGameActions,
+    guestGameSelectors
+}from '../../redux'
 
 const enhance = compose(
     withStyles(styles),
@@ -17,8 +17,11 @@ const enhance = compose(
         dispatch => ({
             getResultList(payload){
                 console.log("index")
-                dispatch(guestGameActions.getLiveGameList())
+                dispatch(guestGameActions.getResultList())
             },
+            getCommentList(payload){
+                dispatch(guestGameActions.getCommentList(payload))
+            }
         }),
     )
 );

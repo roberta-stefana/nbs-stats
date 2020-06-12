@@ -30,11 +30,9 @@ const styles = theme => createStyles({
     shareButtons:{
         flex: 1,
     },
-    liveButton:{
-        color: theme.palette.error.main,
-        fontWeight: 900,
+    statsButton:{
         padding: 4,
-        borderColor: theme.palette.error.main,     
+        width: '8em'  
     },
 });
 

@@ -19,9 +19,8 @@ class NavBar extends Component {
         this.props.goTo(path)
     }
     render() { 
-        const { classes, goTo }= this.props
+        const { classes }= this.props
         const { active } = this.state
-        console.log(active)
         
         return ( 
             <AppBar className={classes.appbar}>

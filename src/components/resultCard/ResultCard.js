@@ -30,6 +30,7 @@ class ResultCard extends Component {
         })
     }
 
+
     render() { 
         const {game, classes} = this.props;
         const{team1, team2, liveGame} = game;
@@ -51,9 +52,14 @@ class ResultCard extends Component {
                 </CardContent>
                 <CardActions disableSpacing>
                     <div className={classes.shareButtons}>
-                        <Typography>Data</Typography>
+                        <Typography>{new Date(game.date).toLocaleString()}</Typography>
                     </div>
-                    <Button className={classes.liveButton} variant="outlined" onClick={this.handleClick}>LIVE</Button>
+                    <Button
+                                size="medium"
+                                className={classes.statsButton}
+                                onClick={this.handleClick}
+                                variant="outlined"
+                    >STATISTICS</Button>
                 </CardActions>
             </Card>
         );

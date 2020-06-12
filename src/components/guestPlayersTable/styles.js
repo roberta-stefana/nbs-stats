@@ -8,6 +8,9 @@ const styles = theme => createStyles({
     table:{
         width: 500,
         height: 300
+    },
+    head:{
+        paddingBottom: 8
     }
 });
 

@@ -82,8 +82,8 @@ class PlayByPlay extends Component {
                 <Grid item xs={6} className={classes.liveNotificationsContainer}>
                     <NotificationContainer 
                         commentList={commentList}
-                        idTeam1={game.team1.idTeam} 
-                        idTeam2={game.team2.idTeam}
+                        team1={game.team1} 
+                        team2={game.team2}
                         imageTeam1={imageTeam1}
                         imageTeam2={imageTeam2}
                     />

@@ -25,11 +25,11 @@ const guestGame = (state = initialState, action) => {
         case types.RECEIVE_GET_LIVE_GAME_LIST_FAIL:
             return { ...state, listLoader: false };
 
-        case types.REQUEST_RESULT_LIST:
+        case types.REQUEST_GET_RESULT_LIST:
             return { ...state, listLoader: true };
-        case types.RECEIVE_RESULT_LIST:
+        case types.RECEIVE_GET_RESULT_LIST:
             return { ...state, resultGames: action.games, listLoader: false };
-        case types.RECEIVE_RESULT_LIST_FAIL:
+        case types.RECEIVE_GET_RESULT_LIST_FAIL:
             return { ...state, listLoader: false };
 
         case types.REQUEST_JOIN_GAME:

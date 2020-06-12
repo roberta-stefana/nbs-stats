@@ -28,7 +28,7 @@ function GuestTableHead(props) {
                 </TableCell>
                 {headCells.map(headCell => (
                     <TableCell
-                        className={classes.cell}
+                        className={classes.head}
                         key={headCell.id}
                         align={headCell.numeric ? 'right' : 'left'}    
                     >

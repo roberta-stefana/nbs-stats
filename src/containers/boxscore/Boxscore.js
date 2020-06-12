@@ -4,7 +4,6 @@ import { Typography, Divider } from '@material-ui/core';
 
 const Boxscore = (props) => {
     const {statsTeam1, statsTeam2, team1, team2, classes} = props;
-    console.log(team2)
 
     return (
         <div className={classes.tableContainer}>
