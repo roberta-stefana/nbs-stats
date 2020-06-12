@@ -24,6 +24,7 @@ class PlayersForm extends Component {
         this.props.getPlayersTeam2(team2.idTeam)
     }
 
+
     render() { 
         const { classes, team1, team2, playersTeam1, playersTeam2, handleCheckboxChange, openDialog, handleDialogClose, continueToGame} = this.props;
 

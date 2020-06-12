@@ -68,7 +68,6 @@ export const receiveSubstitution = (state, action) => {
     // object: 1,2,3 --> 1 out, 2 in, 3 team 
     const {comment, object} = action.payload;
     const elements = object.split(',');
-    console.log(elements[0])
     if(state.game.team1.idTeam === parseInt(elements[2]))
         return {
             ...state,

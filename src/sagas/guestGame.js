@@ -52,15 +52,10 @@ function* listenForSocketMessages(idGame) {
 		socket        = yield call(createWebSocketConnection, idGame);
 		socketChannel = yield call(createSocketChannel, socket);
 
-		// tell the application that we have a connection
-		//yield dispatch(LiveDataActions.connectionSuccess());
-
 		while (true) {
 			// wait for a message from the channel
 			const payload = yield take(socketChannel);
-
-			// a message has been received, dispatch an action with the message payload
-			//yield dispatch(LiveDataActions.incomingEvent(payload));
+			
 			const obj = JSON.parse(payload)
 			console.log('Obiectul primit prin websocket este: ',obj)
 			switch(obj.type){

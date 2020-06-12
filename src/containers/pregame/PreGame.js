@@ -17,7 +17,12 @@ class PreGame extends Component {
     }
 
     componentDidMount(){
-        this.props.getTeamList();
+        const time = localStorage.getItem("time");
+        if(time !== null){
+            this.props.goToGame();
+        }else{
+            this.props.getTeamList();
+        }
     }
 
     handleDialogClose = () => {
@@ -31,6 +36,13 @@ class PreGame extends Component {
             [input] : value,
         })
     }
+
+    handleLogout = () =>{
+        console.log("LOGOUT")
+        localStorage.removeItem('access_token');
+        this.props.goTo('/login')
+    }
+
 
     handleCheckboxChange = e => {
         const {playersTeam1, playersTeam2} = this.props;
@@ -71,11 +83,11 @@ class PreGame extends Component {
             if(player.onCourt == true){
                 this.setState({
                     checkedPlayersTeam2: this.state.checkedPlayersTeam2-1
-                },console.log(this.state.checkedPlayersTeam2))
+                })
             }else{
                 this.setState({
                     checkedPlayersTeam2: this.state.checkedPlayersTeam2+1
-                },console.log(this.state.checkedPlayersTeam2))
+                })
             }
         }
         const newPlayer = {...player, onCourt: !player.onCourt}
@@ -122,6 +134,7 @@ class PreGame extends Component {
                         values={teamsValues}
                         handleAutocompleteChange={this.handleAutocompleteChange}
                         nextStep={this.nextStep}
+                        handleLogout={this.handleLogout}
                     />
                 );
             case 2:

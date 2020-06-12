@@ -21,6 +21,16 @@ const styles = theme => createStyles({
 		backgroundColor: theme.palette.primary.dark,
 		color: theme.palette.common.white,
 	},
+	logoutButton:{
+		backgroundColor: theme.palette.primary.dark,
+		color: theme.palette.common.white,
+		margin: 0,
+		
+	},
+	logoutContainer:{
+		display: 'flex',
+		justifyContent: 'flex-end',
+	},
 	fields:{
 		width:'300px',
 		height:'300px',

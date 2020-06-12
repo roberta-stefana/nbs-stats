@@ -23,7 +23,6 @@ const enhance = compose(
         }),
         dispatch => ({
             joinGame(payload){
-                console.log("JOIN GAME DISPATCH")
                 dispatch(guestGameActions.joinGame(payload))
             },
             requestLeaveGame(){

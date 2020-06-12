@@ -224,7 +224,6 @@ const sendPlayersTime = function(action) {
 
 const sendChangeQuater = function(action) {
 	const {time, idGame} = action.payload;
-	console.log("acum trimit", time, idGame)
     socket.send(JSON.stringify({type: socketActions.SEND_CHANGE_QUATER, object: null, time: time, idGame: idGame}))
 };
 

@@ -107,6 +107,8 @@ export const actions = {
         status
     }),
 
+
+
     requestStopChannel: () => ({
         type: types.REQUEST_STOP_CHANNEL,
     }),
@@ -164,6 +166,11 @@ export const actions = {
         type: types.SEND_END_GAME,
         payload
     }),
+    setEndGame: payload => ({
+        type: types.SET_END_GAME,
+        payload
+    }),
+
 
     sendScore1: payload => ({
         type: types.SEND_SCORE_1,

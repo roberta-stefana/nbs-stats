@@ -87,6 +87,9 @@ const game = (state = initialState, action) => {
         case types.RECEIVE_GET_STATS_LIST_TEAM2_FAIL:
             return { ...state, listLoader: false };
 
+        case types.SET_END_GAME:
+            return { ...state, game:null, liveGame:null, playersTeam1: [], playersTeam2:[], statsTeam1:[], statsTeam2:[] };
+
         case types.SUCCESSFULL_REFRESH:
             return successfullRefresh(state, action);
 

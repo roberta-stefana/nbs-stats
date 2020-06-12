@@ -75,6 +75,7 @@ class Game extends Component {
 
     endGame = () =>{
         const idGame = localStorage.getItem("currentGameId");
+        this.props.setEndGame();
         this.props.sendEndGame(idGame);
     }
 
@@ -174,7 +175,10 @@ class Game extends Component {
     }
 
     setTime = () =>{
-        //localStorage.setItem("time", `${this.state.minutes}:${this.state.seconds}`);
+        if( this.props.game !== null){
+            localStorage.setItem("time", `${this.state.minutes}:${this.state.seconds}`);
+        }
+
     }
 
     componentDidMount(){
@@ -183,10 +187,9 @@ class Game extends Component {
         const team1 = localStorage.getItem("team1");
         const team2 = localStorage.getItem("team2");
         const time = localStorage.getItem("time");
-        console.log(time)
         this.props.hostGame(idGame);  
 
-        if(time !== null ){
+        if(time !== null){
             const timeElements = time.split(':')
             this.setState({
                 minutes: parseInt(timeElements[0]),
@@ -209,9 +212,12 @@ class Game extends Component {
     }
 
     componentWillUnmount() {
+        const {game, requestStopChannel, liveGame} = this.props;
         window.removeEventListener('beforeunload', this.setTime); 
-        //localStorage.setItem("time", this.props.liveGame.time)
-        this.props.requestStopChannel();
+        if( game !== null){
+            //localStorage.setItem("time", liveGame.time)
+        }
+        requestStopChannel();
     }
 
     render() { 

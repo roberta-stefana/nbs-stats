@@ -24,7 +24,6 @@ class GuestGame extends Component {
     }
 
     handleTabChange = (event, newValue) => {
-        console.log(newValue)
         this.setState({
             step:newValue,
         })

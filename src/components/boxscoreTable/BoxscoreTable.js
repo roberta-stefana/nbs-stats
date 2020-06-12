@@ -92,7 +92,6 @@ const StyledTableRow = withStyles(theme => ({
 
 const BoxscoreTable = props => {
     const {classes, stats, imageTeam, team} = props;
-    console.log(stats)
 
     return (  
         <React.Fragment>

@@ -57,6 +57,7 @@ export const types = {
 
     SEND_START_GAME: 'SEND_START_GAME',
     SEND_END_GAME: 'SEND_END_GAME',
+    SET_END_GAME: 'SET_END_GAME',
 
     SEND_SCORE_1: 'SEND_SCORE_1',
     SEND_SCORE_2: 'SEND_SCORE_2',

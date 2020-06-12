@@ -6,13 +6,11 @@ class Results extends Component {
     state = {  }
 
     componentDidMount(){
-        console.log('comDId')
         this.props.getResultList();
     }
 
     render() { 
         const { classes, resultList} = this.props;
-        console.log(resultList)
 
         return (
             <Grid className ={classes.mainContainer}>

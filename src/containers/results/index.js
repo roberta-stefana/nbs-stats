@@ -16,7 +16,6 @@ const enhance = compose(
         }),
         dispatch => ({
             getResultList(payload){
-                console.log("index")
                 dispatch(guestGameActions.getResultList())
             },
             getCommentList(payload){
