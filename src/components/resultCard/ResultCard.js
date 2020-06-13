@@ -32,7 +32,7 @@ class ResultCard extends Component {
 
 
     render() { 
-        const {game, classes} = this.props;
+        const {game, classes, next} = this.props;
         const{team1, team2, liveGame} = game;
         const{imageTeam1, imageTeam2} = this.state;
 
@@ -57,7 +57,7 @@ class ResultCard extends Component {
                     <Button
                                 size="medium"
                                 className={classes.statsButton}
-                                onClick={this.handleClick}
+                                onClick={() => next(game)}
                                 variant="outlined"
                     >STATISTICS</Button>
                 </CardActions>

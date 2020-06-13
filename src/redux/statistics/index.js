@@ -7,6 +7,7 @@ const initialState = {
     statsPlayer1: [],
     statsPlayer2: [],
     listLoader: false,
+    statsGame: [],
 };
 
 const statistics = (state = initialState, action) => {
