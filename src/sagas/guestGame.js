@@ -8,7 +8,7 @@ import {
 } from "../redux";
 
 
-const socketServerURL = "ws://192.168.100.89:8081";
+const socketServerURL = "ws://192.168.99.100:8081";
 
 function createWebSocketConnection(idGame) {
 	return new Promise((resolve, reject) => {

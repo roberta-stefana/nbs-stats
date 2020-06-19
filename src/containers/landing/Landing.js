@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
-import {Typography } from '@material-ui/core';
+import React from 'react';
+import { Container} from '@material-ui/core';
 
 
-class Landing extends Component {
-  
-  render() { 
-    return ( <Typography></Typography> );
-  }
+const Landing = props => {
+	const{classes} = props;
+
+	return (
+		<Container className={classes.main}/>
+	);
 }
  
 export default Landing;
+
+
 
