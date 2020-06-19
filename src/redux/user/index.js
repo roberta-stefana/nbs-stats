@@ -7,7 +7,7 @@ import { types } from "./types";
 const initialState = {
     currentUser: {},
     users: [],
-    loginFailMessage: '',
+    loginFail: false,
     registerSuccessMessage: false,
     listLoader: false,
     buttonLoader: false,
@@ -18,11 +18,14 @@ const initialState = {
 const user = (state = initialState, action) => {
     switch(action.type) {
         case types.REQUEST_LOGIN:
-            return { ...state, buttonLoader: true, loginFailMessage: '' };
+            return { ...state, buttonLoader: true, loginFail: false };
         case types.RECEIVE_LOGIN:
-            return { ...state, buttonLoader: false, loginFailMessage: '', registerSuccessMessage: false };
+            return { ...state, buttonLoader: false, loginFail: false, registerSuccessMessage: false };
         case types.RECEIVE_LOGIN_FAIL:
-            return { ...state, buttonLoader: false, loginFailMessage: action.message };
+            return { ...state, buttonLoader: false, loginFail: true };
+
+        case types.SET_LOGIN_FAIL:
+            return { ...state, buttonLoader: false, loginFail: false };
 
         case types.REQUEST_GET_USER:
             return state;

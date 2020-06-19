@@ -8,12 +8,15 @@ import { userActions, userSelectors } from '../../redux';
 const enhance = compose(
   withStyles(styles),
   connect(state => ({
-    loginFailMessage: userSelectors.getLoginFailMessage(state),
+    loginFail: userSelectors.getLoginFail(state),
     buttonLoader: userSelectors.getButtonLoader(state),
   }),
     dispatch => ({
         login(payload) {
             dispatch(userActions.login(payload));
+        },
+        setLoginFail(){
+          dispatch(userActions.setLoginFail());
         }
   }))
 );
