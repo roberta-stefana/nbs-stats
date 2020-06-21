@@ -1,7 +1,8 @@
 import axios from "axios";
 import { userActions } from "../redux";
 
-const URL_MAIN = "http://192.168.99.100:8080";
+//const URL_MAIN = "http://192.168.99.100:8080";
+const URL_MAIN = "http://localhost:8080";
 
 export const configureAxios = store => {
     const { dispatch } = store;

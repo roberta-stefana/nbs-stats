@@ -65,6 +65,8 @@ const guestGame = (state = initialState, action) => {
             return { ...state, comments: [action.comment].concat(state.comments)};
         case types.RECEIVE_END_GAME:
             return { ...state, endGameFlag: true};
+        case types.SET_END_GAME_FLAG:
+            return { ...state, endGameFlag: false};
         
         case types.RECEIVE_SCORE_1:
             return receiveScore(state, action, 1);

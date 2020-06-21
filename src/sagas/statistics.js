@@ -50,11 +50,22 @@ const getStatsPlayer2 = function*(action) {
 	}
 };
 
+const getStatsList = function*(action) {
+	yield put(statisticsActions.requestGetStatsList());
+	try {
+		const response = yield call(gameApi.getStatsListTeam, action.payload);
+    	yield put(statisticsActions.receiveGetStatsList(response.data));
+	} catch (e) {
+    	yield put(statisticsActions.receiveGetStatsListFail());
+	}
+};
+
 export default function*() {
 	yield all([
         takeLatest(statisticsTypes.GET_PLAYER_LIST_1, getPlayerList1 ),
 		takeLatest(statisticsTypes.GET_PLAYER_LIST_2, getPlayerList2 ),
 		takeLatest(statisticsTypes.GET_STATS_PLAYER_1, getStatsPlayer1 ),
-        takeLatest(statisticsTypes.GET_STATS_PLAYER_2, getStatsPlayer2 )
+		takeLatest(statisticsTypes.GET_STATS_PLAYER_2, getStatsPlayer2 ),
+		takeLatest(statisticsTypes.GET_STATS_LIST, getStatsList),
 	]);
 }

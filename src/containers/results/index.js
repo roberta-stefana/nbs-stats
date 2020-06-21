@@ -5,7 +5,9 @@ import styles from './styles';
 import Results from './Results'
 import{
     guestGameActions,
-    guestGameSelectors
+    guestGameSelectors,
+    statisticsActions,
+    statisticsSelectors,
 }from '../../redux'
 
 const enhance = compose(
@@ -13,6 +15,8 @@ const enhance = compose(
     connect(
         state => ({
             resultList : guestGameSelectors.getResultGameList(state),
+            statsTeam1 : statisticsSelectors.getStatsTeam1(state),
+            statsTeam2 : statisticsSelectors.getStatsTeam2(state),
         }),
         dispatch => ({
             getResultList(payload){
@@ -20,7 +24,16 @@ const enhance = compose(
             },
             getCommentList(payload){
                 dispatch(guestGameActions.getCommentList(payload))
-            }
+            },
+            setTeam1(payload){
+                dispatch(statisticsActions.setTeam1(payload))
+            },
+            setTeam2(payload){
+                dispatch(statisticsActions.setTeam2(payload))
+            },
+            getStatsList(payload){
+                dispatch(statisticsActions.getStatsList(payload))
+            }   
         }),
     )
 );

@@ -31,6 +31,9 @@ const enhance = compose(
             goTo(path){
                 dispatch(push(path))
             },
+            setEndGameFlag(){
+                dispatch(guestGameActions.setEndGameFlag())
+            },
         }),
     )
 );

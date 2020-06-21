@@ -31,7 +31,8 @@ class GuestGame extends Component {
     
 
     handleEndGame = () =>{
-        this.props.goTo('/live-games')
+        this.props.goTo('/results')
+        this.props.setEndGameFlag();
     }
 
     renderSwitch = step =>{
@@ -72,7 +73,7 @@ class GuestGame extends Component {
                     </AppBar>
                     <DialogBox
                         title="End Game"
-                        content="The game ended. You will be redirected to the Statistics page"
+                        content="The game ended. You will be redirected to the Results page"
                         open={endGameFlag}
                         handleDialogClose={this.handleEndGame}
                     />

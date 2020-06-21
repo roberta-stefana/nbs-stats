@@ -60,4 +60,29 @@ export const actions = {
     receiveGetStatsPlayer2Fail: () => ({
         type: types.RECEIVE_GET_STATS_PLAYER_2_FAIL,
     }),
+
+    setTeam1: payload => ({
+        type: types.SET_TEAM1,
+        payload
+    }),
+    setTeam2: payload => ({
+        type: types.SET_TEAM2,
+        payload
+    }),
+
+    getStatsList: payload => ({
+        type: types.GET_STATS_LIST,
+        payload,
+      }),
+    requestGetStatsList: () => ({
+        type: types.REQUEST_GET_STATS_LIST,
+    }),
+    receiveGetStatsList: stats => ({
+        type: types.RECEIVE_GET_STATS_LIST,
+        stats,
+    }),
+    receiveGetStatsListFail: () => ({
+        type: types.RECEIVE_GET_STATS_LIST_FAIL,
+    }),
+
 }

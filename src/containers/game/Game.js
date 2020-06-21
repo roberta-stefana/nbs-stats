@@ -57,14 +57,24 @@ class Game extends Component {
     stopTime = () => {
         const { startMin, startSec, minutes, seconds, idGame} = this.state;
         clearInterval(this.state.timerId);
+        console.log('Min start ', startMin)
+        console.log('Sec start ', startSec)
+        console.log('Min ',minutes)
+        console.log('Sec ',seconds)
 
         var d1 = new Date(1776, 6, 4, 12, startMin, startSec, 0);
         var d2 = new Date(1776, 6, 4, 12, minutes, seconds,0);
         var diff = new Date(d1 - d2);
+        console.log(diff)
+        
         var filteredStats1 = this.props.statsTeam1.filter(s => s.player.onCourt == true)
         var filteredStats2 = this.props.statsTeam2.filter(s => s.player.onCourt == true)
         this.props.sendPlayersTime({stats: filteredStats1.concat(filteredStats2), idGame:idGame, time:`${diff.getMinutes()}:${diff.getSeconds()}/${minutes}:${seconds}`})
-        
+        if(minutes == 0 && seconds == 0){
+            this.setState({
+                minutes: 10,
+            })
+        }
     }
 
     startGame = () =>{
@@ -102,10 +112,6 @@ class Game extends Component {
         const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
         const time = `${minutes}:${seconds}`
         if(action === 'Q'){
-            this.setState({
-                minutes: 10,
-                seconds: 0,
-            })
             this.props.sendChangeQuater({idGame:idGame, time:time})
         } 
         if(selectedPlayerStats !== null){
