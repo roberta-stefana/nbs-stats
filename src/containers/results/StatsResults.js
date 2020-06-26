@@ -12,17 +12,24 @@ const StatsResults = props => {
             <Grid item xs={12}>
                 <Button
                     size="medium"
-                    className={classes.statsButton}
+                    className={classes.backButton}
                     onClick={() => back()}
                     variant="outlined"
                 >
-                    STATISTICS
+                    BACK
                 </Button>
-                <div>
-                    <img src={imageTeam1} alt='logo' className={classes.logo} />
-                </div>
-                <div>
-                    <img src={imageTeam2} alt='logo' className={classes.logo} />
+                <div className={classes.imageContainer}>
+                    <div className={classes.logoContainer}>
+                        <img src={imageTeam1} alt='logo' className={classes.logo} />
+                        <Typography>{game.team1.name}</Typography>
+                    </div>
+                    <Typography variant="h3">{game.liveGame.points1}</Typography>
+                    <Typography>VS</Typography>
+                    <Typography variant="h3">{game.liveGame.points2}</Typography>
+                    <div className={classes.logoContainer}>
+                        <img src={imageTeam2} alt='logo' className={classes.logo} />
+                        <Typography>{game.team2.name}</Typography>
+                    </div>
                 </div>
             </Grid>
             <Grid className={classes.tables}>

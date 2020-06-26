@@ -8,8 +8,8 @@ import {
 } from "../redux";
 
 
-//const socketServerURL = "ws://192.168.99.100:8081";
-const socketServerURL = "ws://localhost:8081";
+const socketServerURL = "ws://192.168.99.100:8081"; //pt local server
+//const socketServerURL = "wss://localhost:8081";
 
 function createWebSocketConnection(idGame) {
 	return new Promise((resolve, reject) => {

@@ -14,11 +14,13 @@ const styles = theme => createStyles({
     logo:{
         width: 60,
         height: 60,
+        marginBottom: 10
     },
     tables:{
 		display:'flex',
 		flexDirection: 'column',
-		alignItems: 'center',
+        alignItems: 'center',
+        margin: 'auto'
     },
     resultGrid:{
         display: 'flex',
@@ -32,7 +34,24 @@ const styles = theme => createStyles({
 	},
 	textCoach:{
 		color: theme.palette.secondary.dark,
-	},
+    },
+    imageContainer:{
+        display:'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        marginTop: 20,
+        width: 600,
+        margin: 'auto'
+    },
+    logoContainer:{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+
+    },
+    backButton:{
+        marginTop: 5
+    }
 });
 
 export default styles;
