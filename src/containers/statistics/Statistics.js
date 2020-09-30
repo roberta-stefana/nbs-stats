@@ -20,7 +20,6 @@ class Statistics extends Component {
 
     componentDidMount(){
         this.props.getTeamList();
-        console.log("GET TEAMS");
     }
 
     handleAutocompleteChange = input =>(event, value) => {
