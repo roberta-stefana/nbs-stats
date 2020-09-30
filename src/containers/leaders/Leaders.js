@@ -69,8 +69,8 @@ const Leaders = props => {
                 <Typography className={classes.title}>STATISTIC LEADERS - REBOUNDS</Typography>
             </Toolbar>
             <div className={classes.div}>
-                <LeadersList stats={orderedReboundsTeam1} flag="REB" team={team1}/>
-                <LeadersList stats={orderedReboundsTeam2} flag="REB" team={team2}/>
+                <LeadersList stats={orderedReboundsTeam1} flag="REBOUNDS" team={team1}/>
+                <LeadersList stats={orderedReboundsTeam2} flag="REBOUNDS" team={team2}/>
             </div>
         </Grid>
     );

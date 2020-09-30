@@ -10,7 +10,7 @@ const LeadersList = props => {
                 {stats.map(s=>
                     <React.Fragment key={s.idStats}>
                         <ListItem className={classes.item}>
-                            { (flag === 'POINTS' && s.madeFt + s.made2p + s.made3p === 0) || (flag === 'ASSISTS' && s.assists === 0) || (flag === 'REBOUNDS' && s.offRebounds + s.defRebounds) ?
+                            { (flag === 'POINTS' && s.madeFt + s.made2p + s.made3p === 0) || (flag === 'ASSISTS' && s.assists === 0) || (flag === 'REBOUNDS' && s.offRebounds + s.defRebounds === 0) ?
                                 <React.Fragment>
                                     <Typography className={classes.name}>Waiting for players</Typography>
                                     <Typography></Typography>

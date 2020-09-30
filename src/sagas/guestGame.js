@@ -8,8 +8,9 @@ import {
 } from "../redux";
 
 
-const socketServerURL = "ws://192.168.99.100:8081"; //pt local server
+//const socketServerURL = "ws://192.168.100.127:8080/chat"; //pt local server
 //const socketServerURL = "wss://localhost:8081";
+const socketServerURL ="ws://warm-wave-45384.herokuapp.com"
 
 function createWebSocketConnection(idGame) {
 	return new Promise((resolve, reject) => {
@@ -22,6 +23,7 @@ function createWebSocketConnection(idGame) {
 		};
 
 		socket.onerror = function (evt) {
+			console.log('SOCKET ON ERROR',evt)
 			reject(evt);
 		}
 	});
