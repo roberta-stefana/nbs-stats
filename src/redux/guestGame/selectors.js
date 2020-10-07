@@ -1,5 +1,6 @@
 export const selectors = {
     getLiveGameList: state => state.guestGame.liveGames,
+    getResultGameList: state => state.guestGame.resultGames,
     getListLoader: state => state.guestGame.listLoader,
     getButtonLoader: state => state.guestGame.buttonLoader,
     getGame: state => state.guestGame.game,

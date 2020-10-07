@@ -1,5 +1,5 @@
 import { types } from "./types";
-import {receiveJoinGame, receiveScore, receiveMiss} from './helperFunctions';
+import {receiveJoinGame, receiveScore, receiveStatsUpdate, receivePlayersTime, receiveSubstitution} from './helperFunctions';
 
 const initialState = {
     channelStatus: 'off',
@@ -8,6 +8,7 @@ const initialState = {
     statsTeam1:[],
     statsTeam2:[],
     liveGames: [],
+    resultGames: [],
     listLoader: false,
     buttonLoader: false,
     comments: [],
@@ -22,6 +23,13 @@ const guestGame = (state = initialState, action) => {
         case types.RECEIVE_GET_LIVE_GAME_LIST:
             return { ...state, liveGames: action.games, listLoader: false };
         case types.RECEIVE_GET_LIVE_GAME_LIST_FAIL:
+            return { ...state, listLoader: false };
+
+        case types.REQUEST_GET_RESULT_LIST:
+            return { ...state, listLoader: true };
+        case types.RECEIVE_GET_RESULT_LIST:
+            return { ...state, resultGames: action.games, listLoader: false };
+        case types.RECEIVE_GET_RESULT_LIST_FAIL:
             return { ...state, listLoader: false };
 
         case types.REQUEST_JOIN_GAME:
@@ -57,6 +65,8 @@ const guestGame = (state = initialState, action) => {
             return { ...state, comments: [action.comment].concat(state.comments)};
         case types.RECEIVE_END_GAME:
             return { ...state, endGameFlag: true};
+        case types.SET_END_GAME_FLAG:
+            return { ...state, endGameFlag: false};
         
         case types.RECEIVE_SCORE_1:
             return receiveScore(state, action, 1);
@@ -66,12 +76,20 @@ const guestGame = (state = initialState, action) => {
             return receiveScore(state, action, 3);
 
         case types.RECEIVE_MISS_1:
-            return receiveMiss(state, action);
+            return receiveStatsUpdate(state, action);
         case types.RECEIVE_MISS_2:
-            return receiveMiss(state, action);
+            return receiveStatsUpdate(state, action);
         case types.RECEIVE_MISS_3:
-            return receiveMiss(state, action);
+            return receiveStatsUpdate(state, action);
 
+        case types.RECEIVE_STATS_UPDATE:
+            return receiveStatsUpdate(state, action);
+        case types.RECEIVE_PLAYERS_TIME:
+            return receivePlayersTime(state, action);
+        case types.RECEIVE_CHANGE_QUATER:
+            return { ...state,  comments: [action.payload.comment].concat(state.comments), liveGame: {...state.liveGame, time: action.payload.comment.time, quater:action.payload.comment.quater }};
+        case types.RECEIVE_SUBSTITUTION:
+            return receiveSubstitution(state, action);
         default:
             return state;
     }

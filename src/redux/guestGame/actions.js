@@ -16,6 +16,21 @@ export const actions = {
         type: types.RECEIVE_GET_LIVE_GAME_LIST_FAIL,
     }),
 
+    getResultList: payload => ({
+        type: types.GET_RESULT_LIST,
+        payload,
+      }),
+    requestGetResultList: () => ({
+        type: types.REQUEST_GET_RESULT_LIST,
+    }),
+    receiveGetResultList: games => ({
+        type: types.RECEIVE_GET_RESULT_LIST,
+        games,
+    }),
+    receiveGetResultListFail: () => ({
+        type: types.RECEIVE_GET_RESULT_LIST_FAIL,
+    }),
+
     joinGame: payload => ({
         type: types.JOIN_GAME,
         payload,
@@ -82,6 +97,9 @@ export const actions = {
         type: types.RECEIVE_END_GAME,
         comment,
     }),
+    setEndGameFlag: () => ({
+        type: types.SET_END_GAME_FLAG,
+    }),
 
     receiveScore1: payload => ({
         type: types.RECEIVE_SCORE_1,
@@ -106,6 +124,24 @@ export const actions = {
     }),
     receiveMiss3: payload => ({
         type: types.RECEIVE_MISS_3,
+        payload,
+    }),
+
+    receiveStatsUpdate: payload => ({
+        type: types.RECEIVE_STATS_UPDATE,
+        payload,
+    }),
+    receivePlayersTime: payload => ({
+        type: types.RECEIVE_PLAYERS_TIME,
+        payload,
+    }),
+
+    receiveChangeQuater: payload => ({
+        type: types.RECEIVE_CHANGE_QUATER,
+        payload,
+    }),
+    receiveSubstitution: payload => ({
+        type: types.RECEIVE_SUBSTITUTION,
         payload,
     }),
 }

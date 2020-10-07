@@ -1,7 +1,7 @@
 export const selectors = {
     getCurrentUser: state => state.user.currentUser,
     getUserList: state => state.user.users,
-    getLoginFailMessage: state => state.user.loginFailMessage,
+    getLoginFail: state => state.user.loginFail,
     getRegisterSuccessMessage: state => state.user.registerSuccessMessage,
     getListLoader: state => state.user.listLoader,
     getButtonLoader: state => state.user.buttonLoader,

@@ -6,6 +6,7 @@ import {
 	Button,
 } from '@material-ui/core';
 import {LogoNbs} from '../../static/logo'
+import {DialogBox} from '../../components';
 
 
 
@@ -27,10 +28,18 @@ class Login extends Component {
         this.setState({
             [input]: event.target.value,
         });
-    };
+	};
+	
+	handleDialogClose = () =>{
+		this.setState({
+			username: '',
+			password: '',
+		})
+		this.props.setLoginFail();
+	}
   
   	render() { 
-		const {classes} = this.props;
+		const {classes, loginFail} = this.props;
 		const { username, password } = this.state;
 
     	return (
@@ -71,7 +80,13 @@ class Login extends Component {
 					>
 						LOGIN
 					</Button>
-				</div>		
+				</div>
+				<DialogBox
+					open={loginFail}
+					title="Something went wrong."
+					content="Please check your email and password."
+					handleDialogClose={this.handleDialogClose}
+				/>
 			</Grid>
     	);
  	 }

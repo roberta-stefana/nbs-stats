@@ -8,11 +8,14 @@ import {
 } from "../redux";
 
 
-const socketServerURL = "ws://192.168.100.89:8081";
+//const socketServerURL = "ws://192.168.100.127:8080/chat"; //pt local server
+//const socketServerURL = "wss://localhost:8081";
+const socketServerURL ="wss://warm-wave-45384.herokuapp.com"
 
 function createWebSocketConnection(idGame) {
 	return new Promise((resolve, reject) => {
 		const socket = new WebSocket(socketServerURL);
+		//const socket = Singleton.getInstance();
 
 		socket.onopen = function () {
 			console.log("Client connected to the websocket")
@@ -21,7 +24,9 @@ function createWebSocketConnection(idGame) {
 		};
 
 		socket.onerror = function (evt) {
+			console.log('SOCKET ON ERROR',evt)
 			reject(evt);
+			console.log('NEW TRY FOR A CONNECTION')
 		}
 	});
 }
@@ -52,15 +57,10 @@ function* listenForSocketMessages(idGame) {
 		socket        = yield call(createWebSocketConnection, idGame);
 		socketChannel = yield call(createSocketChannel, socket);
 
-		// tell the application that we have a connection
-		//yield dispatch(LiveDataActions.connectionSuccess());
-
 		while (true) {
 			// wait for a message from the channel
 			const payload = yield take(socketChannel);
-
-			// a message has been received, dispatch an action with the message payload
-			//yield dispatch(LiveDataActions.incomingEvent(payload));
+			
 			const obj = JSON.parse(payload)
 			console.log('Obiectul primit prin websocket este: ',obj)
 			switch(obj.type){
@@ -94,7 +94,19 @@ function* listenForSocketMessages(idGame) {
 				case socketActions.RECEIVE_MISS_3:
 					yield put(guestGameActions.receiveMiss3(obj));
 					break;
-
+				case socketActions.RECEIVE_STATS_UPDATE:
+					yield put(guestGameActions.receiveStatsUpdate(obj));
+					break;
+				case socketActions.RECEIVE_PLAYERS_TIME:
+					yield put(guestGameActions.receivePlayersTime(obj));
+					break;
+				case socketActions.RECEIVE_CHANGE_QUATER:
+					yield put(guestGameActions.receiveChangeQuater(obj));
+					break;
+				case socketActions.RECEIVE_SUBSTITUTION:
+					yield put(guestGameActions.receiveSubstitution(obj));
+					break;
+					
 			}
 		}
 	} catch (error) {
@@ -115,7 +127,6 @@ export function* joinGame(action) {
 	yield put(guestGameActions.requestJoinGame());
 	const socketTask = yield fork(listenForSocketMessages, action.payload);
 
-	// when DISCONNECT action is dispatched, we cancel the socket task
 	yield take(guestGameTypes.REQUEST_LEAVE_GAME);
 	yield cancel(socketTask);
 	yield put(guestGameActions.receiveLeaveGame());
@@ -129,6 +140,17 @@ const getLiveGameList = function*(action) {
 		yield put(guestGameActions.receiveGetLiveGameList(response.data));
 	} catch (e) {
 		yield put(guestGameActions.receiveGetLiveGameListFail());
+	}
+};
+
+const getResultList = function*(action) {
+	yield put(guestGameActions.requestGetResultList());
+
+	try {
+		const response = yield call(gameApi.getResultList);
+		yield put(guestGameActions.receiveGetResultList(response.data));
+	} catch (e) {
+		yield put(guestGameActions.receiveGetResultListFail());
 	}
 };
 
@@ -146,6 +168,7 @@ const getCommentList = function*(action) {
 export default function*() {
 	yield all([
 		takeLatest(guestGameTypes.GET_LIVE_GAME_LIST, getLiveGameList),
+		takeLatest(guestGameTypes.GET_RESULT_LIST, getResultList),
 		takeLatest(guestGameTypes.GET_COMMENT_LIST, getCommentList),
 		takeLatest(guestGameTypes.JOIN_GAME, joinGame),
 	]);

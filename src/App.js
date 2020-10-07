@@ -7,7 +7,7 @@ import {
     CssBaseline,
 } from '@material-ui/core';
 import { ThemeProvider, createStyles } from '@material-ui/core/styles';
-import { Landing, Login, Team, PreGame, Game, LivePage, GuestGame } from './containers';
+import { Landing, Login, Team, PreGame, Game, LivePage, GuestGame, Statistics, Results } from './containers';
 import {NavBar, WithoutAuthentication } from './components';
 
 const styles = createStyles({
@@ -18,7 +18,6 @@ const styles = createStyles({
         maxWidth: '100%'
     },
     containerGuest:{
-        //backgroundColor: theme.palette.primary.main,
         paddingTop: '64px',
         height: '100%',
         maxWidth: '1100px',
@@ -41,8 +40,8 @@ class App extends React.Component {
                             <Container className={classes.containerGuest}>
                             <Switch>
                                 <Route exact path="/">
-                                        <Landing/>
-                                    </Route>
+                                    <Landing/>
+                                </Route>
                                 <Route path="/team">
                                     <Team/>
                                 </Route>
@@ -54,6 +53,12 @@ class App extends React.Component {
                                 </Route>
                                 <Route path="/guest-game">
                                     <GuestGame/>
+                                </Route>
+                                <Route path="/statistics">
+                                    <Statistics/>
+                                </Route>
+                                <Route path="/results">
+                                    <Results/>
                                 </Route>
                                 <Redirect to="/"/>
                             </Switch>

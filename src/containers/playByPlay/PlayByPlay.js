@@ -58,14 +58,14 @@ class PlayByPlay extends Component {
                     <Grid item xs={12} className={classes.tableContainer}>
                         <div className={classes.buttonsContainer}>
                             <Button 
-                                className={classes.switchButton} 
+                                className={`${classes.switchButton} ${classes.leftButton}`} 
                                 variant="contained"
                                 onClick={()=>this.handleTableChange(1)}
                             >
                                 {game.team1.name}
                             </Button>
                             <Button
-                                className={classes.switchButton} 
+                                className={`${classes.switchButton} ${classes.rightButton}`} 
                                 variant="contained"
                                 onClick={()=>this.handleTableChange(2)}
                             >
@@ -82,8 +82,8 @@ class PlayByPlay extends Component {
                 <Grid item xs={6} className={classes.liveNotificationsContainer}>
                     <NotificationContainer 
                         commentList={commentList}
-                        idTeam1={game.team1.idTeam} 
-                        idTeam2={game.team2.idTeam}
+                        team1={game.team1} 
+                        team2={game.team2}
                         imageTeam1={imageTeam1}
                         imageTeam2={imageTeam2}
                     />

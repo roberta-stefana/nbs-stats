@@ -10,6 +10,8 @@ class Game extends Component {
         imageTeam2: null,
         minutes: 10,
         seconds: 0,
+        startMin:0,
+        startSec:0,
         timerId: null,
         quaters: ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'],
         stats:[],
@@ -18,32 +20,61 @@ class Game extends Component {
     }
 
     startTime = () =>{
+
+        this.setState({
+            startMin: this.state.minutes,
+            startSec: this.state.seconds,
+        })
         const timerId = setInterval(() => {
             const { seconds, minutes } = this.state
-
-            if (seconds > 0) {
-                this.setState(({ seconds }) => ({
-                    seconds: seconds - 1
-                }))
+            if(minutes === 0 && seconds === 0){
+                this.sendAction('Q');
+                this.stopTime();
             }
-            if (seconds === 0) {
-                if (minutes === 0) {
-                    clearInterval(this.myInterval)
-                } else {
-                    this.setState(({ minutes }) => ({
-                        minutes: minutes - 1,
-                        seconds: 59
+            else{
+                if (seconds > 0) {
+                    this.setState(({ seconds }) => ({
+                        seconds: seconds - 1
                     }))
                 }
-            } 
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(this.myInterval)
+                    } else {
+                        this.setState(({ minutes }) => ({
+                            minutes: minutes - 1,
+                            seconds: 59
+                        }))
+                    }
+                } 
+            }
         }, 1000)
         this.setState({
-            timerId
+            timerId,
         })
     }
 
     stopTime = () => {
-        clearInterval(this.state.timerId)
+        const { startMin, startSec, minutes, seconds, idGame} = this.state;
+        clearInterval(this.state.timerId);
+        console.log('Min start ', startMin)
+        console.log('Sec start ', startSec)
+        console.log('Min ',minutes)
+        console.log('Sec ',seconds)
+
+        var d1 = new Date(1776, 6, 4, 12, startMin, startSec, 0);
+        var d2 = new Date(1776, 6, 4, 12, minutes, seconds,0);
+        var diff = new Date(d1 - d2);
+        console.log(diff)
+        
+        var filteredStats1 = this.props.statsTeam1.filter(s => s.player.onCourt == true)
+        var filteredStats2 = this.props.statsTeam2.filter(s => s.player.onCourt == true)
+        this.props.sendPlayersTime({stats: filteredStats1.concat(filteredStats2), idGame:idGame, time:`${diff.getMinutes()}:${diff.getSeconds()}/${minutes}:${seconds}`})
+        if(minutes == 0 && seconds == 0){
+            this.setState({
+                minutes: 10,
+            })
+        }
     }
 
     startGame = () =>{
@@ -54,6 +85,7 @@ class Game extends Component {
 
     endGame = () =>{
         const idGame = localStorage.getItem("currentGameId");
+        this.props.setEndGame();
         this.props.sendEndGame(idGame);
     }
 
@@ -61,6 +93,60 @@ class Game extends Component {
         this.setState({
             selectedPlayerStats: selectedPlayerStats
         })
+    }
+
+    setSelectedPlayerStatsNull = () =>{
+        this.setState({
+            selectedPlayerStats: null
+        })
+    }
+
+    sendSubstitution = object =>{
+        const {idGame, minutes, seconds} = this.state;
+        const time = `${minutes}:${seconds}`;
+        this.props.sendSubstitution({object: object, idGame:idGame, time:time})
+
+    }
+
+    sendAction = (action) =>{
+        const {selectedPlayerStats, idGame, minutes, seconds} = this.state;
+        const time = `${minutes}:${seconds}`
+        if(action === 'Q'){
+            this.props.sendChangeQuater({idGame:idGame, time:time})
+        } 
+        if(selectedPlayerStats !== null){
+            switch(action){
+                case 'OFF REB':
+                    this.props.sendOffRebound({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'DEF REB':
+                    this.props.sendDefRebound({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'BS':
+                    this.props.sendBlockedShot({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'AS':
+                    this.props.sendAssist({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'ST':
+                    this.props.sendSteal({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'TO':
+                    this.props.sendTurnover({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'PF':
+                    this.props.sendFoul({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                case 'FD':
+                    this.props.sendFoulDrawn({stats: selectedPlayerStats, idGame:idGame, time:time})
+                    break;
+                default:
+                    console.log('Default case send action')
+            }
+            this.setState({
+                selectedPlayerStats: null
+            })
+        }
     }
 
 
@@ -94,29 +180,50 @@ class Game extends Component {
         }
     }
 
+    setTime = () =>{
+        if( this.props.game !== null){
+            localStorage.setItem("time", `${this.state.minutes}:${this.state.seconds}`);
+        }
+
+    }
+
     componentDidMount(){
+        window.addEventListener('beforeunload', this.setTime);
         const idGame = localStorage.getItem("currentGameId");
         const team1 = localStorage.getItem("team1");
         const team2 = localStorage.getItem("team2");
+        const time = localStorage.getItem("time");
         this.props.hostGame(idGame);  
 
+        if(time !== null){
+            const timeElements = time.split(':')
+            this.setState({
+                minutes: parseInt(timeElements[0]),
+                seconds: parseInt(timeElements[1]),
+            });
+        }
         logoList.map(l=>{
             if(l.team == team1){
                 this.setState({
                     imageTeam1: l.img,
-                    idGame: idGame
+                    idGame: idGame,
                 });
             }else if(l.team == team2){
                 this.setState({
                     imageTeam2: l.img,
-                    idGame: idGame
+                    idGame: idGame,
                 });
             }
         });
     }
 
     componentWillUnmount() {
-        this.props.requestStopChannel();
+        const {game, requestStopChannel, liveGame} = this.props;
+        window.removeEventListener('beforeunload', this.setTime); 
+        if( game !== null){
+            //localStorage.setItem("time", liveGame.time)
+        }
+        requestStopChannel();
     }
 
     render() { 
@@ -143,7 +250,13 @@ class Game extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerLeft} ${classes.flexColumn}`}>
-                    <PlayersTable stats={statsTeam1} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
+                    <PlayersTable 
+                        setSelectedPlayerStatsNull={this.setSelectedPlayerStatsNull}
+                        sendSubstitution={this.sendSubstitution} 
+                        stats={statsTeam1} 
+                        selectedPlayerStats={selectedPlayerStats} 
+                        handleSelectPlayer={this.handleSelectPlayer}>
+                    </PlayersTable>
                 </Grid>
                 <Grid item xs={2} >
                     <Stepper activeStep={liveGame.quater-1} alternativeLabel>
@@ -156,7 +269,12 @@ class Game extends Component {
                     <Timer minutes={minutes} seconds={seconds}/>
                 </Grid>
                 <Grid item xs={5} className={`${classes.tableContainerRight} ${classes.flexColumn}`}>
-                    <PlayersTable stats={statsTeam2} selectedPlayerStats={selectedPlayerStats} handleSelectPlayer={this.handleSelectPlayer}></PlayersTable>
+                    <PlayersTable 
+                        setSelectedPlayerStatsNull={this.setSelectedPlayerStatsNull} 
+                        sendSubstitution={this.sendSubstitution} stats={statsTeam2} 
+                        selectedPlayerStats={selectedPlayerStats} 
+                        handleSelectPlayer={this.handleSelectPlayer}>
+                    </PlayersTable>
                 </Grid>
                 <Grid item xs={12} className={classes.buttonContainer}>
                     <div className={classes.buttonSection}>
@@ -167,20 +285,19 @@ class Game extends Component {
                         <Button className={classes.button} onClick={()=>this.sendScore(2, 'MISS')}>Miss 2</Button>
                         <Button className={classes.button} onClick={()=>this.sendScore(3, 'MISS')}>Miss 3</Button>
 
-                        <Button className={classes.button}>Off Reb</Button>
-                        <Button className={classes.button}>Def Reb</Button>
-                        <Button className={classes.button}>Bs</Button>
-                        <Button className={classes.button}>As</Button>
-                        <Button className={classes.button}>To</Button>
-                        <Button className={classes.button}>St</Button>
-                        <Button className={classes.button}>PF</Button>
-                        <Button className={classes.button}>FD</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('OFF REB')}>Off Reb</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('DEF REB')}>Def Reb</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('BS')}>Bs</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('AS')}>As</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('TO')}>To</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('ST')}>St</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('PF')}>PF</Button>
+                        <Button className={classes.button} onClick={()=>this.sendAction('FD')}>FD</Button>
                     </div>
                     <div className={classes.wrapper}>
                         <div className={classes.timeButtons}>
                             <Button className={classes.buttonSquare} onClick={this.startTime}>Start Time</Button>
                             <Button className={classes.buttonSquare} onClick={this.stopTime}>Stop Time</Button>
-                            <Button className={classes.buttonSquare}>Timeout</Button>
                             <Button className={classes.buttonSquare} onClick={this.startGame}>Start Game</Button>
                             <Button className={classes.buttonSquare} onClick={this.endGame}>End Game</Button>
                         </div>

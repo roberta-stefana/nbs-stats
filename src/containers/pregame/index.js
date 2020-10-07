@@ -47,7 +47,10 @@ const enhance = compose(
         },
         hostGame(payload){
             dispatch(gameActions.hostGame(payload))
-        }
+        },
+        goTo(path){
+            dispatch(push(path))
+        },
     }),
 )
 );

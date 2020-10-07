@@ -9,9 +9,11 @@ import {
     ListItem,
     ListItemSecondaryAction,
     Typography,
+    Paper,
 } from '@material-ui/core';
 import {DialogBox} from '../../components'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Gif from '../../static/gif.gif';
 
 
 class PlayersForm extends Component {
@@ -22,18 +24,16 @@ class PlayersForm extends Component {
         this.props.getPlayersTeam2(team2.idTeam)
     }
 
+
     render() { 
         const { classes, team1, team2, playersTeam1, playersTeam2, handleCheckboxChange, openDialog, handleDialogClose, continueToGame} = this.props;
 
         return ( 
-            <Grid container>
-                <Grid item xs={12} className={classes.center}>
-                    <Typography variant="h3" className={classes.title}>Pick first players</Typography>
-                </Grid>            
+            <Grid container className={classes.playersForm}>           
                 <Grid item className={classes.listContainer} xs={12}>
                     <div className={classes.divList}>
-                        <Typography variant="h5">{team1.name}</Typography>
-                        <List dense className={classes.list}>
+                        <Typography className={classes.marginBotoom30} variant="h5">{team1.name}</Typography>
+                        <List dense className={`${classes.list} ${classes.leftShadow}`} >
                             {playersTeam1.map(value => (
                             <ListItem key={value.idPlayer}>
                                 <ListItemAvatar>
@@ -52,9 +52,25 @@ class PlayersForm extends Component {
                             ))}
                         </List>
                     </div>
+                    <div className={classes.centerContainer}>
+                        <img src={Gif} className={classes.gif} alt="Gif"/>
+                        <div className={classes.titlePaper}>
+                            <Typography variant="h4" className={classes.title}>Pick</Typography>
+                            <Typography variant="h4" className={classes.title}>first</Typography>
+                            <Typography variant="h4" className={classes.title}>players</Typography>
+                            <Button
+                                size="medium"
+                                className={classes.button}
+                                fullWidth
+                                onClick={continueToGame}
+                            >
+                                READY
+                            </Button>  
+                        </div>
+                    </div> 
                     <div className={classes.divList}>
-                            <Typography variant="h5">{team2.name}</Typography>
-                        <List dense className={classes.list}>
+                            <Typography className={classes.marginBotoom30} variant="h5">{team2.name}</Typography>
+                        <List dense className={`${classes.list} ${classes.rightShadow}`}>
                             {playersTeam2.map(value => (
                             <ListItem key={value.idPlayer}>
                                 <ListItemAvatar>
@@ -74,16 +90,7 @@ class PlayersForm extends Component {
                         </List>
                     </div>
                 </Grid>
-                <Grid item xs={12} className={classes.center}>
-                    <Button
-                        size="medium"
-                        className={classes.button}
-                        fullWidth
-                        onClick={continueToGame}
-                    >
-                        CONTINUE
-                    </Button>
-                </Grid>
+            
                 <DialogBox
                     title="Warning" 
                     content="You can only pick 5 players for each team!" 

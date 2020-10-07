@@ -5,7 +5,7 @@ import {
     Tab,
 }from '@material-ui/core'
 import {Loading, DialogBox} from '../../components'
-import {PlayByPlay} from '../index'
+import {PlayByPlay, Boxscore, Leaders} from '../index'
 
 class GuestGame extends Component {
     state = { 
@@ -19,24 +19,34 @@ class GuestGame extends Component {
 
     componentWillUnmount() {
         // disconnecting from the saga channel and the socket
+        localStorage.removeItem('currentGameId');
         this.props.requestLeaveGame();
     }
 
-    handleTabChange = () => {
-
+    handleTabChange = (event, newValue) => {
+        this.setState({
+            step:newValue,
+        })
     }
+    
 
     handleEndGame = () =>{
-        this.props.goTo('/live-games')
+        this.props.goTo('/results')
+        this.props.setEndGameFlag();
     }
 
     renderSwitch = step =>{
         const {game, liveGame, statsTeam1, statsTeam2} = this.props
         switch(step) {
             case 0:
-              return <PlayByPlay game={game} liveGame={liveGame} statsTeam1={statsTeam1} statsTeam2={statsTeam2}/>;
+                return <PlayByPlay game={game} liveGame={liveGame} statsTeam1={statsTeam1} statsTeam2={statsTeam2}/>;
+            case 1:
+                return <Boxscore statsTeam1={statsTeam1} statsTeam2={statsTeam2} team1={game.team1} team2={game.team2}/>
+            case 2:{
+                return <Leaders statsTeam1={statsTeam1} statsTeam2={statsTeam2} team1={game.team1} team2={game.team2}/>
+            }
             default:
-              return 'foo';
+                return 'foo';
           }
     }
 
@@ -63,7 +73,7 @@ class GuestGame extends Component {
                     </AppBar>
                     <DialogBox
                         title="End Game"
-                        content="The game ended. You will be redirected to the Statistics page"
+                        content="The game ended. You will be redirected to the Results page"
                         open={endGameFlag}
                         handleDialogClose={this.handleEndGame}
                     />

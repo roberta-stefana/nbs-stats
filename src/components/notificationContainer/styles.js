@@ -2,7 +2,8 @@ import { createStyles } from '@material-ui/core';
 
 const styles = theme => createStyles({
     table:{
-        maxHeight: "100%",
+        //maxHeight: "100%",
+        overflow: 'scroll'
     },
     logo:{
         height:30,
@@ -22,9 +23,11 @@ const styles = theme => createStyles({
     },
     toolbar:{
         display:'flex',
-        backgroundColor:theme.palette.primary.main,
+        backgroundColor:theme.palette.secondary.dark,
         width: '430px',
-        height: '50px',
+        height: '30px',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
     },
     toolbarTitle:{
         flex:1,
@@ -34,6 +37,10 @@ const styles = theme => createStyles({
     },
     fab:{
         backgroundColor: theme.palette.primary.light,
+    },
+    teamText:{
+        marginTop: 5,
+        color: theme.palette.common.white
     }
 });
 

@@ -4,7 +4,7 @@ import styles from './styles';
 import PlayersTable from './PlayersTable';
 
 const enhance = compose(
-  withStyles(styles)
+  withStyles(styles),
 );
 
 export default enhance(PlayersTable);

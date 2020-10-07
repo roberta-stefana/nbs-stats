@@ -50,7 +50,8 @@ const styles = theme => createStyles({
 		justifyContent:'space-around',
 		width:'300px',
 		margin:'auto',
-		height:'100%'
+		height:'100%',
+		marginTop: '15px'
 	},
 	button:{
 		width:'80px',

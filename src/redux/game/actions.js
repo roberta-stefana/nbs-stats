@@ -107,6 +107,8 @@ export const actions = {
         status
     }),
 
+
+
     requestStopChannel: () => ({
         type: types.REQUEST_STOP_CHANNEL,
     }),
@@ -164,6 +166,11 @@ export const actions = {
         type: types.SEND_END_GAME,
         payload
     }),
+    setEndGame: payload => ({
+        type: types.SET_END_GAME,
+        payload
+    }),
+
 
     sendScore1: payload => ({
         type: types.SEND_SCORE_1,
@@ -215,6 +222,79 @@ export const actions = {
     receiveAdminMiss3: payload => ({
         type: types.RECEIVE_ADMIN_MISS_3,
         payload,
+    }),
+
+    sendOffRebound: payload => ({
+        type: types.SEND_OFF_REBOUND,
+        payload
+    }),
+    sendDefRebound: payload => ({
+        type: types.SEND_DEF_REBOUND,
+        payload
+    }),
+
+    sendBlockedShot: payload => ({
+        type: types.SEND_BLOCKED_SHOT,
+        payload
+    }),
+    sendAssist: payload => ({
+        type: types.SEND_ASSIST,
+        payload
+    }),
+    sendSteal: payload => ({
+        type: types.SEND_STEAL,
+        payload
+    }),
+    sendTurnover: payload => ({
+        type: types.SEND_TURNOVER,
+        payload
+    }),
+
+    sendFoul: payload => ({
+        type: types.SEND_FOUL,
+        payload
+    }),
+    sendFoulDrawn: payload => ({
+        type: types.SEND_FOUL_DRAWN,
+        payload
+    }),
+
+    sendTimeout: payload => ({
+        type: types.SEND_TIMEOUT,
+        payload
+    }),
+
+    sendSubstitution: payload => ({
+        type: types.SEND_SUBSTITUTION,
+        payload
+    }),
+    receiveAdminSubstitution: payload => ({
+        type: types.RECEIVE_ADMIN_SUBSTITUTION,
+        payload
+    }),
+
+    receiveAdminStatsUpdate: payload => ({
+        type: types.RECEIVE_ADMIN_STATS_UPDATE,
+        payload,
+    }),
+
+    
+    sendPlayersTime: payload => ({
+        type: types.SEND_PLAYERS_TIME,
+        payload
+    }),
+    receiveAdminPlayersTime: payload => ({
+        type: types.RECEIVE_ADMIN_PLAYERS_TIME,
+        payload,
+    }),
+
+    sendChangeQuater: payload => ({
+        type: types.SEND_CHANGE_QUATER,
+        payload
+    }),
+    receiveAdminChangeQuater: payload => ({
+        type: types.RECEIVE_ADMIN_CHANGE_QUATER,
+        payload
     }),
     
 }

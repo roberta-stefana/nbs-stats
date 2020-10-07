@@ -15,7 +15,7 @@ const login = function* (action) {
         yield put(userActions.receiveLogin());
         yield put(push('/pregame'));
     } catch(e) {
-        yield put(userActions.receiveLoginFail(e.response));
+        yield put(userActions.receiveLoginFail());
     }
 };
 

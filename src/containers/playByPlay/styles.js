@@ -24,14 +24,22 @@ const styles = theme => createStyles({
         display: 'flex'
     },
     switchButton:{
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.secondary.dark,
         color: theme.palette.common.white,
+        height: '3.5em',
+        width: '14em',
+    },
+    leftButton:{
+        marginRight: '50px'
+    },
+    rightButton:{
+        marginLeft: '50px'
     },
     infoContainer:{
         height: 200
     },
     buttonsContainer:{
-        paddingBottom: 30
+        paddingBottom: 15
     },
     tableContainer:{
 

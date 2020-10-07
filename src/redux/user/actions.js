@@ -130,4 +130,8 @@ export const actions = {
     receiveLogoutFail: () => ({
         type: types.RECEIVE_LOGOUT_FAIL,
     }),
+
+    setLoginFail: () => ({
+        type: types.SET_LOGIN_FAIL,
+    }),
 };

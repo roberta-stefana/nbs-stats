@@ -10,7 +10,22 @@ const styles = theme => createStyles({
         justifyContent: 'space-around',
         paddingTop: 30,
         alignItems: 'center',
-        height: '100%',
+    },
+    messageBox:{
+        height: 600,
+        width: 600,
+        display: 'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        flexDirection: 'column',
+    },
+    logo:{
+        marginTop: 15,
+        height: '100px',
+        width: '95px',
+    },
+    text:{
+        color: theme.palette.primary.dark
     }
 });
 

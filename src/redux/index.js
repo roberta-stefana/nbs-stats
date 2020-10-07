@@ -5,6 +5,7 @@ import user from './user';
 import team from './team';
 import game from './game';
 import guestGame from './guestGame';
+import statistics from './statistics';
 
 /*
   Contains the root reducer
@@ -16,6 +17,7 @@ export default history => combineReducers({
   team,
   game,
   guestGame,
+  statistics,
 });
 
 export {
@@ -41,3 +43,9 @@ export {
   actions as guestGameActions,
   selectors as guestGameSelectors,
 } from './guestGame';
+
+export {
+  types as statisticsTypes,
+  actions as statisticsActions,
+  selectors as statisticsSelectors,
+} from './statistics';

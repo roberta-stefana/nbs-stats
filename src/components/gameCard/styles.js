@@ -3,6 +3,7 @@ import { createStyles } from '@material-ui/core';
 const styles = theme => createStyles({
     card:{
         width: 400,
+        margin: 30
     },
     header:{
         backgroundColor: '#e6e6e6'

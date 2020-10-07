@@ -4,7 +4,7 @@ import styles from './styles';
 import Landing from './Landing';
 
 const enhance = compose(
-  withStyles(styles)
+    withStyles(styles)
 );
 
 export default enhance(Landing);

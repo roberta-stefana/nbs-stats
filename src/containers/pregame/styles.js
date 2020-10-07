@@ -2,11 +2,14 @@ import { createStyles } from '@material-ui/core';
 
 const styles = theme => createStyles({
 	mainContainer:{
-		//height:'90vh',
+		height:'90vh',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
 		flexDirection: 'column',
+	},
+	playersForm:{
+		marginTop: 30,
 	},
 	divList:{
 		height:'60%',
@@ -15,9 +18,18 @@ const styles = theme => createStyles({
 	button:{
 		marginTop: '15px',
 		marginBottom: '20px',
-		width: '300px',
 		backgroundColor: theme.palette.primary.dark,
 		color: theme.palette.common.white,
+	},
+	logoutButton:{
+		backgroundColor: theme.palette.primary.dark,
+		color: theme.palette.common.white,
+		margin: 0,
+		
+	},
+	logoutContainer:{
+		display: 'flex',
+		justifyContent: 'flex-end',
 	},
 	fields:{
 		width:'300px',
@@ -31,13 +43,24 @@ const styles = theme => createStyles({
 	autocomplete:{
 		width:'300px'
 	},
-	center:{
+	centerContainer:{
 		display:'flex',
+		flexDirection: 'column',
 		justifyContent: 'center',
+		width: '200px'
+	},
+	titlePaper:{
+		display: 'flex',
+		alignItems: 'center',
+		flexDirection: 'column',
+		marginTop: 20
+	},
+	buttonContainer:{
+		width: '200px'
 	},
 	title:{
-		paddingTop: '20px',
-		paddingBottom: '30px',
+		paddingTop: '5px',
+		paddingBottom: '5px',
 		color: theme.palette.primary.dark,
 	},
 	logo:{
@@ -49,7 +72,19 @@ const styles = theme => createStyles({
 		height: '100%',
 		overflow: 'auto',
 		width: '100%',
-		boxShadow:'5px 5px #C0F442'
+	},
+	gif:{
+		width:200,
+		height:300,
+	},
+	leftShadow:{
+		boxShadow: '-15px 11px 5px 3px rgba(191,203,214,1)'
+	},
+	rightShadow:{
+		boxShadow:'15px 11px 5px 3px rgba(191,203,214,1)'
+	},
+	marginBottom30:{
+		marginBottom: 30
 	},
 	listContainer: {
 		height:'70%',
