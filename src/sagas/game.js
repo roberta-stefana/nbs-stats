@@ -10,13 +10,14 @@ import {
 
 
 //const socketServerURL = "ws://192.168.1.106:8081"; //local server
-const socketServerURL ="ws://warm-wave-45384.herokuapp.com"
-//const socketServerURL = "ws://192.168.100.127:8081";
+//const socketServerURL ="ws://warm-wave-45384.herokuapp.com"
+const socketServerURL = "ws://localhost:8080/echo";
 let socket;
 
 function createWebSocketConnection(idGame) {
 	return new Promise((resolve, reject) => {
 		socket = new WebSocket(socketServerURL);
+		//const socket = Singleton.getInstance();
 
 		socket.onopen = function () {
 			console.log("Connected to the websocket")
