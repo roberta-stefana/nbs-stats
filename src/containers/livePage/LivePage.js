@@ -8,7 +8,6 @@ class LivePage extends Component {
 
     componentDidMount(){
         this.props.getLiveGameList();
-
     }
     render() { 
         const {classes, liveGameList} = this.props;

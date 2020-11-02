@@ -10,8 +10,8 @@ import {
 
 
 //const socketServerURL = "ws://192.168.1.106:8081"; //local server
-//const socketServerURL ="ws://warm-wave-45384.herokuapp.com"
-const socketServerURL = "ws://localhost:8080/echo";
+const socketServerURL ="wss://warm-wave-45384.herokuapp.com"
+//const socketServerURL = "ws://localhost:8080/echo";
 let socket;
 
 function createWebSocketConnection(idGame) {
