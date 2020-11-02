@@ -26,7 +26,6 @@ function createWebSocketConnection(idGame) {
 		socket.onerror = function (evt) {
 			console.log('SOCKET ON ERROR',evt)
 			reject(evt);
-			console.log('NEW TRY FOR A CONNECTION')
 		}
 	});
 }
