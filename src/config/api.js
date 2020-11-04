@@ -1,12 +1,10 @@
 import axios from "axios";
 import { userActions } from "../redux";
 
-export const URL_MAIN = "http://192.168.100.142:8080";
-//export const URL_MAIN = "https://warm-wave-45384.herokuapp.com/";
+const URL_MAIN = "https://warm-wave-45384.herokuapp.com/";
 
 export const configureAxios = store => {
     const { dispatch } = store;
-    axios.create({ withCredentials: false, })
 
     axios.defaults.baseURL = URL_MAIN;
     axios.interceptors.request.use(

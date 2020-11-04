@@ -81,7 +81,7 @@ class GuestSocket extends Component {
         return (
             <Container>
                 {idGame !== 0 &&   
-                <SockJsClient url='http://localhost:8080/websocket/'
+                <SockJsClient url='https://warm-wave-45384.herokuapp.com/websocket/'
                     topics={[`/topic/receive/${idGame}`, `/user/topic/receive/${idGame}`]}
                     onConnect={() => {
                         console.log("Guest connected");
