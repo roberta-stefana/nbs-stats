@@ -1,6 +1,5 @@
 import React from 'react';
 import {BarChart} from '../../components';
-import {Grid} from '@material-ui/core';
 
 const Diagrams = props => {
 
@@ -61,9 +60,6 @@ const Diagrams = props => {
     const threeAll2 = statsPlayer2.reduce( ( sum, { made3p, miss3p } ) => sum + made3p+ miss3p, 0)
     const threePercentage2 = (threeMade2/threeAll2 * 100).toFixed(1)
 
-
-
-    
     return (
         <div className={classes.diagramsContainer}>
             <div className={classes.chartContainer}>

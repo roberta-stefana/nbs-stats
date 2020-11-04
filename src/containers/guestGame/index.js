@@ -22,9 +22,6 @@ const enhance = compose(
             endGameFlag: guestGameSelectors.getEndGameFlag(state),
         }),
         dispatch => ({
-            joinGame(payload){
-                dispatch(guestGameActions.joinGame(payload))
-            },
             requestLeaveGame(){
                 dispatch(guestGameActions.requestLeaveGame())
             },
@@ -36,6 +33,7 @@ const enhance = compose(
             },
         }),
     )
+
 );
 
 export default enhance(GuestGame);

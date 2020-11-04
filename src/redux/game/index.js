@@ -1,7 +1,8 @@
 import { types } from "./types";
-import {successfullRefresh, receiveScore, receiveStatsUpdate, receivePlayersTime, receiveSubstitution} from './helperFunctions'
+import {receiveHostGame, receiveScore, receiveStatsUpdate, receivePlayersTime, receiveSubstitution} from './helperFunctions'
 
 const initialState = {
+    socket: null,
     game: null,
     liveGame: null,
     playersTeam1: [],
@@ -61,7 +62,7 @@ const game = (state = initialState, action) => {
         case types.REQUEST_HOST_GAME:
             return {...state, bigLoader: true};
         case types.RECEIVE_HOST_GAME:
-            return {...state, channelStatus: 'on', bigLoader: false, game: action.game, liveGame: action.game.liveGame};
+            return receiveHostGame(state, action);
         case types.RECEIVE_HOST_GAME_FAIL:
             return {...state, bigLoader: false};
 
@@ -90,8 +91,6 @@ const game = (state = initialState, action) => {
         case types.SET_END_GAME:
             return { ...state, game:null, liveGame:null, playersTeam1: [], playersTeam2:[], statsTeam1:[], statsTeam2:[] };
 
-        case types.SUCCESSFULL_REFRESH:
-            return successfullRefresh(state, action);
 
         case types.RECEIVE_ADMIN_SCORE_1:
             return receiveScore(state, action, 1);
@@ -115,6 +114,9 @@ const game = (state = initialState, action) => {
             return { ...state, liveGame: {...state.liveGame, time: '10:00', quater: action.payload.comment.quater}};
         case types.RECEIVE_ADMIN_SUBSTITUTION:
             return receiveSubstitution(state, action);
+
+        case types.SET_SOCKET:
+            return { ...state, socket: action.socket};
 
         default:
             return state;

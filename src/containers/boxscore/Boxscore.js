@@ -1,6 +1,6 @@
 import React from 'react';
 import {BoxscoreTable} from '../../components';
-import { Typography, Divider } from '@material-ui/core';
+import { Typography} from '@material-ui/core';
 
 const Boxscore = (props) => {
     const {statsTeam1, statsTeam2, team1, team2, classes} = props;

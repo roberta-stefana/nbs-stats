@@ -12,15 +12,11 @@ class GuestGame extends Component {
         step: 0,
     }
 
-    componentDidMount(){
-        const currentGameId= localStorage.getItem('currentGameId');
-        this.props.joinGame(currentGameId);
-    }
-
     componentWillUnmount() {
         // disconnecting from the saga channel and the socket
         localStorage.removeItem('currentGameId');
         this.props.requestLeaveGame();
+        //this.props.leaveGame();
     }
 
     handleTabChange = (event, newValue) => {

@@ -1,4 +1,5 @@
 export const receiveJoinGame = (state, action) => {
+    console.log(action);
     const {game, stats} = action.payload;
     const idTeam1 = game.team1.idTeam;
     const idTeam2 = game.team2.idTeam;

@@ -14,6 +14,10 @@ export const addStatsTeam2 = payload => axios.post('/nbs/stats/team', payload);
 
 export const addGame = payload => axios.post('/nbs/games', payload);
 
+export const getGame = payload => axios.get(`/nbs/games/${payload}`);
+
+export const hostGame = payload => axios.get(`/nbs/games/host/${payload}`);
+
 export const getCommentList = payload => axios.get(`/nbs/comments/game/${payload}`);
 
 export const getStatsListTeam = payload => axios.get(`/nbs/stats/game/${payload}`); 

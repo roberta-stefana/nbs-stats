@@ -98,9 +98,9 @@ export const actions = {
     requestHostGame: () => ({
         type: types.REQUEST_HOST_GAME,
     }),
-    receiveHostGame: game => ({
+    receiveHostGame: payload => ({
         type: types.RECEIVE_HOST_GAME,
-        game
+        payload
     }),
     receiveHostGameFail: status => ({
         type: types.RECEIVE_HOST_GAME_FAIL,
@@ -295,6 +295,11 @@ export const actions = {
     receiveAdminChangeQuater: payload => ({
         type: types.RECEIVE_ADMIN_CHANGE_QUATER,
         payload
+    }),
+
+    setSocket: socket=> ({
+        type: types.SET_SOCKET,
+        socket
     }),
     
 }
