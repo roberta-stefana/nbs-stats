@@ -7,8 +7,9 @@ import {
     CssBaseline,
 } from '@material-ui/core';
 import { ThemeProvider, createStyles } from '@material-ui/core/styles';
-import { Landing, Login, Team, PreGame, Game, LivePage, GuestGame, Statistics, Results } from './containers';
+import { Landing, Login, Team, PreGame, LivePage, Statistics, Results} from './containers';
 import {NavBar, WithoutAuthentication } from './components';
+import {AdminSocket, GuestSocket} from './sockets';
 
 const styles = createStyles({
     containerHost: {
@@ -52,7 +53,7 @@ class App extends React.Component {
                                     <LivePage/>
                                 </Route>
                                 <Route path="/guest-game">
-                                    <GuestGame/>
+                                    <GuestSocket/>
                                 </Route>
                                 <Route path="/statistics">
                                     <Statistics/>
@@ -71,7 +72,7 @@ class App extends React.Component {
                                     <PreGame/>
                                 </Route>
                                 <Route path="/game">
-                                    <Game/>
+                                    <AdminSocket/>
                                 </Route>
                                 <Redirect to="/pregame"/>
                             </Switch>

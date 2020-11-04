@@ -1,10 +1,10 @@
-export const successfullRefresh = (state, action) => {
+export const receiveHostGame = (state, action) => {
     const {game, stats} = action.payload;
     const idTeam1 = game.team1.idTeam;
     const idTeam2 = game.team2.idTeam;
 
     return {
-        ...state, game: game, liveGame: game.liveGame, buttonLoader: false,
+        ...state, game: game, liveGame: game.liveGame, buttonLoader: false, channelStatus: 'on',
         statsTeam1: stats.filter(obj => obj.player.idTeam === idTeam1),
         statsTeam2: stats.filter(obj => obj.player.idTeam === idTeam2),
     };

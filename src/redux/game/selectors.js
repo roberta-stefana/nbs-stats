@@ -8,4 +8,6 @@ export const selectors = {
     getLiveGame: state => state.game.liveGame,
     getChannelStatus: state => state.game.channelStatus,
     getBigLoader: state => state.game.bigLoader,
+    getSocket: state => state.game.socket,
+
 };

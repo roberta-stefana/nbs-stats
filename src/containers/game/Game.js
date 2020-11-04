@@ -3,6 +3,7 @@ import {logoList} from '../../static/logo'
 import{ Grid,Typography,Button,Stepper,Step,StepLabel} from '@material-ui/core'
 import {PlayersTable, Timer} from '../../components';
 import {Loading} from '../../components';
+import {AdminSocket} from '../../sockets';
 
 class Game extends Component {
     state = { 
@@ -78,15 +79,13 @@ class Game extends Component {
     }
 
     startGame = () =>{
-        const idGame = localStorage.getItem("currentGameId");
-        this.props.sendStartGame(idGame);
+        this.props.sendStartGame();
         this.startTime();
     }
 
     endGame = () =>{
-        const idGame = localStorage.getItem("currentGameId");
         this.props.setEndGame();
-        this.props.sendEndGame(idGame);
+        this.props.sendEndGame();
     }
 
     handleSelectPlayer = selectedPlayerStats =>{
@@ -228,7 +227,7 @@ class Game extends Component {
 
     render() { 
         const {classes, statsTeam1, statsTeam2, game, liveGame,} = this.props;
-        const {imageTeam1, imageTeam2, seconds, minutes, quaters, selectedPlayerStats} = this.state;
+        const {imageTeam1, imageTeam2, seconds, minutes, quaters, selectedPlayerStats, idGame} = this.state;
     
         return (
             <Grid container>
@@ -303,7 +302,7 @@ class Game extends Component {
                         </div>
                     </div>  
                 </Grid>
-                </React.Fragment> }  
+                        </React.Fragment> }  
             </Grid> 
                             
         );
